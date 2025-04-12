@@ -1,0 +1,1 @@
+//When collecting text data from user use this component.
