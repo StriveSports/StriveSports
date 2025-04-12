@@ -1,0 +1,57 @@
+@font-face {
+    font-family: "Roslindale";
+    src: url('./assets/fonts/Roslindale-DisplayCondensed.ttf') format('truetype');
+    font-weight: 250;
+    font-style: normal;
+  }
+.showupclass{
+    padding-top: 5rem;
+    width:100%;
+    color: #fff;
+    font-family: "Roslindale";;
+    font-size: 24vw;
+    font-weight: 200;
+    text-align: center;
+    margin: 0;
+}
+.ball{
+    position: absolute;
+    width: 10vw;
+    height: auto;
+    z-index: 0;
+    transition: transform 0.1s ease-out;
+    
+}
+.ball img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+.strive{
+    position: relative;
+    width: 100%;
+   height: relative;
+   overflow: hidden;
+}
+@font-face {
+    font-family: "Poppins";
+    src: url('./assets/fonts/poppins-regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+#ball-1{
+    top:68%;
+    left:6%;
+}
+#ball-2{
+    top:35%;
+    left: 37%;
+}
+#ball-3{
+    top:68%;
+    left:60%;
+}
+#ball-4{
+    top:40%;
+    left: 90%;
+}
