@@ -42,7 +42,7 @@ function App() {
           document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
     }}>About</a></li>
           <li><a href="#">Contacts</a></li>
-          <li><a href="#signup">Sign up</a></li>
+          <li><a href="#signup">Sign in</a></li>
         </ul>
       </nav>
       <Home />

@@ -62,27 +62,29 @@
     border-radius: 1rem;
 }
 #card-1{
-  top:30%;
-  left:5%;
+  top:26%;
+  left:10%;
   width:8vw;
 }
 #card-5{
   top:22%;
-  left:27%;
+  left:31%;
 }
 #card-4{
-  top:50%;
+  top:53%;
   left:68%;
 }
 #card-3{
   top:29%;
-  left:56%;
+  left:60%;
 }
 #card-2{
-  top:45%;
-  left:19%;
+  top:40%;
+  left:20%;
+  width:12vw;
 }
 #card-6{
-  top:30%;
-  left:88%;
+  top:27%;
+  left:83%;
+  width:14vw;
 }

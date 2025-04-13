@@ -9,7 +9,7 @@ const signup= () => {
 return(
     <section className="signup-section">
         <section className="text">
-            <h1>Sign up</h1>
+            <h1>Sign in</h1>
         </section>
         <section className="card" id="card-1">
           <img src={volly}/>
@@ -31,9 +31,7 @@ return(
         </section>
         
     <section className="buttons">
-        <button>Admin</button>
-        <button>Staff</button>
-        <button>Resident</button>
+        <button>Sign In</button>
     </section>
     </section>
 );

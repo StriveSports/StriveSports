@@ -30,8 +30,8 @@
 .strive{
     position: relative;
     width: 100%;
-   height: relative;
-   overflow: hidden;
+    height:relative;
+    overflow: hidden;
 }
 @font-face {
     font-family: "Poppins";
