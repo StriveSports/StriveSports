@@ -1,9 +1,10 @@
 import './signup.css';
-import card1 from '../../assets/images/card1.jpg';
-import card2 from '../../assets/images/card2.jpg';
-import card3 from '../../assets/images/card3.jpg';
-import card4 from '../../assets/images/card4.jpg';
-import card5 from '../../assets/images/card5.jpg';
+import volly from '../../assets/images/volly.png';
+import hockey from '../../assets/images/hockey.png';
+import football from '../../assets/images/football.png';
+import gloves from '../../assets/images/gloves.png';
+import ball5 from '../../assets/images/ball5.png';
+import baseball from '../../assets/images/baseball.png';
 const signup= () => {
 return(
     <section className="signup-section">
@@ -11,13 +12,22 @@ return(
             <h1>Sign up</h1>
         </section>
         <section className="card" id="card-1">
-          <img src={card1} alt="card 1" />
+          <img src={volly}/>
         </section>
+          <section className="card" id="card-2">
+          <img src={hockey} />
+        </section>  
         <section className="card" id="card-3">
-          <img src={card3} alt="card 3" />
+          <img src={football}  />
         </section>
         <section className="card" id="card-4">
-          <img src={card4} alt="card 4" />
+          <img src={gloves} />
+        </section>
+        <section className="card" id="card-5">
+          <img src={ball5}/>
+        </section>
+        <section className="card" id="card-6">
+          <img src={baseball}/>
         </section>
         
     <section className="buttons">

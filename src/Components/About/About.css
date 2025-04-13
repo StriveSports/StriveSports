@@ -14,8 +14,8 @@
     box-sizing: border-box;
     scroll-margin-top: 80px;
     margin-top:5vh;
-    scroll-margin-top: 10px;
     position:relative;
+    overflow: hidden;
   }
   .about-section.visible {
     transform: translateY(0) scale(1);
@@ -54,7 +54,7 @@
     font-size: 1.2rem;
     line-height: 1.6;
     font-family: 'Poppins';
-    margin-bottom: 60vh;
+    margin-bottom: 10vh;
 
   }
   
@@ -69,8 +69,8 @@
   .about-image img {
     width: 85vw;
     max-width: 450px;
-    height: auto;
+    height: relative;
     object-fit: contain;
-    margin-bottom: 65vh;
+    margin-bottom: 10vh;
   }
   

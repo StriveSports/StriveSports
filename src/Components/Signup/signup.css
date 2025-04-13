@@ -1,6 +1,6 @@
 .signup-section {
   background-color: #fff;
-  height:85vh;
+  height:relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +9,7 @@
   overflow: hidden;
   gap: 2rem;
   position: relative;
+  width:100%;
 }
 @font-face {
   font-family: "Roslindale";
@@ -17,12 +18,12 @@
   font-style: normal;
 }
 .text {
-  font-size: 2.5rem;
+  font-size: 10vw;
   font-family: 'Roslindale';
   text-align: center;
   color:#000;
   position:relative;
-  padding-top: 20vh;
+  padding-top: 10vh;
 }
 
 .buttons {
@@ -31,6 +32,7 @@
   gap: 2rem;
   flex-wrap: wrap;
   padding: 0 1rem;
+  padding-bottom: 10vh;
 }
 
 .buttons button {
@@ -49,8 +51,8 @@
 }
 .card{
   position: absolute;
-    width: 25vw;
-    height: 8vh;
+    width: 10vw;
+    height: auto;
     z-index: 0;
 }
 .card img{
@@ -60,14 +62,27 @@
     border-radius: 1rem;
 }
 #card-1{
-  top:2vh;
-  left:1vw;
+  top:30%;
+  left:5%;
+  width:8vw;
 }
-#card-3{
-  top:2vh;
-  left:73vw;
+#card-5{
+  top:22%;
+  left:27%;
 }
 #card-4{
-  top:2vh;
-  left:37vw;
+  top:50%;
+  left:68%;
+}
+#card-3{
+  top:29%;
+  left:56%;
+}
+#card-2{
+  top:45%;
+  left:19%;
+}
+#card-6{
+  top:30%;
+  left:88%;
 }
