@@ -10,7 +10,7 @@
     flex-wrap: wrap;
     transform: translateY(0) scale(1);
     transition: transform 0.2s ease-out;
-    height:100vh;
+    height:relative;
     box-sizing: border-box;
     scroll-margin-top: 80px;
     margin-top:5vh;
@@ -67,8 +67,8 @@
   }
   
   .about-image img {
-    width: auto;
-    max-width: 500px;
+    width: 85vw;
+    max-width: 450px;
     height: auto;
     object-fit: contain;
     margin-bottom: 65vh;
