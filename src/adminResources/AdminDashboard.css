@@ -1,0 +1,101 @@
+body{
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.signIn{
+  transition: all 0.2s;
+  background-color: white;
+  color: blue;
+  border : 2px solid blue;
+
+  position:absolute;
+  top: 50%;
+  left: 47%;
+}
+.signIn:hover{
+  background-color: aqua;
+  color: gray;
+  box-shadow: 0px 0px 10px 5px blue;
+}
+.userButton{
+  position: absolute;
+  top: 3%;
+  left: 3%;
+}
+
+.loadUsers{
+  transition: all 0.2s;
+  background-color: white;
+  color: blue;
+  border : 2px solid blue;
+  left: 45%;
+  position:absolute;
+  top: 20%;
+  font-size: x-large;
+}
+.loadUsers:hover{
+  background-color: aqua;
+  color: gray;
+  box-shadow: 0px 0px 10px 5px blue;
+}
+
+.usersTable{
+  display: flex;
+  list-style:circle;
+  position: absolute;
+  left: 0%;
+  top: 25%;
+  flex-direction: column;
+  list-style-type: decimal;
+  font-size: xx-large;
+  width: 100%;
+}
+
+.tableRow{
+  transition: all 0.2s;
+  list-style: none;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.tableRow:hover{
+  background-color: aqua;
+  color: black;
+  box-shadow: 0px 0px 10px 5px blue;
+
+}
+
+li{
+  flex-grow: 2;
+  text-shadow: 0 0 2px white;
+}
+h1{
+  padding-top: 10%;
+  margin: auto;
+  text-shadow: 0 0 5px white;
+}
+
+.surname{
+  margin: auto;
+} 
+.email{
+  margin: auto;
+}
+.role{
+  margin: auto;
+}
+
+.configMenu{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 30%;
+  left: -100%;
+  z-index: 1;
+  height: 30%;
+  width: 20%;
+  justify-content: space-evenly;
+}
