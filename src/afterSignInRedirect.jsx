@@ -1,7 +1,7 @@
 import { useAuth } from '@clerk/clerk-react';
 import {useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
-import getUserById from './getUserById';
+import getUserById from './adminResources/getUserById';
 
 export default function AfterSignInRedirect() {
     const {userId}  = useAuth();
@@ -15,16 +15,16 @@ export default function AfterSignInRedirect() {
             // Check if the user is an admin based on their userId
         if (user.publicMetadata.role) {
             if(user.publicMetadata.role === 'resident') {
-                navigate('/residentDashboard');
-        
+                navigate('/pages/WelcomeScreen');
+
             }
             else if (user.publicMetadata.role === 'admin') {
-                navigate('/adminDashboard');
-        
+                navigate('/adminResources/adminDashboard');
+
             }
         }
         else{
-            navigate('/residentDashboard');
+            navigate('/pages/WelcomeScreen');
         }
         })
         

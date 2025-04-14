@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import Landing from "./Landing"
 //import SignUp from "./Components/Signup/signup";
+
+import AfterSignInRedirect from "./afterSignInRedirect";
 import ShowUp from "./pages/WelcomeScreen";
+import AdminDashboard from "./adminResources/adminDashboard";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 function App(){
   const { isSignedIn, isLoaded } = useUser();
@@ -12,18 +16,26 @@ function App(){
     const location = useLocation();
   
     useEffect(() => {
-      if (isLoaded && isSignedIn && location.pathname === "/") {
+      if (isSignedIn && location.pathname === "/") {
         navigate("/pages/WelcomeScreen");
       }
   
-    }, [isLoaded, isSignedIn, location, navigate]);
+    }, [isSignedIn, location, navigate]);
 
 return(
+  <header>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/pages/WelcomeScreen" element={<ShowUp />} />
+        <Route path="/adminResources/adminDashboard" element={<AdminDashboard/>} />
+      </Routes>
 
-  <Routes>
-    <Route path="/" element={<Landing />} />
-    <Route path="/pages/WelcomeScreen" element={<ShowUp />} />
-  </Routes>
+      <SignedOut>
+      </SignedOut>
+      <SignedIn className = 'signIn'>
+        <AfterSignInRedirect />
+      </SignedIn>
+    </header>
 
 );    
 

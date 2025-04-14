@@ -5,7 +5,7 @@ export default function ShowUp(){
         <>
             <SignedIn>
                 <h1>Welcome to StriveSports!</h1>
-                <UserButton />
+                <section className='userButton'><UserButton/></section>
             </SignedIn>
             <SignedOut>
                 <RedirectToSignIn redirectUrl="/Components/Signup/signup"/>
