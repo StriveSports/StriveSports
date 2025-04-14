@@ -1,5 +1,5 @@
 import {cleanup, fireEvent, render} from '@testing-library/react';
-import CheckboxWithLabel from './../assets/JestTest';
+import CheckboxWithLabel from '../assets/JestTest';
 
 
 afterEach(cleanup);
