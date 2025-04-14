@@ -5,7 +5,9 @@ import football from '../../assets/images/football.png';
 import gloves from '../../assets/images/gloves.png';
 import ball5 from '../../assets/images/ball5.png';
 import baseball from '../../assets/images/baseball.png';
-const signup= () => {
+import { SignInButton } from "@clerk/clerk-react";
+function SignUp(){
+
 return(
     <section className="signup-section">
         <section className="text">
@@ -31,11 +33,13 @@ return(
         </section>
         
     <section className="buttons">
-        <button>Sign In</button>
+    <SignInButton redirectUrl="/pages/WelcomeScreen">
+        <button className="signinButton">Sign In</button>
+    </SignInButton>
     </section>
     </section>
 );
   
 
 };
-export default signup;
+export default SignUp;
