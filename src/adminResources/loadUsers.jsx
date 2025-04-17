@@ -66,10 +66,10 @@ export default async function loadUsers() {
 
         row.className = 'tableRow';
         if (i%2){
-            row.style.backgroundColor = 'darkgray';
+            row.style.backgroundColor = 'white';
         }
         else{
-            row.style.backgroundColor = 'gray';
+            row.style.backgroundColor = 'lightgray';
         }
 
         row.addEventListener('click',()=>{

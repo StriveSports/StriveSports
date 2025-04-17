@@ -1,11 +1,21 @@
-body{
-  background-color: black;
+.adminDashBoardBody{
+  background-color: white;
+  color: black;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
+  gap: 6vh;
+  
 }
+.adminDashBoardBody>*{
+
+}
+
 .signIn{
-  transition: all 0.2s;
+  transition: all 0.1s;
   background-color: white;
   color: blue;
   border : 2px solid blue;
@@ -30,10 +40,9 @@ body{
   background-color: white;
   color: blue;
   border : 2px solid blue;
-  left: 45%;
-  position:absolute;
-  top: 20%;
   font-size: x-large;
+  width: 10%;
+  height: 5%;
 }
 .loadUsers:hover{
   background-color: aqua;
@@ -44,18 +53,17 @@ body{
 .usersTable{
   display: flex;
   list-style:circle;
-  position: absolute;
-  left: 0%;
-  top: 25%;
   flex-direction: column;
   list-style-type: decimal;
   font-size: xx-large;
   width: 100%;
+  background-color: antiquewhite;
 }
 
 .tableRow{
   transition: all 0.2s;
   list-style: none;
+  width: 100%;
   border: 2px solid black;
   display: flex;
   flex-direction: row;
@@ -63,7 +71,8 @@ body{
 
 .tableRow:hover{
   background-color: aqua;
-  color: black;
+  z-index: 1;
+  transform: translateY(1px);
   box-shadow: 0px 0px 10px 5px blue;
 
 }
@@ -71,11 +80,6 @@ body{
 li{
   flex-grow: 2;
   text-shadow: 0 0 2px white;
-}
-h1{
-  padding-top: 10%;
-  margin: auto;
-  text-shadow: 0 0 5px white;
 }
 
 .surname{

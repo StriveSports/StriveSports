@@ -6,7 +6,7 @@ import { UserButton } from '@clerk/clerk-react';
 
 export default function AdminDashboard() {
     return(
-        <>
+        <main className='adminDashBoardBody'>
         <h1 className='adminDashboard'>Admin Dashboard</h1>
         <button onClick={loadUsers} className='loadUsers'>Load users</button>
         
@@ -21,6 +21,6 @@ export default function AdminDashboard() {
 
         <ul id='usersTable' className='usersTable' ></ul>
         <section className='userButton'><UserButton/></section>
-        </>
+        </main>
     )
 }
