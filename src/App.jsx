@@ -7,7 +7,7 @@ import Landing from "./Landing"
 
 import AfterSignInRedirect from "./afterSignInRedirect";
 import ShowUp from "./pages/WelcomeScreen";
-import AdminDashboard from ".adminResources/AdminDashboard.jsx";
+import AdminDashboard from "./adminResources/adminDashboard";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 
 function App(){
