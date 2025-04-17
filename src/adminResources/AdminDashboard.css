@@ -41,8 +41,6 @@
   color: blue;
   border : 2px solid blue;
   font-size: x-large;
-  width: 10%;
-  height: 5%;
 }
 .loadUsers:hover{
   background-color: aqua;
