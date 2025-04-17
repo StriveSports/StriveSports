@@ -4,10 +4,15 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 .container{
     overflow-x:hidden ;
     position: relative;
-    height: relative;
+    height: 140vh;
+    width:100vw;
+    background-color: #fff;
+    padding-bottom: 0;
+    margin-bottom: 0;
 }
 
 @font-face {
@@ -36,7 +41,7 @@
     align-items: center;
     z-index: 1000;
     background-color: transparent;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: "Poppins";
    
     
@@ -50,7 +55,7 @@
   }
   
 .nav-links a {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
     font-size: 1rem;
     position: relative;
@@ -64,9 +69,9 @@
   }
   
   .nav-links a:hover {
-    color: black;
-    background-color: white;
-    border-color: white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0);
   
   }
 

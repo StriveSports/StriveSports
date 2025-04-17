@@ -7,12 +7,13 @@
 .showupclass{
     padding-top: 5rem;
     width:100%;
-    color: #fff;
+    color: #000;
     font-family: "Roslindale";;
-    font-size: 24vw;
+    font-size: 21vw;
     font-weight: 200;
     text-align: center;
     margin: 0;
+  
 }
 .ball{
     position: absolute;
@@ -41,17 +42,17 @@
   }
 #ball-1{
     top:68%;
-    left:6%;
+    left:8%;
 }
 #ball-2{
-    top:35%;
-    left: 37%;
+    top:28%;
+    left:35%;
 }
 #ball-3{
     top:68%;
-    left:60%;
+    left:63%;
 }
 #ball-4{
     top:40%;
-    left: 90%;
+    left:88%;
 }

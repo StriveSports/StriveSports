@@ -3,7 +3,7 @@
 function ShowUp(){
     return (
     <section>
-    <h1 className="showupclass">StiveSports</h1>
+    <h1 className="showupclass">StriveSports</h1>
     </section>
     )
 }

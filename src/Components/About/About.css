@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  background-color: #000; 
-  color: white;
+  background-color: #fff; 
+  color: #000;
   gap: 3rem;
   flex-wrap: wrap;
   transform: translateY(0) scale(1);
@@ -13,7 +13,7 @@
   height:relative;
   box-sizing: border-box;
   scroll-margin-top: 80px;
-  margin-top:5vh;
+  margin-top:8vh;
   position:relative;
   overflow: hidden;
 }
