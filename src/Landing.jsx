@@ -13,27 +13,34 @@ gsap.registerPlugin(ScrollTrigger);
 
 function Landing() {
   useEffect(() => {
+    let requestId = null;
+  
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const moveUp = scrollY * -0.2;
-
-      for (let i = 1; i <= 4; i++) {
-        const el = document.getElementById(`ball-${i}`);
-        if (el) el.style.transform = `translateY(${moveUp}px)`;
-      }
-
-      const aboutSection = document.querySelector('.about-section');
-      if (aboutSection) {
-        const moveAbout = Math.min(scrollY * 0.08, 10);
-        const scale = Math.max(1 - scrollY / 4000, 0.96);
-        aboutSection.style.transform = `translateY(-${moveAbout}px) scale(${scale})`;
-      }
+      if (requestId) return;
+      requestId = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const moveUp = scrollY * -0.2;
+  
+        for (let i = 1; i <= 4; i++) {
+          const el = document.getElementById(`ball-${i}`);
+          if (el) el.style.transform = `translateY(${moveUp}px)`;
+        }
+  
+        const aboutSection = document.querySelector('.about-section');
+        if (aboutSection) {
+          const moveAbout = Math.min(scrollY * 0.08, 10);
+          const scale = Math.max(1 - scrollY / 4000, 0.96);
+          aboutSection.style.transform = `translateY(-${moveAbout}px) scale(${scale})`;
+        }
+  
+        requestId = null;
+      });
     };
-
+  
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
+  
   return (
     <section className="container">
       <nav className="nav">
@@ -51,7 +58,7 @@ function Landing() {
       <section id="about" style={{ scrollMarginTop: '120px' }}>
       <About />
       </section>
-      <section id="signup" style={({scrollMarginTop: '120px'})}> 
+      <section id="signup" style={{scrollMarginTop: '120px',minHeight: '100vh'}}> 
         <SignUp />
       </section>
     </section>
