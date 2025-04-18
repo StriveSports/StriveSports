@@ -27,7 +27,7 @@ return(
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/pages/WelcomeScreen" element={<ShowUp />} />
-        <Route path="/adminResources/adminDashboard" element={<AdminDashboard/>} />
+        <Route path="/adminResources/AdminDashboard" element={<AdminDashboard/>} />
       </Routes>
 
       <SignedOut>
