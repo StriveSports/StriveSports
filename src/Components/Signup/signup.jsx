@@ -13,25 +13,24 @@ return(
         <section className="text">
             <h1>Sign in</h1>
         </section>
-        <section className="card" id="card-1">
-          <img src={volly}/>
-        </section>
-          <section className="card" id="card-2">
-          <img src={hockey} />
-        </section>  
-        <section className="card" id="card-3">
-          <img src={football}  />
-        </section>
-        <section className="card" id="card-4">
-          <img src={gloves} />
-        </section>
-        <section className="card" id="card-5">
-          <img src={ball5}/>
-        </section>
-        <section className="card" id="card-6">
-          <img src={baseball}/>
-        </section>
-        
+        {/* <figure className="card" id="card-1"> */} */
+          {/* <img src={volly}/> */}
+        {/* </figure> */}
+          {/* // <figure className="card" id="card-2"> */}
+          {/* <img src={hockey} /> */}
+        {/* </figure>   */}
+        {/* // <figure className="card" id="card-3"> */}
+          {/* <img src={football}  /> */}
+        {/* </figure> */}
+        {/* // <figure className="card" id="card-4"> */}
+          {/* <img src={gloves} /> */}
+        {/* </figure> */}
+        {/* // <figure className="card" id="card-5"> */}
+          {/* <img src={ball5}/> */}
+        {/* </figure> */}
+        {/* // <figure className="card" id="card-6"> */}
+          {/* <img src={baseball}/> */}
+        {/* </figure> */}
     <section className="buttons">
     <SignInButton redirectUrl="/pages/WelcomeScreen">
         <button className="signinButton">Sign In</button>

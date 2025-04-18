@@ -3,9 +3,9 @@ import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Home from './Components/Home/Home.jsx';
-import About from './Components/About/About';
-import SignUp from './Components/Signup/signup';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import SignUp from './components/Signup/signup';
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
