@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Root-level ignore
+.env
+
+# Backend secrets
+server/.env
+server/config.env

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744621996547" clover="3.2.0">
-  <project timestamp="1744621996548" name="All files">
+<coverage generated="1744920267261" clover="3.2.0">
+  <project timestamp="1744920267261" name="All files">
     <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2" elements="8" coveredelements="8" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
     <file name="JestTest.js" path="C:\Users\favour\react-app\src\assets\JestTest.js">
       <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
