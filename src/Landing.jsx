@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Home from "./Components/Home/Home.jsx";
 import About from "./Components/About/About";
-import Signup from "./Components/Signup/Signup";
+import Signup from "./Components/Signup/signup.jsx";
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
