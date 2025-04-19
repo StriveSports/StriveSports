@@ -59,7 +59,7 @@
     text-decoration: none;
     font-size: 1rem;
     position: relative;
-    transform: rotate(180deg);
+    transform: none;
     padding: 0.5rem 1rem;
     letter-spacing: 1px;
     border: 1px solid transparent;
@@ -74,4 +74,21 @@
     border-color: rgb(0, 0, 0);
   
   }
-
+  @media (max-width: 768px) {
+    .nav {
+      padding: 1rem 2rem;
+    }
+  
+    .nav-links a {
+      font-size: 0.85rem;       /* smaller font */
+      padding: 0.4rem 0.7rem;   /* tighter padding */
+      white-space: nowrap;      /* prevents wrapping */
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      height: auto;
+      min-height: 100vh; /* Ensures full screen if content is short */
+    }
+  }
+    
