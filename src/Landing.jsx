@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Home from "./Components/Home/Home.jsx";
 import About from "./Components/About/About";
-import SignUp from "./Components/SignUp/signup.jsx";
+import Signup from "./Components/Signup/Signup.jsx";
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -59,7 +59,7 @@ function Landing() {
       <About />
       </section>
       <section id="signup" style={{scrollMarginTop: '120px',minHeight: '100vh'}}> 
-        <SignUp />
+        <Signup />
       </section>
     </section>
     
