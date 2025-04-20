@@ -1,27 +1,19 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect,useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "@clerk/clerk-react";
+import { useUser,ClerkProvider } from "@clerk/clerk-react";
 import Landing from "./Landing"
 //import SignUp from "./Components/Signup/signup";
 
 import AfterSignInRedirect from "./afterSignInRedirect";
 import ShowUp from "./pages/WelcomeScreen";
 import AdminDashboard from "./adminResources/AdminDashboard";
+import Res from "./pages/resident"
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import BlockedUser from "./adminResources/BlockedUser";
 
 function App(){
-  const { isSignedIn, isLoaded } = useUser();
-    const navigate = useNavigate();
-    const location = useLocation();
-  
-    useEffect(() => {
-      if (isSignedIn && location.pathname === "/") {
-        navigate("/pages/WelcomeScreen");
-      }
-  
-    }, [isSignedIn, location, navigate]);
+ 
 
 return(
   <header>
@@ -29,6 +21,7 @@ return(
         <Route path="/" element={<Landing />} />
         <Route path="/pages/WelcomeScreen" element={<ShowUp />} />
         <Route path="/adminResources/AdminDashboard" element={<AdminDashboard/>} />
+        <Route path='/pages/resident' element={<Res/>}/> 
         <Route path="/adminResources/BlockedUser" element={<BlockedUser/>}/>
       </Routes>
 

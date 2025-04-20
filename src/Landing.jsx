@@ -4,7 +4,7 @@ import { useUser } from "@clerk/clerk-react";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Home from "./Components/Home/Home.jsx";
-import About from "./Components/About/About";
+import About from "./Components/About/About.jsx";
 import Signup from "./Components/Signup/signup.jsx";
 import './App.css';
 
@@ -20,19 +20,21 @@ function Landing() {
       requestId = requestAnimationFrame(() => {
         const scrollY = window.scrollY;
         const moveUp = scrollY * -0.2;
-  
+    
         for (let i = 1; i <= 4; i++) {
           const el = document.getElementById(`ball-${i}`);
           if (el) el.style.transform = `translateY(${moveUp}px)`;
         }
-  
+    
         const aboutSection = document.querySelector('.about-section');
         if (aboutSection) {
-          const moveAbout = Math.min(scrollY * 0.08, 10);
-          const scale = Math.max(1 - scrollY / 4000, 0.96);
-          aboutSection.style.transform = `translateY(-${moveAbout}px) scale(${scale})`;
+          // Allow smooth translate both up and down
+          const moveAbout = scrollY * 0.08; // No Math.min, so it can animate back
+          const scale = 1 - scrollY / 4000; // Avoid max clamp so it scales up when scrolling up
+          const clampedScale = Math.max(scale, 0.96); // Clamp just to avoid going too small
+          aboutSection.style.transform = `translateY(-${moveAbout}px) scale(${clampedScale})`;
         }
-  
+    
         requestId = null;
       });
     };

@@ -15,7 +15,7 @@ export default function AfterSignInRedirect() {
             // Check if the user is an admin based on their userId
         if (user.publicMetadata.role) {
             if(user.publicMetadata.role === 'resident') {
-                navigate('/pages/WelcomeScreen');
+                navigate('/pages/resident');
 
             }
             else if (user.publicMetadata.role === 'admin') {
