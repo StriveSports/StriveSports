@@ -10,7 +10,7 @@ import Rugby from '../assets/images/Rugby.jpg';
 import Swimming from '../assets/images/Swimming.jpg';
 import Tennis from '../assets/images/Tennis.jpg';
 import Track from '../assets/images/Track.jpg';
-import Soccer from '../assets/images/Soccer.jpg';
+import Soccer from '../assets/images/NewSoccer.jpg';
 import './resident.css';
 export default function Res(){
     const [text] = useTypewriter({
