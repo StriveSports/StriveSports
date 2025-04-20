@@ -14,6 +14,7 @@ import Tennis from '../assets/images/Tennis.jpg';
 import Track from '../assets/images/Track.jpg';
 import Soccer from '../assets/images/NewSoccer.jpg';
 import Marquee from 'react-fast-marquee';
+import "@fullcalendar/common/main.css";
 import './resident.css';
 export default function Res(){
     const [text] = useTypewriter({
@@ -159,6 +160,10 @@ export default function Res(){
             </section>
             <section className="calendar-section">
                 <h2>Event Calendar.</h2>
+                <FullCalendar
+                  plugins={[dayGridPlugin]} // Register the dayGrid plugin
+                  initialView="dayGridMonth" // Default view
+                />
             </section>
         </section>
         </section>
