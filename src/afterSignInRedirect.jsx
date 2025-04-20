@@ -25,6 +25,9 @@ export default function AfterSignInRedirect() {
             else if(user.publicMetadata.role == 'removed'){
                 navigate('/adminResources/BlockedUser');
             }
+            else if(user.publicMetadata.role == 'none'){
+                navigate('/pages/WelcomeScreen');
+            }
         }
         else{
             navigate('/pages/WelcomeScreen');

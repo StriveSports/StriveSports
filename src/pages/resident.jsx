@@ -1,6 +1,8 @@
 import{ SignedIn, SignedOut, RedirectToSignIn, UserButton } from "@clerk/clerk-react";
 import {useTypewriter,Cursor} from 'react-simple-typewriter';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Hockey from '../assets/images/Hockey.jpg';
@@ -11,6 +13,7 @@ import Swimming from '../assets/images/Swimming.jpg';
 import Tennis from '../assets/images/Tennis.jpg';
 import Track from '../assets/images/Track.jpg';
 import Soccer from '../assets/images/NewSoccer.jpg';
+import Marquee from 'react-fast-marquee';
 import './resident.css';
 export default function Res(){
     const [text] = useTypewriter({
@@ -28,7 +31,7 @@ export default function Res(){
         Soccer,
         Hockey,
         Track,
-        Rugby
+        Rugby,
       };
     const [selectedSport, setSelectedSport] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
@@ -40,6 +43,7 @@ export default function Res(){
         const displayHour = hour % 12 === 0 ? 12 : hour % 12;
         return `${displayHour}:00 ${ampm}`;
       });
+      
     return (
         <>
         <SignedIn>
@@ -52,7 +56,7 @@ export default function Res(){
                 <Cursor cursorStyle="|" /></h1>
             </section>
             <section className="Bookings">
-                <h1>Book Venue</h1>
+                <h1>Book Venue.</h1>
                 <section className="booking-body">
                 <section className="Sports"> 
                  {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
@@ -123,6 +127,38 @@ export default function Res(){
              </section>
             </section>
             )}
+            </section>
+            <section className="marquee-section">
+                <Marquee play>
+                    <section className="text_wrap">
+                    🏀 Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    🎾 Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    ⚽ Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    🏊 Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    🏉 Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    🏑 Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    🏐 Upcoming Events •
+                    </section>
+                    <section className="text_wrap">
+                    🏃 Upcoming Events • 
+                    </section>
+
+                </Marquee>
+            </section>
+            <section className="calendar-section">
+                <h2>Event Calendar.</h2>
             </section>
         </section>
         </section>
