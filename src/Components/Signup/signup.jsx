@@ -1,6 +1,6 @@
 import './signup.css';
 import volly from '../../assets/images/volly.png';
-import hockey from '../../assets/images/hockey.png';
+import hockey from '../../assets/images/hockeysign.png';
 import football from '../../assets/images/football.png';
 import gloves from '../../assets/images/gloves.png';
 import ball5 from '../../assets/images/ball5.png';
@@ -17,7 +17,7 @@ return(
           {/* <img src={volly}/> */}
         {/* </figure> */}
           {/* // <figure className="card" id="card-2"> */}
-          {/* <img src={hockey} /> */}
+          {/* <img src={hockeysign} /> */}
         {/* </figure>   */}
         {/* // <figure className="card" id="card-3"> */}
           {/* <img src={football}  /> */}

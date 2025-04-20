@@ -3,6 +3,14 @@ import {useTypewriter,Cursor} from 'react-simple-typewriter';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Hockey from '../assets/images/Hockey.jpg';
+import Basketball from '../assets/images/Basketball.jpg';
+import Netball from '../assets/images/Netball.jpg';
+import Rugby from '../assets/images/Rugby.jpg';
+import Swimming from '../assets/images/Swimming.jpg';
+import Tennis from '../assets/images/Tennis.jpg';
+import Track from '../assets/images/Track.jpg';
+import Soccer from '../assets/images/Soccer.jpg';
 import './resident.css';
 export default function Res(){
     const [text] = useTypewriter({
@@ -12,10 +20,20 @@ export default function Res(){
         deleteSpeed: 70,
         delaySpeed: 1500
     });
-    
+    const sportImages = {
+        Tennis,
+        Swimming,
+        Basketball,
+        Netball,
+        Soccer,
+        Hockey,
+        Track,
+        Rugby
+      };
     const [selectedSport, setSelectedSport] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState("");
+    const [hoveredSport, setHoveredSport] = useState(null);
     const timeSlots = Array.from({ length: 12 }, (_, i) => {
         const hour = i + 8;
         const ampm = hour < 12 ? "AM" : "PM";
@@ -35,16 +53,29 @@ export default function Res(){
             </section>
             <section className="Bookings">
                 <h1>Book Venue</h1>
-                 <section className="Sports"> 
-                    <h1 onClick={() => setSelectedSport("Tennis")}>Tennis</h1>
-                    <h1 onClick={() => setSelectedSport("Swimming")}>Swimming</h1>
-                    <h1 onClick={() => setSelectedSport("Baketball")}>Basketball</h1>
-                    <h1 onClick={() => setSelectedSport("Netball")}>Netball</h1>
-                    <h1 onClick={() => setSelectedSport("Soccer")}>Soccer</h1>
-                    <h1 onClick={() => setSelectedSport("Hockey")}>Hockey</h1>
-                    <h1 onClick={() => setSelectedSport("Track")}>Track</h1>
-                    <h1 onClick={() => setSelectedSport("Rugby")}>Rugby</h1>
+                <section className="booking-body">
+                <section className="Sports"> 
+                 {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
+                    <h1
+                        key={sport}
+                        onClick={() => setSelectedSport(sport)}
+                        onMouseEnter={() => setHoveredSport(sport)}
+                        onMouseLeave={() => setHoveredSport(null)}
+                        >
+                        {sport}
+                    </h1>
+                ))}
                 </section>
+                <section className="hover-image-container">
+                 {hoveredSport && (
+                     <img
+                        src={sportImages[hoveredSport]}
+                        alt={hoveredSport}
+                        className="hover-preview-image"
+                    />
+                )}
+                </section>
+                 
             </section>
             {selectedSport && (
             <section className="popup-overlay" onClick={() => setSelectedSport(null)}>
@@ -93,6 +124,7 @@ export default function Res(){
             </section>
             )}
             </section>
+        </section>
         </section>
         </SignedIn>
         <SignedOut>

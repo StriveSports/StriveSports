@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, RedirectToSignIn, UserButton } from "@clerk/clerk-react";
-import soccer from '../assets/images/soccer.jpg'
+import soccer from '../assets/images/soccerland.jpg'
 import runners from '../assets/images/runners.jpg'
 import fields from '../assets/images/fields.jpg'
 import { useNavigate } from "react-router-dom";
