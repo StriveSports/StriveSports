@@ -2,8 +2,10 @@ import { SignedIn, SignedOut, RedirectToSignIn, UserButton } from "@clerk/clerk-
 import soccer from '../assets/images/soccer.jpg'
 import runners from '../assets/images/runners.jpg'
 import fields from '../assets/images/fields.jpg'
+import { useNavigate } from "react-router-dom";
 import './WelcomeScreen.css';
 export default function ShowUp(){
+    
     return (
         <>
             <SignedIn>
