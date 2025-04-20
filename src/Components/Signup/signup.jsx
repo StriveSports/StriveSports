@@ -6,9 +6,9 @@ import gloves from '../../assets/images/gloves.png';
 import ball5 from '../../assets/images/ball5.png';
 import baseball from '../../assets/images/baseball.png';
 import { SignInButton } from "@clerk/clerk-react";
-function SignUp(){
 
-return(
+function SignUp(){
+    return(
     <section className="signup-section">
         <section className="text">
             <h1>Sign in</h1>

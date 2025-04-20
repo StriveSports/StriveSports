@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744920267261" clover="3.2.0">
-  <project timestamp="1744920267261" name="All files">
-    <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2" elements="8" coveredelements="8" complexity="0" loc="4" ncloc="4" packages="1" files="1" classes="1"/>
-    <file name="JestTest.js" path="C:\Users\favour\react-app\src\assets\JestTest.js">
+<coverage generated="1745158767638" clover="3.2.0">
+  <project timestamp="1745158767638" name="All files">
+    <metrics statements="33" coveredstatements="28" conditionals="10" coveredconditionals="7" methods="11" coveredmethods="10" elements="54" coveredelements="45" complexity="0" loc="33" ncloc="33" packages="4" files="8" classes="8"/>
+    <package name="src">
+      <metrics statements="15" coveredstatements="13" conditionals="8" coveredconditionals="5" methods="4" coveredmethods="4"/>
+      <file name="afterSignInRedirect.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\afterSignInRedirect.jsx">
+        <metrics statements="14" coveredstatements="12" conditionals="8" coveredconditionals="5" methods="3" coveredmethods="3"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="36" count="3" type="stmt"/>
+      </file>
+      <file name="showup.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\showup.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.Components.Signup">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="signup.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\Components\Signup\signup.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="11" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.adminResources">
+      <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <file name="BlockedUser.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\adminResources\BlockedUser.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+      </file>
+      <file name="getUserById.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\adminResources\getUserById.jsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+      </file>
+      <file name="removeConfigMenu.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\adminResources\removeConfigMenu.jsx">
+        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+      <file name="updateRole.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\adminResources\updateRole.jsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.assets">
       <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-      <line num="4" count="2" type="stmt"/>
-      <line num="6" count="2" type="stmt"/>
-      <line num="7" count="1" type="stmt"/>
-      <line num="10" count="2" type="stmt"/>
-    </file>
+      <file name="JestTest.js" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\assets\JestTest.js">
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
