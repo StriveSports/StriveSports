@@ -44,6 +44,34 @@ export default function Res(){
         const displayHour = hour % 12 === 0 ? 12 : hour % 12;
         return `${displayHour}:00 ${ampm}`;
       });
+      const [selectedFacility, setSelectedFacility] = useState('');
+      const [description, setDescription] = useState('');
+    
+      const handleFacilityChange = (e) => {
+        setSelectedFacility(e.target.value);
+      };
+    
+      const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+      };
+    
+      const handleReportSubmit = (e) => {
+        e.preventDefault();
+        if (!selectedFacility || !description) {
+          alert('Please fill out all fields before submitting.');
+          return;
+        }
+    
+        
+        console.log('Report submitted:', {
+          facility: selectedFacility,
+          description: description,
+        });
+    
+        setSelectedFacility('');
+        setDescription('');
+      };
+    
       
     return (
         <>
@@ -165,6 +193,31 @@ export default function Res(){
                   initialView="dayGridMonth" // Default view
                 />
             </section>
+            <section className="reports">
+              <h2>Report Faults</h2>
+              <form className="report-form" onSubmit={handleReportSubmit}>
+        <label htmlFor="facility">Facility</label>
+        <select id="facility" value={selectedFacility} onChange={handleFacilityChange}>
+          <option value="">Select Facility</option>
+          <option value="Tennis Court">Tennis Court</option>
+          <option value="Swimming Pool">Swimming Pool</option>
+          <option value="Soccer Field">Soccer Field</option>
+          <option value="Basketball Court">Basketball Court</option>
+          <option value="Gym">Gym</option>
+        </select>
+
+        <label htmlFor="description">What's the issue?</label>
+        <textarea
+          id="description"
+          rows="4"
+          value={description}
+          onChange={handleDescriptionChange}
+          placeholder="e.g., Net is torn, lights not working..."
+        />
+
+        <button type="submit">Log Report</button>
+      </form>
+          </section>
         </section>
         </section>
         </SignedIn>
