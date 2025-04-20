@@ -22,6 +22,9 @@ export default function AfterSignInRedirect() {
                 navigate('/adminResources/adminDashboard');
 
             }
+            else if(user.publicMetadata.role == 'removed'){
+                navigate('/adminResources/BlockedUser');
+            }
         }
         else{
             navigate('/pages/WelcomeScreen');

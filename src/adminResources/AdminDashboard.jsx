@@ -15,6 +15,7 @@ export default function AdminDashboard() {
             <button onClick={()=>updateRole('resident')} className='updateRole'>resident</button>
             <button onClick={()=>updateRole('admin')} className='updateRole'>admin</button>
             <button onClick={()=>updateRole('none')} className='updateRole'>none</button>
+            <button onClick={()=>updateRole('removed')} className='updateRole'>removed</button>
             <button onClick={removeConfigMenu} className='updateRole'>complete</button>
 
         </section>
