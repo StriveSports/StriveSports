@@ -9,6 +9,7 @@ import AfterSignInRedirect from "./afterSignInRedirect";
 import ShowUp from "./pages/WelcomeScreen";
 import AdminDashboard from "./adminResources/AdminDashboard";
 import Res from "./pages/resident"
+import Onboard from "./pages/onboard3";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import BlockedUser from "./adminResources/BlockedUser";
 
@@ -23,6 +24,7 @@ return(
         <Route path="/adminResources/AdminDashboard" element={<AdminDashboard/>} />
         <Route path='/pages/resident' element={<Res/>}/> 
         <Route path="/adminResources/BlockedUser" element={<BlockedUser/>}/>
+        <Route path="/pages/onboard3" element={<Onboard />} />
       </Routes>
 
       <SignedOut>

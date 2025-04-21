@@ -5,7 +5,10 @@ import fields from '../assets/images/fields.jpg'
 import { useNavigate } from "react-router-dom";
 import './WelcomeScreen.css';
 export default function ShowUp(){
-    
+    const navigate = useNavigate();
+    const handleNext = () => {
+        navigate('/pages/onboard3');
+      };
     return (
         <>
             <SignedIn>
@@ -29,10 +32,12 @@ export default function ShowUp(){
                     <p>Receive tournament notice, book venues and compete with your neighbors in events.</p>
                 </section>
                 <section className='button'>
-                <button className="next-button">Next</button>
+                <button onClick={handleNext} className="next-button">Next</button>
                 </section>
                 </section>
-                <section className='userButton'><UserButton/></section>
+                <section className='userButton'>
+                    <UserButton/>
+                    </section>
                 </section>
             </SignedIn>
             <SignedOut>
