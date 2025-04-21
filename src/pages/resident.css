@@ -1,7 +1,7 @@
 .app-cont{
     display: flex;
   flex-direction: column;
-  min-height: 300vh;
+  min-height: 360vh;
   width:100%;
   background-color: #f5f5f5;
 }
@@ -15,22 +15,54 @@
   margin-top: 10vh;
   display: flex;
   flex-direction: column;
+  gap: 40px;
   
 }
 .Bookings{
-    height:115vh;
+    height:80vh;
     width:95%;
     margin: 0 auto;
     margin-top: 6vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: auto;
+}
+.booking-body {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    height: 70vh;
+    position: relative;
+}
+.book-head{
+  display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.book-head .head2{
+  color: #333;
 }
 .Bookings h1{
-    color: #333;
-    font-size: 16vh;
+    font-size: 15vh;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #333;
+    font-weight: bold;
+   
 }
 .Sports{
     margin-top: 8vh;
-    width: 100%;
+    overflow-y: auto;
+    padding-right: 2rem;
+    height: 100%;
 }
+.Sports::-webkit-scrollbar {
+    width: 8px;
+  }
 .Sports h1{
     padding: 1rem;
     color: #fff;
@@ -38,10 +70,37 @@
     margin: 0 auto;
     transition: color 0.3s ease;
     cursor: pointer; 
+    font-family: 'Helvetica Neue';
 }
 .Sports h1:hover {
-    color: #000; 
+    color: #000;
+    transform: scale(1.03); 
 }
+.hover-image-container {
+    position: sticky;
+    top: 0;
+    text-align: center;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    align-items: flex-start;
+    margin-left: 8vw;
+  }
+  
+  .hover-preview-image {
+    top: 100px;
+    width: 100%;
+    max-height: 70vh;
+    position: sticky;
+    object-fit: cover;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    margin-right: 5vw;
+    top: 40px;
+    margin-top: 8vh;
+  }
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -64,7 +123,7 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    height: 45vh;
+    height: 40vh;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   }
   
@@ -105,7 +164,192 @@
   border-radius: 20px;
   cursor: pointer;
   }
+  .marquee-section {
+    width: 100%;
+  overflow: hidden;
+  background-color: #ff4d00;
+  padding: 1rem 0;
+  margin-top: 10vh;
+  color:black;
+  display: inline-block;
+  }
+  .text_wrap{
+    margin: 0px ;
+    padding: 0;
+  display: inline-block;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 1.2rem;
+  }
+  .calendar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 2rem;
+    border-radius: 12px;
+    color:#2b18bd;
+    height: 100vh;
+  }
+  .calendar-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .calendar-section h2 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 12vh;
+    font-weight: 300;
+    color:#2b18bd;
+  }
+  .calendar-section .cal{
+    color: transparent;
+    -webkit-text-stroke: 1.5px #333;
+    font-weight: bold;
+  }
+  .fc { 
+    width: 80%;
+    height: 84vh; 
+    margin: 0 auto;
+    font-size: 16px; 
+    margin-bottom: 30px;
+  }
+  
+  
+  .fc-daygrid-day-frame {
+    min-height: 80px; 
+  }
+  
+  
+  .fc-header-toolbar {
+    padding: 1rem;
+  }
+  .reports {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 14vh;
+    color: #333;
+    align-items: center;
+    padding: 40px 20px;
+    margin: 14vh auto;
+    
+  }
+  .report-head{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  
+  }
+  .reports h2{
+    font-size: 11vh;
+    font-weight: 500;
+    text-align: center;
+    color:#000;
+    font-family: 'Nimbus';
+    -webkit-text-stroke: 1.5px #333;
+  }
+  .reports h2:hover{
+    color:transparent;
+  }
+  .reports .hed2{
+    color: #ff4d00;
+    font-weight: bold;
+    -webkit-text-stroke: 1.5px #ff4d00;
+  }
+  .report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #000;
+    padding: 30px;
+  }
+  
+  .report-form label {
+    font-weight: 600;
+  }
+  
+  .report-form select,
+  .report-form textarea,
+  .report-form button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    
+  }
+  
+  .report-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .report-form button:hover {
+    background-color: #0056b3;
+  }
+  .report-form textarea {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+  }
+  
+  .report-form textarea::placeholder {
+    color: black;
+    opacity: 1; 
+  }
+  .report-form select {
+    background-color: white;
+    color: black;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  .caution{
+    position: relative;
+    width: 150px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .circle{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    animation: rotate 10s linear infinite;
+  }
+  .circle p {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: red;
+  }
+  
+  .circle p section {
+    position: absolute;
+    left: 50%;
+    transform-origin: 0 100px; /* half the circle's radius */
+  }
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }  
 .designer-container{
+  position: relative;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     max-width: 800px;
     height: 85vh;
@@ -113,26 +357,31 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    margin-bottom: 2vh;
+    margin-bottom: 2rem;
 }
 .designer-title{
     font-size: 20vh;
     font-weight: 400;
     margin-top: 20vh;
-    margin-left: 10vw;
 }
 .designer-subtitle {
     font-size: 20vh;
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 10vh;
-    margin-left: 10vw;
+    color: #333;
 }
 .Typewriter__cursor {
     color: #333;
     font-weight: 400;
     margin-left: 2px;
     animation: blink 1.5s infinite;
+}
+@font-face {
+  font-family: "Nimbus";
+  src: url('../assets/fonts/tan-nimbus.otf') format('truetype');
+  font-weight: 250;
+  font-style: normal;
 }
 
 @keyframes blink {
@@ -154,6 +403,38 @@
 
     }
     .Bookings{
-        height:128vh;
+        height:90vh;
     }
 } 
+@media (max-width: 768px) {
+  .hover-image-container {
+    display: none;
+  }
+  .fc {
+    width: 80%; /* More screen coverage */
+    height: 70vh; /* Slightly shorter */
+    font-size: 14px; /* Better readability */
+  }
+
+  .fc-header-toolbar {
+    padding: 0.5rem;
+    flex-direction: column; /* Stack header buttons */
+  }
+
+  .fc-toolbar-title {
+    font-size: 1.2em !important; /* Smaller title */
+  }
+
+  .fc-daygrid-day-frame {
+    min-height: 50px; /* Compact day cells */
+  }
+
+  /* Optional: Hide less important elements */
+  .fc-daygrid-day-number {
+    font-size: 0.8em;
+  }
+
+  .fc-col-header-cell {
+    font-size: 0.7em;
+  }
+}

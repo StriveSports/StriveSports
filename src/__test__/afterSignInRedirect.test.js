@@ -2,7 +2,7 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import AfterSignInRedirect from '../afterSignInRedirect';
 import { useAuth } from '@clerk/clerk-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import getUserById from '../adminResources/getUserById';
 
 // Mocks
@@ -12,6 +12,7 @@ jest.mock('@clerk/clerk-react', () => ({
 
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
+  useLocation: jest.fn(),
 }));
 
 jest.mock('../adminResources/getUserById');
@@ -22,9 +23,10 @@ describe('AfterSignInRedirect', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useNavigate.mockReturnValue(mockNavigate);
+    useLocation.mockReturnValue({ pathname: '/' }); // ensure location.pathname === '/' for the effect to trigger
   });
 
-  it('redirects resident to /pages/WelcomeScreen', async () => {
+  it('redirects resident to /pages/resident', async () => {
     useAuth.mockReturnValue({ userId: 'resident123' });
 
     getUserById.mockResolvedValue({
@@ -36,7 +38,7 @@ describe('AfterSignInRedirect', () => {
     render(<AfterSignInRedirect />);
 
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/pages/WelcomeScreen');
+      expect(mockNavigate).toHaveBeenCalledWith('/pages/resident');
     });
   });
 
@@ -56,7 +58,39 @@ describe('AfterSignInRedirect', () => {
     });
   });
 
-  it('redirects to WelcomeScreen when role is missing', async () => {
+  it('redirects removed user to /adminResources/BlockedUser', async () => {
+    useAuth.mockReturnValue({ userId: 'removed123' });
+
+    getUserById.mockResolvedValue({
+      publicMetadata: {
+        role: 'removed',
+      },
+    });
+
+    render(<AfterSignInRedirect />);
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith('/adminResources/BlockedUser');
+    });
+  });
+
+  it('redirects to WelcomeScreen when role is none or missing', async () => {
+    useAuth.mockReturnValue({ userId: 'none123' });
+
+    getUserById.mockResolvedValue({
+      publicMetadata: {
+        role: 'none',
+      },
+    });
+
+    render(<AfterSignInRedirect />);
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith('/pages/WelcomeScreen');
+    });
+  });
+
+  it('redirects to WelcomeScreen when role is undefined', async () => {
     useAuth.mockReturnValue({ userId: 'unknown123' });
 
     getUserById.mockResolvedValue({

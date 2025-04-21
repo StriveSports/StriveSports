@@ -1,5 +1,5 @@
 import { useAuth } from '@clerk/clerk-react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import { useEffect } from 'react';
 import getUserById from './adminResources/getUserById';
 
@@ -8,9 +8,11 @@ export default function AfterSignInRedirect() {
     const response  = getUserById(userId);
     
     const navigate = useNavigate();
+    const location = useLocation();
 
 
     useEffect(() => {
+        if (location.pathname !== "/") return;
         response.then((user) => {
             // Check if the user is an admin based on their userId
         if (user.publicMetadata.role) {
@@ -24,6 +26,11 @@ export default function AfterSignInRedirect() {
             }
             else if(user.publicMetadata.role == 'removed'){
                 navigate('/adminResources/BlockedUser');
+            }
+            else if(user.publicMetadata.role == 'none' || !role){
+                if (window.location.pathname !== '/pages/WelcomeScreen') {
+                navigate('/pages/WelcomeScreen');
+                }
             }
         }
         else{
