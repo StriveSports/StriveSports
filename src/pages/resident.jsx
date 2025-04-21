@@ -72,7 +72,16 @@ export default function Res(){
         setDescription('');
       };
     
-      
+      useEffect(() => {
+        const circle = document.querySelector('.circle p');
+        circle.innerHTML = circle.innerText
+          .split("")
+          .map(
+            (char, i) =>
+              `<section style="transform:rotate(${i * 10}deg)">${char}</section>`
+          )
+          .join("");
+      }, []);
     return (
         <>
         <SignedIn>
@@ -85,7 +94,10 @@ export default function Res(){
                 <Cursor cursorStyle="|" /></h1>
             </section>
             <section className="Bookings">
-                <h1>Book Venue.</h1>
+              <section className="book-head">
+                <h1 className="head2">Book</h1>
+                <h1 className="head2">Venue.</h1>
+                </section>
                 <section className="booking-body">
                 <section className="Sports"> 
                  {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
@@ -160,41 +172,47 @@ export default function Res(){
             <section className="marquee-section">
                 <Marquee play>
                     <section className="text_wrap">
-                    🏀 Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    🎾 Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    ⚽ Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    🏊 Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    🏉 Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    🏑 Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    🏐 Upcoming Events •
+                     Upcoming Events •
                     </section>
                     <section className="text_wrap">
-                    🏃 Upcoming Events • 
+                     Upcoming Events • 
                     </section>
 
                 </Marquee>
             </section>
             <section className="calendar-section">
-                <h2>Event Calendar.</h2>
+            <section className="calendar-heading">
+                <h2>Event</h2>
+                <h2 className="cal">Calendar.</h2>
+            </section>
                 <FullCalendar
                   plugins={[dayGridPlugin]} // Register the dayGrid plugin
                   initialView="dayGridMonth" // Default view
                 />
             </section>
             <section className="reports">
-              <h2>Report Faults</h2>
+              <section className="report-head">
+              <h2>Report</h2>
+              <h2 className="hed2">Faults</h2>
+              </section>
               <form className="report-form" onSubmit={handleReportSubmit}>
         <label htmlFor="facility">Facility</label>
         <select id="facility" value={selectedFacility} onChange={handleFacilityChange}>
@@ -217,6 +235,11 @@ export default function Res(){
 
         <button type="submit">Log Report</button>
       </form>
+      <section className="caution">
+        <section className="circle">
+              <p>Caution • Report • Caution • Fault • </p>
+        </section>
+      </section>
           </section>
         </section>
         </section>
