@@ -1,21 +1,17 @@
-const{MongoClient} =require("mongodb")
-require("dotenv").config({path: "./config.env"})
+// server/connect.cjs
+// this helper connects to MongoDB and returns both db and client
+const { MongoClient } = require("mongodb");
+require("dotenv").config({ path: "./config.env" });
 
-async function main() {
-    const Db = process.env.ATLAS_URL
-    const client = new MongoClient(Db)
+const connectionString = process.env.ATLAS_URL;
+const client = new MongoClient(connectionString);
 
-
-    try {
-        await client.connect()
-        const collections = await client.db("StriveSports").collections()
-        collections.forEach((collection)=>console.log(collection.s.namespace.collection))
-    } catch (e) {
-        console.log(e)
-    }finally{
-        await client.close()
-    }
-
+async function connectToDB() {
+  await client.connect();
+  return {
+    db: client.db("StriveSports"),
+    client
+  };
 }
 
-main()
+module.exports = connectToDB;
