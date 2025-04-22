@@ -33,6 +33,7 @@
     "@fullcalendar/interaction": "^6.1.17",
     "@fullcalendar/react": "^6.1.17",
     "@fullcalendar/timegrid": "^6.1.17",
+    "axios": "^1.8.4",
     "dotenv": "^16.5.0",
     "gsap": "^3.12.7",
     "i": "^0.3.7",

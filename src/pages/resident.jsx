@@ -23,6 +23,8 @@ import Soccer from '../assets/images/NewSoccer.jpg';
 import Marquee from 'react-fast-marquee';
 import "@fullcalendar/common/main.css";
 import './resident.css';
+import axios from 'axios';
+
 
 export default function Res() {
   const [text] = useTypewriter({
@@ -221,7 +223,7 @@ export default function Res() {
 
                         try {
                           const response = await fetch(
-                            "http://localhost:5000/api/sportsbookings",
+                            "http://localhost:3000/bookings",
                             {
                               method: "POST",
                               headers: {
