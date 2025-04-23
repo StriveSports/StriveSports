@@ -38,11 +38,34 @@ app.post('/bookings',async (req,res)=>{
     }
 })
 
-// app.get('/getbookings',(req,res)=>{
-//     UserModel.find()
-//     .then(Sports=> res.json(Sports))
-//     .catch(err => res.json(err))
-// })
+// allowing the admin to make the bookings.
+// app.get('/bookings', async (req, res) => {
+//     try {
+//         const bookings = await UserModel.find();
+//         res.json(bookings);
+//     } catch (err) {
+//         res.status(500).json({ error: "Failed to fetch bookings" });
+//     }
+// });
+
+// app.patch('/bookings/:id', async (req, res) => {
+//     const { status } = req.body;
+//     if (!['approved', 'rejected'].includes(status)) {
+//         return res.status(400).json({ error: "Invalid status value" });
+//     }
+//     try {
+//         const booking = await UserModel.findByIdAndUpdate(
+//             req.params.id,
+//             { status },
+//             { new: true }
+//         );
+//         res.json({ message: `Booking ${status}`, booking });
+//     } catch (error) {
+//         console.error("Error updating booking status", error);
+//         res.status(500).json({ error: "Failed to update booking" });
+//     }
+// });
+
 
 app.listen(3000,() =>{
     console.log("Server is listening to port 3000")

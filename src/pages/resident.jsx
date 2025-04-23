@@ -285,19 +285,16 @@ export default function Res() {
               </section>
 
               <form className="report-form" onSubmit={handleReportSubmit}>
-                <label htmlFor="facility">Facility</label>
-                <select
-                  id="facility"
-                  value={selectedFacility}
-                  onChange={handleFacilityChange}
-                >
-                  <option value="">Select Facility</option>
-                  <option value="Tennis Court">Tennis Court</option>
-                  <option value="Swimming Pool">Swimming Pool</option>
-                  <option value="Soccer Field">Soccer Field</option>
-                  <option value="Basketball Court">Basketball Court</option>
-                  <option value="Gym">Gym</option>
-                </select>
+        <label htmlFor="facility">Facility</label>
+        <select id="facility" value={selectedFacility} onChange={handleFacilityChange}>
+          <option value="">Select Facility</option>
+          <option value="Tennis Court">Tennis Court</option>
+          <option value="Swimming Pool">Swimming Pool</option>
+          <option value="Soccer Field">Soccer Field</option>
+          <option value="Basketball Court">Basketball Court</option>
+          <option value="Netball Court">Netball Court</option>
+          <option value="Gym">Gym</option>
+        </select>
 
                 <label htmlFor="description">What's the issue?</label>
                 <textarea
