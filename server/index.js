@@ -23,12 +23,12 @@ mongoose.connect(ATLAS_URL,{
 
 app.post('/bookings',async (req,res)=>{
     try {
-        const {sport,date,time,resInfo} = req.body;
+        const {sport,date,time,residentInfo} = req.body;
         const newBooking = new UserModel({
             sport,
             date,
             time,
-            resInfo
+            residentInfo
         });
         await newBooking.save();
         res.status(201).json({message:"Booking successful"})

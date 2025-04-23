@@ -5,7 +5,7 @@ const bookingSchema = new mongoose.Schema({
     sport:String,
     date:String,
     time:String,
-    resInfo:String //for the resident information.
+    residentInfo:String //for the resident information.
 })
 
 const UserModel = mongoose.model("Sports",bookingSchema);

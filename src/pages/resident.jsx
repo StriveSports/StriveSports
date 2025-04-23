@@ -25,6 +25,8 @@ import "@fullcalendar/common/main.css";
 import './resident.css';
 import axios from 'axios';
 
+import { getAuth } from "@clerk/clerk-react";
+
 
 export default function Res() {
   const [text] = useTypewriter({
@@ -50,6 +52,10 @@ export default function Res() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [hoveredSport, setHoveredSport] = useState(null);
+
+  //user variable for auth() and test is for storing user information.
+  //  const{userId} = useAuth();
+  //  const test = localStorage.getItem(userId);
 
   const timeSlots = Array.from({ length: 12 }, (_, i) => {
     const hour = i + 8;
