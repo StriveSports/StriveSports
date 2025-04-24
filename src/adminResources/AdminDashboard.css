@@ -144,6 +144,7 @@ li{
   border-top: 0.5vh solid rgb(32, 0, 128);
   border-bottom: 1vh solid rgb(32, 0, 128);
   transition: all 0.2s;
+  display: flex;
 }
 .bookingsMenuButt:hover{
   background-color: aqua;

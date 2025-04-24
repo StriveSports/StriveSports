@@ -3,8 +3,15 @@ import updateRole from './updateRole.jsx';
 import removeConfigMenu from './removeConfigMenu.jsx';
 import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
+import getBookings from './getBookings.jsx';
 
 export default function AdminDashboard() {
+    let bookings;
+    let loaded = false;
+    getBookings().then((data) => {
+        bookings = data;
+    })
+
     function loadBookings(){
         const bookingMenu = document.getElementById('bookings');
         const button = document.querySelector('.bookingsMenuButt');
