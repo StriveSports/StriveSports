@@ -7,6 +7,7 @@ import STEP4 from '../assets/images/STEP4.jpg';
 import STEP5 from '../assets/images/STEP5.jpg';
 import STEP6 from '../assets/images/STEP6.jpg';
 import STEP7 from '../assets/images/STEP7.jpg';
+import "./onboard3.css";
 const Onboard = () => {
     const [hoveredSport, setHoveredSport] = useState(null);
 const [selectedSport, setSelectedSport] = useState(null);
