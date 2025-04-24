@@ -76,7 +76,7 @@ app.patch('/bookings/:id', async (req, res) => {
 //URL for  http:localhost:3000/bookings/:id 
 app.delete('/bookings/:id', async (req, res) => {
     try {
-        await BookingModel.findByIdAndDelete(req.params.id);
+        await UserModelModel.findByIdAndDelete(req.params.id);
         res.json({ message: 'Booking deleted' });
     } catch (error) {
         console.error('Error deleting booking', error);
