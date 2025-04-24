@@ -15,6 +15,8 @@ Creating a Sports management Application to manage community facilities (SD Assi
   - [Installation](#server-installation)
   - [Starting the Server](#starting-the-server)
   - [Server Rules & Instructions](#server-rules--instructions)
+-[Toast High vulnerabilty error fix](#high-severity-vulnerabilities)
+  -[run this in terminal](#run-npm)
 
 
 ---
@@ -69,3 +71,7 @@ Ensure you have the following installed:
   -npm start , you should see server is connected listening to port 3000 and Mongodb is connected.
   - write the things in which you installed on the application ,if the terminal is crying and stuff e.g
   - npm install cors express mongoose
+
+## Toast High vulnerabilty error fix
+###run this in terminal
+npm audit fix
