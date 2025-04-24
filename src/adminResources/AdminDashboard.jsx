@@ -4,12 +4,63 @@ import removeConfigMenu from './removeConfigMenu.jsx';
 import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
+import updateStatus from './updateStatus.jsx';
 
 export default function AdminDashboard() {
     let bookings;
+    
     getBookings().then((data) => {
-        bookings = data;
-        loadBookings(bookings);
+        //DOM Manipulation
+
+        let menu = document.getElementById('bookings');
+        for (let booking of data) {
+            const bookingRow = document.createElement('ul');
+
+            
+
+            const sport = document.createElement('li');
+            const time = document.createElement('li');
+            const date = document.createElement('li');
+            const status = document.createElement('li');
+
+            sport.innerText = booking.sport;
+            time.innerText = booking.time;
+            date.innerText = booking.date;
+            status.innerText = booking.status;
+
+            bookingRow.className = 'bookingRow';
+            status.className = 'bookingStatus';
+
+
+            bookingRow.addEventListener('click', () => {//onclick Functionality for each row
+                if (status.innerText === 'pending') {
+                    status.innerText = 'approved';
+                    updateStatus(booking._id, 'approved');
+                    status.style.backgroundColor = 'lime';
+
+                } else if (status.innerText === 'approved') {
+                    status.innerText = 'rejected';
+                    updateStatus(booking._id, 'rejected');
+                    status.style.backgroundColor = 'red';
+
+                } else if (status.innerText === 'rejected') {
+
+                    status.innerText = 'pending';
+                    updateStatus(booking._id, 'pending');
+                    status.style.backgroundColor = 'aquamarine';
+                }
+                else{
+                    alert('Unexpected status');
+                }
+            })
+
+            bookingRow.appendChild(sport);
+            bookingRow.appendChild(time);
+            bookingRow.appendChild(date);
+            bookingRow.appendChild(status);
+            menu.appendChild(bookingRow);
+        }
+        
     })
 
     function loadBookings(){
@@ -46,8 +97,7 @@ export default function AdminDashboard() {
         </section>
         <button onClick={loadBookings} className='bookingsMenuButt'>Booking</button>
 
-        <section id='bookings' className='bookings'>
-        </section>
+        <section id='bookings' className='bookings'></section>
         </main>
     )
 }

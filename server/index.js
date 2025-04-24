@@ -3,7 +3,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-require('dotenv').config({path:'./config.env'});
+require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 
 const app = express()
@@ -54,9 +54,9 @@ app.get('/bookings', async (req, res) => {
 
 //update the booking status (approved or reject)
 //URL for approve or reject http:localhost:3000/bookings/:id 
-app.patch('/bookings/:id', async (req, res) => {
+app.post('/bookings/:id', async (req, res) => {
     const { status } = req.body;
-    if (!['approved', 'rejected'].includes(status)) {
+    if (!['approved', 'rejected','pending'].includes(status)) {
         return res.status(400).json({ error: "Invalid status value" });
     }
     try {
@@ -84,8 +84,8 @@ app.delete('/bookings/:id', async (req, res) => {
     }
 });
 
-
-app.listen(3000,() =>{
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,() =>{
     console.log("Server is listening to port 3000")
 })
 
