@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1745262688840" clover="3.2.0">
-  <project timestamp="1745262688840" name="All files">
-    <metrics statements="38" coveredstatements="35" conditionals="18" coveredconditionals="14" methods="11" coveredmethods="10" elements="67" coveredelements="59" complexity="0" loc="38" ncloc="38" packages="4" files="8" classes="8"/>
+<coverage generated="1745517723895" clover="3.2.0">
+  <project timestamp="1745517723895" name="All files">
+    <metrics statements="57" coveredstatements="52" conditionals="20" coveredconditionals="15" methods="24" coveredmethods="21" elements="101" coveredelements="88" complexity="0" loc="57" ncloc="57" packages="5" files="11" classes="11"/>
     <package name="src">
       <metrics statements="20" coveredstatements="20" conditionals="16" coveredconditionals="12" methods="4" coveredmethods="4"/>
       <file name="afterSignInRedirect.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\afterSignInRedirect.jsx">
@@ -39,7 +39,16 @@
       </file>
     </package>
     <package name="src.adminResources">
-      <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <metrics statements="19" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="9"/>
+      <file name="AdminDashboard.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\adminResources\AdminDashboard.jsx">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="6"/>
+        <line num="8" count="8" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
       <file name="BlockedUser.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\adminResources\BlockedUser.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
@@ -74,6 +83,28 @@
         <line num="6" count="2" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.pages">
+      <metrics statements="13" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="5"/>
+      <file name="WelcomeScreen.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\pages\WelcomeScreen.jsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+      </file>
+      <file name="onboard3.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\pages\onboard3.jsx">
+        <metrics statements="9" coveredstatements="7" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="3"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="32" count="28" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
       </file>
     </package>
   </project>
