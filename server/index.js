@@ -3,7 +3,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-require('dotenv').config({path:'./config.env'});
+require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 
 const app = express()
@@ -84,8 +84,8 @@ app.delete('/bookings/:id', async (req, res) => {
     }
 });
 
-
-app.listen(3000,() =>{
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,() =>{
     console.log("Server is listening to port 3000")
 })
 
