@@ -13,6 +13,7 @@ export default function AdminDashboard() {
     })
 
     function loadBookings(){
+        /*
         const bookingMenu = document.getElementById('bookings');
         const button = document.querySelector('.bookingsMenuButt');
         if (bookingMenu.style.left === '0px'){
@@ -22,7 +23,7 @@ export default function AdminDashboard() {
         else{
             bookingMenu.style.left = 0;
             button.style.right = '65vw';
-        }
+        }*/
     }
 
     return(
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
         <section className='userButton'>
             <UserButton></UserButton>
         </section>
-        <button onClick={loadBookings} className='bookingsMenuButt'>Booking</button>
+        <button className='bookingsMenuButt'>Booking</button>
 
         <section id='bookings' className='bookings'>
 
