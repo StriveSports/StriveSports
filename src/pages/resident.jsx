@@ -92,7 +92,7 @@ export default function Res() {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/reports", {
+      const response = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/reports", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -232,7 +232,7 @@ export default function Res() {
 
                         try {
                           const response = await fetch(
-                            "http://localhost:3000/bookings",
+                            "https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings",
                             {
                               method: "POST",
                               headers: {

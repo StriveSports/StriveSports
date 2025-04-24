@@ -55,6 +55,12 @@ app.get('/bookings', async (req, res) => {
     }
 });
 
+//for testing server.
+app.get('/', (req, res) => {
+    res.send('Server is running!');
+  });
+  
+
 //update the booking status (approved or reject)
 //URL for approve or reject http:localhost:3000/bookings/:id 
 app.post('/bookings/:id', async (req, res) => {
