@@ -11,8 +11,7 @@ jest.mock('@clerk/clerk-react', () => ({
 describe('BlockedUser Component', () => {
   test('renders denial message and user button', () => {
     render(<BlockedUser />);
-    
-    // Check the main heading text
+
     const heading = screen.getByText(/Access to this website has been denied/i);
     expect(heading).toBeInTheDocument();
 

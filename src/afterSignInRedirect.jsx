@@ -32,6 +32,11 @@ export default function AfterSignInRedirect() {
                 navigate('/pages/WelcomeScreen');
                 }
             }
+            else if(user.publicMetadata.role == 'Facility staff' || !role){
+                if (window.location.pathname !== '/pages/WelcomeScreen') {
+                navigate('/pages/WelcomeScreen');
+                }
+            }
         }
         else{
             navigate('/pages/WelcomeScreen');

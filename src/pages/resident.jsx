@@ -24,6 +24,11 @@ import Marquee from 'react-fast-marquee';
 import "@fullcalendar/common/main.css";
 import './resident.css';
 import axios from 'axios';
+import { ToastContainer, toast,Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
 
 
 export default function Res() {
@@ -50,6 +55,10 @@ export default function Res() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [hoveredSport, setHoveredSport] = useState(null);
+
+  //user variable for auth() and test is for storing user information.
+  //  const{userId} = useAuth();
+  //  const test = localStorage.getItem(userId);
 
   const timeSlots = Array.from({ length: 12 }, (_, i) => {
     const hour = i + 8;
@@ -210,7 +219,7 @@ export default function Res() {
                       className="book-button"
                       onClick={async () => {
                         if (!selectedDate || !selectedTime) {
-                          alert("Please select a date and time before booking.");
+                          toast.warn("Please select a date and time before booking.");
                           return;
                         }
 
@@ -235,13 +244,13 @@ export default function Res() {
 
                           const result = await response.json();
                           if (response.ok) {
-                            alert("Booking successful!");
+                            toast.success("Booking successful!");
                           } else {
-                            alert("Booking failed: " + result.message);
+                            toast.error("Booking failed: " + result.message);
                           }
                         } catch (err) {
                           console.error(err);
-                          alert("Server error while booking.");
+                          toast.error("Server error while booking.");
                         }
 
                         setSelectedDate(null);
@@ -250,6 +259,7 @@ export default function Res() {
                     >
                       Book
                     </button>
+                   
                   </section>
                 </section>
               )}
@@ -279,19 +289,16 @@ export default function Res() {
               </section>
 
               <form className="report-form" onSubmit={handleReportSubmit}>
-                <label htmlFor="facility">Facility</label>
-                <select
-                  id="facility"
-                  value={selectedFacility}
-                  onChange={handleFacilityChange}
-                >
-                  <option value="">Select Facility</option>
-                  <option value="Tennis Court">Tennis Court</option>
-                  <option value="Swimming Pool">Swimming Pool</option>
-                  <option value="Soccer Field">Soccer Field</option>
-                  <option value="Basketball Court">Basketball Court</option>
-                  <option value="Gym">Gym</option>
-                </select>
+        <label htmlFor="facility">Facility</label>
+        <select id="facility" value={selectedFacility} onChange={handleFacilityChange}>
+          <option value="">Select Facility</option>
+          <option value="Tennis Court">Tennis Court</option>
+          <option value="Swimming Pool">Swimming Pool</option>
+          <option value="Soccer Field">Soccer Field</option>
+          <option value="Basketball Court">Basketball Court</option>
+          <option value="Netball Court">Netball Court</option>
+          <option value="Gym">Gym</option>
+        </select>
 
                 <label htmlFor="description">What's the issue?</label>
                 <textarea
@@ -318,6 +325,20 @@ export default function Res() {
       <SignedOut>
         <RedirectToSignIn redirectUrl="/Components/Signup/signup" />
       </SignedOut>
+      <ToastContainer
+                              position="top-center"
+                              autoClose={3000}
+                              hideProgressBar={false}
+                              newestOnTop={false}
+                              closeOnClick={false}
+                              rtl={false}
+                              pauseOnFocusLoss
+                              draggable
+                              pauseOnHover
+                              theme="light"
+                              transition={Bounce}
+                        />
     </>
+    
   );
 }
