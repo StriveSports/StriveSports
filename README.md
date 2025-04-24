@@ -73,5 +73,5 @@ Ensure you have the following installed:
   - npm install cors express mongoose
 
 ## Toast High vulnerabilty error fix
-###run this in terminal
+### run this in terminal
 npm audit fix
