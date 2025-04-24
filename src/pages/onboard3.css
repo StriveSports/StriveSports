@@ -26,6 +26,7 @@
 }
 
 .Bookings h1{
+    font-family: palmas;
     margin-top: 5vh;
     font-size: 12 vh;
     color:#2b18bd;
@@ -40,6 +41,12 @@
 }
 .Sports::-webkit-scrollbar {
     width: 8px;
+  }
+  @font-face {
+    font-family: "palmas";
+    src: url('./assets/fonts/MONOSPACE 821 W26 HEBREW.TTF') format('truetype');
+    font-weight: 400;
+    font-style: normal;
   }
 .Sports h1{
     padding: 1rem;

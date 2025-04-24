@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1745517723895" clover="3.2.0">
-  <project timestamp="1745517723895" name="All files">
-    <metrics statements="57" coveredstatements="52" conditionals="20" coveredconditionals="15" methods="24" coveredmethods="21" elements="101" coveredelements="88" complexity="0" loc="57" ncloc="57" packages="5" files="11" classes="11"/>
+<coverage generated="1745520758383" clover="3.2.0">
+  <project timestamp="1745520758383" name="All files">
+    <metrics statements="60" coveredstatements="52" conditionals="26" coveredconditionals="15" methods="24" coveredmethods="21" elements="110" coveredelements="88" complexity="0" loc="60" ncloc="60" packages="5" files="11" classes="11"/>
     <package name="src">
-      <metrics statements="20" coveredstatements="20" conditionals="16" coveredconditionals="12" methods="4" coveredmethods="4"/>
+      <metrics statements="23" coveredstatements="20" conditionals="22" coveredconditionals="12" methods="4" coveredmethods="4"/>
       <file name="afterSignInRedirect.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\afterSignInRedirect.jsx">
-        <metrics statements="19" coveredstatements="19" conditionals="16" coveredconditionals="12" methods="3" coveredmethods="3"/>
+        <metrics statements="22" coveredstatements="19" conditionals="22" coveredconditionals="12" methods="3" coveredmethods="3"/>
         <line num="7" count="5" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
         <line num="10" count="5" type="stmt"/>
@@ -23,8 +23,11 @@
         <line num="30" count="1" type="cond" truecount="2" falsecount="2"/>
         <line num="31" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="43" count="5" type="stmt"/>
+        <line num="35" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="48" count="5" type="stmt"/>
       </file>
       <file name="showup.jsx" path="C:\Users\Lemogang Matlou\Desktop\COMS\StriveSports\src\showup.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
