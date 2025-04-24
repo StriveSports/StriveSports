@@ -49,6 +49,7 @@ Ensure you have the following installed:
    cd your-repo/client
   - write the things in which you installed on the application e.g
   - npm install cors express mongoose
+  - npm i react-toastify
 
 ## Server
 
