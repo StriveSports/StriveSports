@@ -24,6 +24,9 @@ import Marquee from 'react-fast-marquee';
 import "@fullcalendar/common/main.css";
 import './resident.css';
 import axios from 'axios';
+import { ToastContainer, toast,Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -216,7 +219,7 @@ export default function Res() {
                       className="book-button"
                       onClick={async () => {
                         if (!selectedDate || !selectedTime) {
-                          alert("Please select a date and time before booking.");
+                          toast.warn("Please select a date and time before booking.");
                           return;
                         }
 
@@ -241,13 +244,13 @@ export default function Res() {
 
                           const result = await response.json();
                           if (response.ok) {
-                            alert("Booking successful!");
+                            toast.success("Booking successful!");
                           } else {
-                            alert("Booking failed: " + result.message);
+                            toast.error("Booking failed: " + result.message);
                           }
                         } catch (err) {
                           console.error(err);
-                          alert("Server error while booking.");
+                          toast.error("Server error while booking.");
                         }
 
                         setSelectedDate(null);
@@ -256,6 +259,7 @@ export default function Res() {
                     >
                       Book
                     </button>
+                   
                   </section>
                 </section>
               )}
@@ -321,6 +325,20 @@ export default function Res() {
       <SignedOut>
         <RedirectToSignIn redirectUrl="/Components/Signup/signup" />
       </SignedOut>
+      <ToastContainer
+                              position="top-center"
+                              autoClose={3000}
+                              hideProgressBar={false}
+                              newestOnTop={false}
+                              closeOnClick={false}
+                              rtl={false}
+                              pauseOnFocusLoss
+                              draggable
+                              pauseOnHover
+                              theme="light"
+                              transition={Bounce}
+                        />
     </>
+    
   );
 }
