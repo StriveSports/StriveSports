@@ -7,7 +7,10 @@ require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 
 const app = express()
-app.use(cors())
+//app.use(cors())
+app.use(cors({
+    origin: 'https://happy-wave-0b58f671e.6.azurestaticapps.net'
+  }));
 app.use(express.json())
 
 const ATLAS_URL=process.env.ATLAS_URL;
@@ -76,7 +79,7 @@ app.post('/bookings/:id', async (req, res) => {
 //URL for  http:localhost:3000/bookings/:id 
 app.delete('/bookings/:id', async (req, res) => {
     try {
-        await UserModelModel.findByIdAndDelete(req.params.id);
+        await UserModel.findByIdAndDelete(req.params.id);
         res.json({ message: 'Booking deleted' });
     } catch (error) {
         console.error('Error deleting booking', error);
@@ -86,7 +89,7 @@ app.delete('/bookings/:id', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,() =>{
-    console.log("Server is listening to port 3000")
+    console.log(`Server is listening on port ${PORT}`)
 })
 
 {/*
