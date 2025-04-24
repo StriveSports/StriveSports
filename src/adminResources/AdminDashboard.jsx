@@ -6,11 +6,10 @@ import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 
 export default function AdminDashboard() {
-    /*
     let bookings;
-    let loaded = false;
     getBookings().then((data) => {
         bookings = data;
+        loadBookings(bookings);
     })
 
     function loadBookings(){
@@ -25,7 +24,7 @@ export default function AdminDashboard() {
             bookingMenu.style.left = 0;
             button.style.right = '65vw';
         }
-    }*/
+    }
 
     return(
         <main className='adminDashBoardBody'>
@@ -45,10 +44,9 @@ export default function AdminDashboard() {
         <section className='userButton'>
             <UserButton></UserButton>
         </section>
-        <button className='bookingsMenuButt'>Booking</button>
+        <button onClick={loadBookings} className='bookingsMenuButt'>Booking</button>
 
         <section id='bookings' className='bookings'>
-
         </section>
         </main>
     )

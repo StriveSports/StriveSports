@@ -131,6 +131,8 @@ li{
   top: 0%;
   background-color: blue;
   transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
 
 }
 
