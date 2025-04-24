@@ -1,7 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useEffect,useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useUser,ClerkProvider } from "@clerk/clerk-react";
+import { Routes, Route, useLocation, Router } from "react-router-dom";
 import Landing from "./Landing"
 //import SignUp from "./Components/Signup/signup";
 
@@ -26,7 +23,6 @@ return(
         <Route path="/adminResources/BlockedUser" element={<BlockedUser/>}/>
         <Route path="/pages/onboard3" element={<Onboard />} />
       </Routes>
-
       <SignedOut>
       </SignedOut>
       <SignedIn className = 'signIn'>
