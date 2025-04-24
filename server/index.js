@@ -54,9 +54,9 @@ app.get('/bookings', async (req, res) => {
 
 //update the booking status (approved or reject)
 //URL for approve or reject http:localhost:3000/bookings/:id 
-app.patch('/bookings/:id', async (req, res) => {
+app.post('/bookings/:id', async (req, res) => {
     const { status } = req.body;
-    if (!['approved', 'rejected'].includes(status)) {
+    if (!['approved', 'rejected','pending'].includes(status)) {
         return res.status(400).json({ error: "Invalid status value" });
     }
     try {
