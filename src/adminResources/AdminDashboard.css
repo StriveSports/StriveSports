@@ -4,11 +4,29 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   height: 100vh;
   width: 100vw;
+  background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6vh;
   
+}
+body{
+  background-color: aliceblue;
+  height: 100vh;
+}
+@media (max-width: 600px) {
+  .tableRow{
+    font-size: small;
+  }
+  
+}
+
+
+.adminDashboard{
+  position: absolute;
+  top: 10vh;
+  color: blue;
 }
 
 .signIn{
@@ -42,7 +60,7 @@
 .loadUsers:hover{
   background-color: aqua;
   color: gray;
-  box-shadow: 0px 0px 10px 5px blue;
+  box-shadow: 0px 0px 2px 2px blue;
 }
 
 .usersTable{
@@ -68,7 +86,7 @@
   background-color: aqua;
   z-index: 1;
   transform: translateY(1px);
-  box-shadow: 0px 0px 10px 5px blue;
+  box-shadow: 0px 0px 10px 5px white;
 
 }
 
@@ -97,4 +115,41 @@ li{
   height: 30%;
   width: 20%;
   justify-content: space-evenly;
+}
+
+.goToBooking{
+  background-color: antiquewhite;
+  height: 10vw;
+  border: 5px solid black;
+}
+
+.bookings{
+  height: 160vh;
+  width: 25vw;
+  position: absolute;
+  left: -25vw;
+  top: 0%;
+  background-color: blue;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.bookingsMenuButt{
+  position: absolute;
+  top: 0%;
+  right: 1%;
+  height: 5vh;
+  background: blue;
+  border-radius: 10%;
+  border-top: 0.5vh solid rgb(32, 0, 128);
+  border-bottom: 1vh solid rgb(32, 0, 128);
+  transition: all 0.2s;
+  display: flex;
+}
+.bookingsMenuButt:hover{
+  background-color: aqua;
+  color: gray;
+  box-shadow: 0px 0px 10px 5px blue;
 }
