@@ -6,6 +6,7 @@ import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 
 export default function AdminDashboard() {
+    /*
     let bookings;
     let loaded = false;
     getBookings().then((data) => {
@@ -13,7 +14,7 @@ export default function AdminDashboard() {
     })
 
     function loadBookings(){
-        /*
+        
         const bookingMenu = document.getElementById('bookings');
         const button = document.querySelector('.bookingsMenuButt');
         if (bookingMenu.style.left === '0px'){
@@ -23,8 +24,8 @@ export default function AdminDashboard() {
         else{
             bookingMenu.style.left = 0;
             button.style.right = '65vw';
-        }*/
-    }
+        }
+    }*/
 
     return(
         <main className='adminDashBoardBody'>
