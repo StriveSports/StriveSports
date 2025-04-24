@@ -5,21 +5,15 @@ const bookingSchema = new mongoose.Schema({
     sport:String,
     date:String,
     time:String,
-    residentInfo:String //for the resident information.
-})
+    residentInfo:String, //for the resident information.
 
-//when admin books the status that should appear to uodate the schema
-// const bookingSchema = new mongoose.Schema({
-//     sport: String,
-//     date: String,
-//     time: String,
-//     residentInfo: Object,
-//     status: {
-//         type: String,
-//         enum: ['pending', 'approved', 'rejected'],
-//         default: 'pending'
-//     }
-// });
+    status: {
+        type: String,
+        enum: ['pending','approved','rejected'],
+        default: 'pending' //when the admin books the status it should appear to update the schema
+    }
+}); //added ;
+
 
 const UserModel = mongoose.model("Sports",bookingSchema);
 module.exports = UserModel;

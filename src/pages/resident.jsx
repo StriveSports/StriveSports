@@ -25,7 +25,7 @@ import "@fullcalendar/common/main.css";
 import './resident.css';
 import axios from 'axios';
 
-import { getAuth } from "@clerk/clerk-react";
+
 
 
 export default function Res() {
