@@ -26,13 +26,15 @@ import './resident.css';
 import axios from 'axios';
 import { ToastContainer, toast,Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import { useUser } from '@clerk/clerk-react';
 
 
-
-
 export default function Res() {
+  
   const { user } = useUser();
+
+
   const [text] = useTypewriter({
     words: ['Striving.', 'Thriving.', 'Living.'],
     loop: true,
@@ -106,17 +108,23 @@ export default function Res() {
       const result = await response.json();
 
       if (response.ok) {
+
         alert("Reporting successful!");
+
         toast.success("Reporting successful!");
         setSelectedFacility('');
         setDescription('');
       } else {
+
         alert("Reporting failed: " + result.message);
+
         toast.error("Reporting failed: " + result.message);
       }
     } catch (err) {
       console.error(err);
+
       alert("Server error while reporting.");
+
       toast.warn("Server error while reporting.");
     }
   };

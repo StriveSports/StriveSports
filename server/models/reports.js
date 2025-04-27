@@ -1,6 +1,6 @@
 //reports.js under the modules folder
 const mongoose = require('mongoose');
- 
+
 const reportingSchema = new mongoose.Schema({
     facility:String,
     issue:String,

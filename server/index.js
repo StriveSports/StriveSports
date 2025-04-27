@@ -6,6 +6,7 @@ const cors = require('cors')
 require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
+
 const app = express()
 //app.use(cors())
 app.use(cors({
@@ -94,9 +95,10 @@ app.delete('/bookings/:id', async (req, res) => {
 });
 
 {/*code for the model for reports.
-  allows the resident to make a report .
-  URL to make posts https://localhost:3000/reports */} 
-  app.post('/reports',async (req,res)=>{
+ allows the resident to make a report .
+ URL to make posts https://localhost:3000/reports */} 
+app.post('/reports',async (req,res)=>{
+
     try {
         const {facility,issue,residentInfo} = req.body;
         {/*// Get the start and end of today
