@@ -26,12 +26,13 @@ import './resident.css';
 import axios from 'axios';
 import { ToastContainer, toast,Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useUser } from '@clerk/clerk-react';
 
 
 
 
 export default function Res() {
+  const { user } = useUser();
   const [text] = useTypewriter({
     words: ['Striving.', 'Thriving.', 'Living.'],
     loop: true,
@@ -83,16 +84,18 @@ export default function Res() {
 
     if (!selectedFacility || !description) {
       alert("Please insert all fields accurately.");
+      toast.warn("Please insert all fields accurately.");
       return;
     }
 
     const reportData = {
       facility: selectedFacility,
       issue: description,
+      residentInfo: user?.id || "Unknown" //clerk suppose to handle this.
     };
 
     try {
-      const response = await fetch("http://localhost:5000/reports", {
+      const response = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/reports", { //https://localhost:8080/reports
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,14 +107,17 @@ export default function Res() {
 
       if (response.ok) {
         alert("Reporting successful!");
+        toast.success("Reporting successful!");
         setSelectedFacility('');
         setDescription('');
       } else {
         alert("Reporting failed: " + result.message);
+        toast.error("Reporting failed: " + result.message);
       }
     } catch (err) {
       console.error(err);
       alert("Server error while reporting.");
+      toast.warn("Server error while reporting.");
     }
   };
 
@@ -227,12 +233,12 @@ export default function Res() {
                           sport: selectedSport,
                           date: selectedDate.toLocaleDateString('en-CA'),
                           time: selectedTime,
-                          residentInfo: null, // possibly add Clerk user ID here
+                          residentInfo:user?.id || "Unknown" // possibly add Clerk user ID here
                         };
 
                         try {
                           const response = await fetch(
-                            "http://localhost:3000/bookings",
+                            "https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings",
                             {
                               method: "POST",
                               headers: {
@@ -306,7 +312,7 @@ export default function Res() {
                   rows="4"
                   value={description}
                   onChange={handleDescriptionChange}
-                  placeholder="e.g., Net is torn, lights not working..."
+                  placeholder="e.g. Net is torn, lights not working..."
                 />
 
                 <button type="submit" className="log-button">Log Report</button>
