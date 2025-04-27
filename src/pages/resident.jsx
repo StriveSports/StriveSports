@@ -182,15 +182,21 @@ export default function Res() {
               height: 'auto', 
               minHeight: '50vh',
               margin: '4rem auto',
-              width:'auto',
+              width:'100%',
               marginTop:'17vh',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              textAlign: 'left',   
             }}>
-              <section className="book-head"
+              <Box className="book-head"
               sx={{ marginBottom: '1rem' }}>
               <Typography variant="h1" 
               sx={{ 
                 fontFamily:'palmas, sans-serif', 
-                fontSize: { xs: '3rem', sm: '5rem', md: '8rem' },
+                fontSize: { xs: '3rem', sm: '5rem', md: '8rem',
+                  textAlign:'left'
+                 },
                 }}>
             Book
           </Typography>
@@ -200,11 +206,14 @@ export default function Res() {
             fontSize: { xs: '4rem', sm: '5rem', md: '8rem' }}}>
             Venue
           </Typography>
-              </section>
+              </Box>
 
-              <section className="booking-body"
-              sx={{ display: 'flex', justifyContent: 'flex-start' }}>
-                <section className="Sports">
+              <Box className="booking-body"
+              sx={{ 
+                display: 'flex', 
+                justifyContent: 'flex-start',
+                textAlign:'left' }}>
+                <Box className="Sports">
                   {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
                    <Typography
                    key={sport}
@@ -212,7 +221,7 @@ export default function Res() {
                    sx={{ 
                     fontFamily: 'Helvetica Neue, Arial, sans-serif', 
                     cursor: "pointer" ,
-                    fontSize: { xs: '3rem', sm: '4rem', md: '5' },
+                    fontSize: { xs: '3rem', sm: '4rem', md: '5rem' },
                     textAlign: 'left',
                     transition: 'color 0.3s ease',
                     padding: '0.5rem',
@@ -226,7 +235,7 @@ export default function Res() {
                    {sport}
                  </Typography>
                   ))}
-                </section>
+                </Box>
 
                 <section className="hover-image-container">
                   {hoveredSport && (
@@ -237,7 +246,7 @@ export default function Res() {
                     />
                   )}
                 </section>
-              </section>
+              </Box>
 
               {selectedSport && (
                 <section className="popup-overlay" onClick={() => setSelectedSport(null)}>
