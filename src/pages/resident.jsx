@@ -26,7 +26,7 @@ import './resident.css';
 import axios from 'axios';
 import { ToastContainer, toast,Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { Typography, Button, TextField, Select, MenuItem, InputLabel, FormControl,Box } from '@mui/material';
 import { useUser } from '@clerk/clerk-react';
 
 
@@ -148,32 +148,83 @@ export default function Res() {
             <UserButton />
           </section>
 
-          <section className='cont'>
-            <section className="designer-container">
-              <h1 className="designer-title">Resident,</h1>
-              <h1 className="designer-subtitle">
-                {text}
-                <Cursor cursorStyle="|" />
-              </h1>
-            </section>
+          <Box className='cont'>
+            <Box className="designer-container">
+            <Typography 
+            variant="h1" 
+            sx={{ 
+              fontFamily: 'Helvetica Neue, Arial, sans-serif', 
+              fontWeight: 400, 
+              fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }, 
+              textAlign: 'left', 
+              marginLeft: '1rem'
+            }}
+            >
+              Resident,
+            </Typography>
+            <Typography 
+            variant="h1" 
+            sx={{ 
+              fontFamily: 'Helvetica Neue, Arial, sans-serif', 
+              fontWeight: 400, 
+              fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }, 
+              textAlign: 'left', 
+              marginLeft:'1rem'
+            }}
+            >
+            {text} <Cursor cursorStyle="|" />
+            </Typography>
+            </Box>
 
-            <section className="Bookings">
-              <section className="book-head">
-                <h1 className="head2">Book</h1>
-                <h1 className="head2">Venue.</h1>
+            
+            <Box className="Bookings"
+            sx={{
+              height: 'auto', 
+              minHeight: '50vh',
+              margin: '4rem auto',
+              width:'auto',
+              marginTop:'17vh',
+            }}>
+              <section className="book-head"
+              sx={{ marginBottom: '1rem' }}>
+              <Typography variant="h1" 
+              sx={{ 
+                fontFamily:'palmas, sans-serif', 
+                fontSize: { xs: '3rem', sm: '5rem', md: '8rem' },
+                }}>
+            Book
+          </Typography>
+          <Typography variant="h1" 
+          sx={{ 
+            fontFamily: 'palmas, sans-serif', 
+            fontSize: { xs: '4rem', sm: '5rem', md: '8rem' }}}>
+            Venue
+          </Typography>
               </section>
 
-              <section className="booking-body">
+              <section className="booking-body"
+              sx={{ display: 'flex', justifyContent: 'flex-start' }}>
                 <section className="Sports">
                   {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
-                    <h1
-                      key={sport}
-                      onClick={() => setSelectedSport(sport)}
-                      onMouseEnter={() => setHoveredSport(sport)}
-                      onMouseLeave={() => setHoveredSport(null)}
-                    >
-                      {sport}
-                    </h1>
+                   <Typography
+                   key={sport}
+                   variant="h1"
+                   sx={{ 
+                    fontFamily: 'Helvetica Neue, Arial, sans-serif', 
+                    cursor: "pointer" ,
+                    fontSize: { xs: '3rem', sm: '4rem', md: '5' },
+                    textAlign: 'left',
+                    transition: 'color 0.3s ease',
+                    padding: '0.5rem',
+                    '&:hover': {
+                      color: '#000',
+                    },}}
+                   onClick={() => setSelectedSport(sport)}
+                   onMouseEnter={() => setHoveredSport(sport)}
+                   onMouseLeave={() => setHoveredSport(null)}
+                 >
+                   {sport}
+                 </Typography>
                   ))}
                 </section>
 
@@ -277,29 +328,62 @@ export default function Res() {
                   </section>
                 </section>
               )}
-            </section>
+           </Box>
 
             <section className="marquee-section">
               <Marquee play>
-                {Array(8).fill(<section className="text_wrap">Upcoming Events •</section>)}
+                {Array(8).fill(<Typography variant="h5" sx={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', mx: 2 }}>
+              Upcoming Events •
+            </Typography>)}
               </Marquee>
             </section>
 
-            <section className="calendar-section">
-              <section className="calendar-heading">
-                <h2>Event</h2>
-                <h2 className="cal">Calendar.</h2>
+            <Box className="calendar-section" sx={{
+              height: 'auto', 
+              minHeight: '50vh',
+              margin: '4rem auto',
+              
+            }}>
+              <section className="calendar-heading" >
+              <Typography variant="h2" 
+              sx={{ 
+                fontFamily: 'Helvetica Neue, Arial, sans-serif', 
+                color: '#2b18bd', 
+                fontWeight: 300, 
+                fontSize:{ xs: '5rem', sm: '6rem', md: '8rem' },
+                marginBottom: '1rem' 
+              }}>Event</Typography>
+          <Typography variant="h2" className="cal" 
+          sx={{ 
+            fontFamily: 'Helvetica Neue, Arial,sans-serif',
+            fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }}}>Calendar.</Typography>
               </section>
               <FullCalendar
                 plugins={[dayGridPlugin]} // Register the dayGrid plugin
                 initialView="dayGridMonth" // Default view
               />
-            </section>
+            </Box>
 
-            <section className="reports">
-              <section className="report-head">
-                <h2>Report</h2>
-                <h2 className="hed2">Faults</h2>
+            <Box className="reports">
+              <section className="report-head" style={{ display: 'flex', alignItems: 'center', gap: '18px',flexDirection: 'column' }}>
+              <Typography variant="h2" sx={{ 
+        fontFamily: 'Nimbus, sans-serif', 
+        fontSize: { xs: '5rem', sm: '6rem', md: '8rem' },
+        fontWeight: 400, 
+        textAlign: 'center', 
+        color: '#000', 
+        WebkitTextStroke: '1.5px #333',
+        '&:hover': { color: 'transparent' }
+      }}>Report</Typography>
+              <Typography variant="h2" sx={{ 
+        fontFamily: 'Nimbus, sans-serif', 
+        fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }, 
+        fontWeight: 400, 
+        textAlign: 'center', 
+        color: '#000', 
+        WebkitTextStroke: '1.5px #333',
+        '&:hover': { color: 'transparent' }
+      }}>Faults</Typography>
               </section>
 
               <form className="report-form" onSubmit={handleReportSubmit}>
@@ -328,11 +412,13 @@ export default function Res() {
 
               <section className="caution">
                 <section className="circle">
-                  <p>Caution • Report • Caution • Fault • </p>
+                <Typography variant="body1">
+              Caution • Report • Caution • Fault • 
+            </Typography>
                 </section>
               </section>
-            </section>
-          </section>
+            </Box>
+          </Box>
         </section>
       </SignedIn>
 
