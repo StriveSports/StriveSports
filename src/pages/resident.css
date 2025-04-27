@@ -8,6 +8,8 @@
 .userButton {
     padding: 1rem;
     text-align: right; 
+    position: fixed;
+    z-index: 1000; 
   }
 .cont{
   flex-grow: 1;
