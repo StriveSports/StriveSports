@@ -41,6 +41,7 @@
     "@fullcalendar/react": "^6.1.17",
     "@fullcalendar/timegrid": "^6.1.17",
     "@mui/material": "^5.15.15",
+    "@mui/x-data-grid": "^8.1.0",
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

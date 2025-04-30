@@ -50,59 +50,13 @@ body{
   left: 3%;
 }
 
-.loadUsers{
-  transition: all 0.2s;
-  background-color: white;
-  color: blue;
-  border : 2px solid blue;
-  font-size: x-large;
-}
-.loadUsers:hover{
-  background-color: aqua;
-  color: gray;
-  box-shadow: 0px 0px 2px 2px blue;
-}
-
 .usersTable{
-  display: flex;
-  list-style:circle;
-  flex-direction: column;
-  list-style-type: decimal;
-  font-size: xx-large;
   width: 100%;
-  background-color: antiquewhite;
-}
-
-.tableRow{
-  transition: all 0.2s;
-  list-style: none;
-  width: 100%;
-  border: 2px solid black;
-  display: flex;
-  flex-direction: row;
-}
-
-.tableRow:hover{
-  background-color: aqua;
-  z-index: 1;
-  transform: translateY(1px);
-  box-shadow: 0px 0px 10px 5px white;
-
 }
 
 li{
   flex-grow: 2;
   text-shadow: 0 0 2px white;
-}
-
-.surname{
-  margin: auto;
-} 
-.email{
-  margin: auto;
-}
-.role{
-  margin: auto;
 }
 
 .configMenu{
@@ -129,6 +83,7 @@ li{
   position: absolute;
   left: -25vw;
   top: 0%;
+  z-index: 1;
   background-color: blue;
   transition: all 0.2s;
   display: flex;

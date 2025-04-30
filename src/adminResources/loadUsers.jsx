@@ -73,7 +73,7 @@ export default async function loadUsers() {
         }
 
         row.addEventListener('click',()=>{
-               localStorage.setItem('userId', userId);
+                localStorage.setItem('userId', userId);
                 const configMenu = document.getElementById('configMenu');
                 configMenu.style.left = '40%';
         });

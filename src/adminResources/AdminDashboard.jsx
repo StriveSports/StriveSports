@@ -5,8 +5,15 @@ import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 import updateStatus from './updateStatus.jsx';
+import { Box } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import getUsers from './getUsers.jsx';
+import { useState, useEffect } from "react";
+
 
 export default function AdminDashboard() {
+
+    //Loading the bookings
     let bookings;
     
     getBookings().then((data) => {
@@ -63,6 +70,8 @@ export default function AdminDashboard() {
         
     })
 
+
+    //Loading the bookings
     function loadBookings(){
         
         const bookingMenu = document.getElementById('bookings');
@@ -77,10 +86,37 @@ export default function AdminDashboard() {
         }
     }
 
+    //creating the user table
+    const [rows, setRows] = useState([]);
+
+    useEffect(() => {
+        getUsers().then((data) => {
+            const processedRows = data.map(element => ({
+                id: element.id,
+                name: element.firstName,
+                lastName: element.lastName,
+                email: element.emailAddresses[0].emailAddress,
+                role: element.publicMetadata.role || "none",
+            }));
+
+            setRows(processedRows); //Updates state, triggering re-render
+        });
+    }, []);
+
+    //Role update functionality
+    const roleChange = (row) => {
+        localStorage.setItem('userId', row.id);
+        const configMenu = document.getElementById('configMenu');
+        configMenu.style.left = '40%';
+    }
+
+
+
+
+
     return(
         <main className='adminDashBoardBody'>
         <h1 className='adminDashboard'>Admin Dashboard</h1>
-        <button onClick={loadUsers} className='loadUsers'>Load users</button>
         
         <section className='configMenu' id='configMenu'>
             <button onClick={()=>updateRole('Facility staff')} className='updateRole'>Facility staff</button>
@@ -91,13 +127,44 @@ export default function AdminDashboard() {
             <button onClick={removeConfigMenu} className='updateRole'>complete</button>
         </section>
 
-        <ul id='usersTable' className='usersTable' ></ul>
-        <section className='userButton'>
-            <UserButton></UserButton>
+        <section>
+            <section className='userButton'>
+                <UserButton></UserButton>
+            </section>
+            <button onClick={loadBookings} className='bookingsMenuButt'>Booking</button>
         </section>
-        <button onClick={loadBookings} className='bookingsMenuButt'>Booking</button>
-
+        
         <section id='bookings' className='bookings'></section>
+
+        <section className='usersTable'>
+        <Box>
+            <DataGrid
+                rows={rows}
+                columns={[
+                    { field: 'name', headerName: 'Name', flex: 1 },
+                    { field: 'lastName', headerName: 'Last Name', flex: 1 },
+                    { field: 'email', headerName: 'Email', flex: 2 },
+                    { field: 'role', headerName: 'Role', flex: 1,
+
+                        renderCell: (params) => (
+                            <button onClick={() => roleChange(params.row)}>
+                                {params.value}
+                            </button>
+                        ),
+            
+                     },
+                ]}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                sx={{
+                    "& .MuiDataGrid-root": { fontFamily: "Arial, sans-serif" },
+                    "& .MuiDataGrid-cell": { fontSize:"large" },
+                }}
+            
+                
+            />
+        </Box>
+        </section>
         </main>
     )
 }
