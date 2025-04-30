@@ -5,15 +5,21 @@ import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 import updateStatus from './updateStatus.jsx';
-import { Box } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
 
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
+import { formatDate } from '@fullcalendar/core/index.js';
 
 export default function AdminDashboard() {
 
     //Loading the bookings
+    
     let bookings;
     
     getBookings().then((data) => {
@@ -110,8 +116,36 @@ export default function AdminDashboard() {
         configMenu.style.left = '40%';
     }
 
+    //Calender
 
+    const Calender = () => {
 
+    }
+    const [currentEvent, setCurrentEvent] = useState([]);
+
+    const handleDateClick = (date) => {
+        const title = prompt('Please enter a new title for your event');
+
+        const calendarApi = date.view.calendar;
+        calendarApi.unselect(); // clear date selection
+        if (title) {
+            calendarApi.addEvent({
+                title,
+                start: date.startStr,
+                end: date.endStr,
+                allDay: date.allDay,
+            });
+        }
+        else{
+            alert('Please enter a title for the event');
+        }
+    }
+
+    const handleEventClick = (clickInfo) => {
+        if (window.confirm(`Are you sure you want to delete this event?`)) {
+            clickInfo.event.remove();
+        }
+    }
 
 
     return(
@@ -164,6 +198,64 @@ export default function AdminDashboard() {
                 
             />
         </Box>
+        </section>
+
+        
+        <section className='calenderAndBookings'>
+            <Box className='bookingsBox'>
+                <header title='Calendar' className='header'></header>
+                <Box flex="1 1 20%">
+                    <Typography variant="h4">Events</Typography>
+                    <List>
+                        {currentEvent.map((event) => (
+                            <ListItem
+                            key = {event.id}
+                            sx = {{ backgroundColor: event.color, padding: 2, margin: 1, borderRadius: 2 }}
+
+                            >
+
+                        <ListItemText
+                            primary={event.title}
+                            secondary={
+                                <Typography>
+                                    {formatDate(event.start, {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                    })}
+                                </Typography>
+                            }
+                        ></ListItemText>
+                        </ListItem>
+                        )
+                        )}
+                    </List>
+                </Box>
+            </Box>
+
+            <Box className='calenderBox'>
+                <FullCalendar
+                    height='75vh'
+                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                    headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    }}
+                    initialView='dayGridMonth'
+                    editable={true}
+                    selectable={true}
+                    selectMirror={true}
+                    dayMaxEvents={true}
+                    select={handleDateClick}
+                    eventClick={handleEventClick}
+                    eventsSet={(events) => setCurrentEvent(events)}
+                    initialEvents={[
+                        { id: '1', title: 'All-day event', date: '2025-04-30' },
+                        { id: '2', title: 'Timed event', date: '2025-05-02' },
+                    ]} // alternatively, use a more local state
+                ></FullCalendar>
+            </Box>
         </section>
         </main>
     )

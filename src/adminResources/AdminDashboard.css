@@ -126,4 +126,19 @@ li{
 .bookingStatus:hover{
   z-index : 1;
 }
-  
+
+.calenderAndBookings{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: gray;
+}
+.calenderBox{
+  width: 75%;
+  background-color: white;
+}
+.bookingsBox{
+  width: 25%;
+  background-color: white;
+}
