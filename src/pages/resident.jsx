@@ -98,7 +98,7 @@ export default function Res() {
     };
 
     try {
-      const response = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/reports", { //https://localhost:8080/reports
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/reports`, {        
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -145,7 +145,7 @@ export default function Res() {
   useEffect(() => {
     const fetchApprovedBookings = async () => {
       try {
-        const res = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings/approved");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings/approved`);
         const bookings = await res.json();
 
         const formattedEvents = bookings.map(booking => ({
@@ -339,7 +339,7 @@ export default function Res() {
 
                         try {
                           const response = await fetch(
-                            "https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings",
+                            `${import.meta.env.VITE_API_URL}/bookings`,	
                             {
                               method: "POST",
                               headers: {

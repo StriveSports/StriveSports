@@ -1,5 +1,5 @@
 const getBookings= async()=>{
-    const response = await fetch('https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings',{
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/bookings`, {	
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

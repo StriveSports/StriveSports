@@ -1,5 +1,5 @@
 const updateStatus= async(id,statusN)=>{
-    const link = 'https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings/'+id;
+    const link = `${import.meta.env.VITE_API_URL}/bookings/`+id;
 
     const response = await fetch(link,{
         method: 'POST',
