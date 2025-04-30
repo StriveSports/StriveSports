@@ -10,12 +10,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:azure": "npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "preview": "vite preview"
-  }
-,
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",

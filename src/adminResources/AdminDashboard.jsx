@@ -86,7 +86,7 @@ export default function AdminDashboard() {
         }
     }
 
-    //creating the user table
+    //creating the user table 
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
