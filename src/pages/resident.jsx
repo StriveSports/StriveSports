@@ -139,7 +139,7 @@ export default function Res() {
       )
       .join("");
   }, []);
-
+  
   return (
     <>
       <SignedIn>
@@ -212,8 +212,16 @@ export default function Res() {
               sx={{ 
                 display: 'flex', 
                 justifyContent: 'flex-start',
-                textAlign:'left' }}>
-                <Box className="Sports">
+                textAlign:'left',
+                alignItems: 'flex-start',}}>
+                <Box className="Sports"
+                sx={{ 
+                  flex: { md: '0 0 auto' },
+                  minWidth: { md: '300px' }, 
+                  flexShrink: 0,
+                  
+                }} >
+                
                   {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
                    <Typography
                    key={sport}
@@ -221,10 +229,9 @@ export default function Res() {
                    sx={{ 
                     fontFamily: 'Helvetica Neue, Arial, sans-serif', 
                     cursor: "pointer" ,
-                    fontSize: { xs: '3rem', sm: '4rem', md: '5rem' },
+                    fontSize: { xs: '1.5rem', sm: '1.8rem', md: 'clamp(2.0rem, 3vw, 2.2rem)', lg: '3rem' },
                     textAlign: 'left',
                     transition: 'color 0.3s ease',
-                    padding: '0.5rem',
                     '&:hover': {
                       color: '#000',
                     },}}
@@ -370,6 +377,24 @@ export default function Res() {
               <FullCalendar
                 plugins={[dayGridPlugin]} // Register the dayGrid plugin
                 initialView="dayGridMonth" // Default view
+                events={async () => {
+                  const response = await fetch('/api/approved-events');
+                  const events = await response.json();
+                  return events.map(event => ({
+                    title: `${event.sport} (${event.time})`,
+                    start: event.date,
+                    allDay: false,
+                    display: 'block',
+                    backgroundColor: '#2b18bd',
+                    borderColor: '#2b18bd'
+    }));
+  }}
+  eventContent={(eventInfo) => (
+    <section style={{ padding: '2px' }}>
+      <section style={{ fontWeight: 'bold' }}>{eventInfo.timeText}</section>
+      <section>{eventInfo.event.title.split(' (')[0]}</section>
+    </section>
+  )}
               />
             </Box>
 
@@ -450,4 +475,4 @@ export default function Res() {
     </>
     
   );
-}
+  }

@@ -28,7 +28,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.10",
     "react-test-renderer": "^18.3.1",
-    "vite": "^6.3.3"
+    "vite": "^6.3.4"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.30.0",

@@ -1,5 +1,5 @@
 const updateStatus= async(id,statusN)=>{
-    const link = 'http://localhost:3000/bookings/'+id;
+    const link = 'https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings/'+id;
 
     const response = await fetch(link,{
         method: 'POST',
