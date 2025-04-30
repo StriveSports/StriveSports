@@ -6,8 +6,6 @@ const getBookings= async()=>{
         },
     });
     const data = await response.json();
-    console.log(data);
-    alert('Bookings fetched successfully!');
     return data
 }
 
