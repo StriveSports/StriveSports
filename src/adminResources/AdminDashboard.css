@@ -1,144 +1,179 @@
-.adminDashBoardBody{
-  background-color: white;
-  color: black;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  height: 100vh;
+.adminDashBoardBody {
+  background-color: #f8f9fa; /* soft background */
+  color: #212529; /* dark gray text */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   width: 100vw;
-  background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6vh;
-  
+  gap: 4vh;
+  padding: 2vh 2vw;
+  overflow-x: hidden;
 }
-body{
+
+body {
   background-color: aliceblue;
-  height: 100vh;
-}
-@media (max-width: 600px) {
-  .tableRow{
-    font-size: small;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
 }
 
-
-.adminDashboard{
-  position: absolute;
-  top: 10vh;
-  color: blue;
+.adminDashboard {
+  font-size: 3rem;
+  color: #007bff; /* bootstrap blue */
+  margin-top: 2vh;
 }
 
-.signIn{
-  transition: all 0.1s;
-  background-color: white;
-  color: blue;
-  border : 2px solid blue;
-
-  position:absolute;
-  top: 50%;
-  left: 47%;
-}
-.signIn:hover{
-  background-color: aqua;
-  color: gray;
-  box-shadow: 0px 0px 10px 5px blue;
-}
-.userButton{
-  position: absolute;
-  top: 3%;
-  left: 3%;
-}
-
-.usersTable{
-  width: 100%;
-}
-
-li{
-  flex-grow: 2;
-  text-shadow: 0 0 2px white;
-}
-
-.configMenu{
+.configMenu {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   top: 30%;
   left: -100%;
-  z-index: 1;
-  height: 30%;
-  width: 20%;
-  justify-content: space-evenly;
-}
-
-.goToBooking{
-  background-color: antiquewhite;
-  height: 10vw;
-  border: 5px solid black;
-}
-
-.bookings{
-  height: 160vh;
-  width: 25vw;
-  position: absolute;
-  left: -25vw;
-  top: 0%;
-  z-index: 1;
-  background-color: blue;
-  transition: all 0.2s;
-  display: flex;
-  flex-direction: column;
-
-}
-
-.bookingsMenuButt{
-  position: absolute;
-  top: 0%;
-  right: 1%;
-  height: 5vh;
-  background: blue;
-  border-radius: 10%;
-  border-top: 0.5vh solid rgb(32, 0, 128);
-  border-bottom: 1vh solid rgb(32, 0, 128);
-  transition: all 0.2s;
-  display: flex;
-}
-.bookingsMenuButt:hover{
-  background-color: aqua;
-  color: gray;
-  box-shadow: 0px 0px 10px 5px blue;
-}
-.bookingRow{
+  z-index: 10;
   background-color: white;
-  border: black 1px solid;
+  border: 2px solid #007bff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+}
 
+.configMenu button {
+  margin: 5px 0;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #007bff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.bookingRow:hover{
-  background-color: aqua;
-  z-index: 1;
-  transform: translateY(1px);
-  box-shadow: 0px 0px 10px 5px white;
+
+.configMenu button:hover {
+  background-color: #007bff;
+  color: white;
 }
-.bookingStatus{
+
+.userButton {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+}
+
+.usersTable {
+  width: 90%;
+  max-width: 1200px;
+  background-color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+li {
+  flex-grow: 2;
+  text-shadow: 0 0 1px white;
+  list-style: none;
+}
+
+.bookings {
+  position: fixed;
+  left: -25vw;
+  top: 0;
+  height: 100vh;
+  width: 25vw;
+  background-color: #007bff;
+  color: white;
+  overflow-y: auto;
+  transition: left 0.3s ease;
+  padding-top: 8vh;
+  z-index: 5;
+}
+
+.bookingsMenuButt {
+  position: absolute;
+  top: 2vh;
+  right: 2vw;
+  height: 5vh;
+  padding: 0 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.bookingsMenuButt:hover {
+  background-color: #00c2cb;
+  transform: scale(1.05);
+}
+
+.bookingRow {
+  background-color: white;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.bookingRow:hover {
+  background-color: #e0f7fa;
+  transform: translateY(-2px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.bookingStatus {
   width: 40%;
   background-color: aquamarine;
-}
-.bookingStatus:hover{
-  z-index : 1;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
 }
 
-.calenderAndBookings{
-  width: 100vw;
-  height: 100vh;
+.bookingStatus:hover {
+  background-color: #74f9ff;
+}
+
+.calenderAndBookings {
+  width: 100%;
+  height: 80vh;
   display: flex;
-  flex-direction: row;
-  background-color: gray;
+  gap: 1vw;
+  margin-top: 3vh;
 }
-.calenderBox{
-  width: 75%;
+
+.calenderBox {
+  flex: 3;
   background-color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
 }
-.bookingsBox{
-  width: 25%;
+
+.bookingsBox {
+  flex: 1;
   background-color: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+/* Smaller screens */
+@media (max-width: 768px) {
+  .calenderAndBookings {
+    flex-direction: column;
+  }
+
+  .bookingsBox, .calenderBox {
+    width: 100%;
+  }
+
+  .bookings {
+    width: 60vw;
+  }
 }
