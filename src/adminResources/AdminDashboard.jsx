@@ -40,6 +40,7 @@ export default function AdminDashboard() {
             time.innerText = booking.time;
             date.innerText = booking.date;
             status.innerText = booking.status;
+            
 
             bookingRow.className = 'bookingRow';
             status.className = 'bookingStatus';

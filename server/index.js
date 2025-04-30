@@ -9,10 +9,8 @@ const ReportModel = require('./models/reports')
 
 const app = express()
 //app.use(cors())
-app.use(cors({
-    origin: 'https://happy-wave-0b58f671e.6.azurestaticapps.net'
-  }));
 app.use(express.json())
+app.use(cors());
 
 const ATLAS_URL=process.env.ATLAS_URL;
 
