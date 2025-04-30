@@ -375,21 +375,9 @@ export default function Res() {
             fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }}}>Calendar.</Typography>
               </section>
               <FullCalendar
-  plugins={[dayGridPlugin]}
-  initialView="dayGridMonth"
-  events={async () => {
-    const res = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings/approved");
-    const bookings = await res.json();
-
-    return bookings.map(booking => ({
-      title: `${booking.sport} (${booking.time})`,
-      start: booking.date, // Ensure this is in 'YYYY-MM-DD' format
-      allDay: false,
-      backgroundColor: '#2b18bd',
-      borderColor: '#2b18bd',
-    }));
-  }}
-/>
+                plugins={[dayGridPlugin]}
+                initialView="dayGridMonth"
+              />
             </Box>
 
             <Box className="reports">

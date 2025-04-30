@@ -55,20 +55,6 @@ app.get('/bookings', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch bookings" });
     }
 });
-//get approved bookings for the calendar
-app.get('/bookings/approved', async (req, res) => {
-    try {
-        const approvedBookings = await UserModel.find(
-            { status: "approved" },
-            { sport: 1, date: 1, time: 1, _id: 0 } // Only include these fields
-        );
-        
-        res.json(approvedBookings);
-    } catch (err) {
-        console.error('Failed to fetch approved bookings', err);
-        res.status(500).json({ error: "Failed to fetch calendar events" });
-    }
-});
 //for testing server.
 app.get('/', (req, res) => {
     res.send('Server is running!');
