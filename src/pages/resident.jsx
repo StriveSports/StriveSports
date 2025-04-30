@@ -375,27 +375,21 @@ export default function Res() {
             fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }}}>Calendar.</Typography>
               </section>
               <FullCalendar
-                plugins={[dayGridPlugin]} // Register the dayGrid plugin
-                initialView="dayGridMonth" // Default view
-                events={async () => {
-                  const response = await fetch('/api/approved-events');
-                  const events = await response.json();
-                  return events.map(event => ({
-                    title: `${event.sport} (${event.time})`,
-                    start: event.date,
-                    allDay: false,
-                    display: 'block',
-                    backgroundColor: '#2b18bd',
-                    borderColor: '#2b18bd'
+  plugins={[dayGridPlugin]}
+  initialView="dayGridMonth"
+  events={async () => {
+    const res = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings/approved");
+    const bookings = await res.json();
+
+    return bookings.map(booking => ({
+      title: `${booking.sport} (${booking.time})`,
+      start: booking.date, // Ensure this is in 'YYYY-MM-DD' format
+      allDay: false,
+      backgroundColor: '#2b18bd',
+      borderColor: '#2b18bd',
     }));
   }}
-  eventContent={(eventInfo) => (
-    <section style={{ padding: '2px' }}>
-      <section style={{ fontWeight: 'bold' }}>{eventInfo.timeText}</section>
-      <section>{eventInfo.event.title.split(' (')[0]}</section>
-    </section>
-  )}
-              />
+/>
             </Box>
 
             <Box className="reports">
