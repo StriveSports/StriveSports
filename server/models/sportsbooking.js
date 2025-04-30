@@ -1,4 +1,4 @@
-//sportsnookings.js under the modules folder
+//sportsbookings.js under the modules folder
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
