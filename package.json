@@ -40,12 +40,8 @@
     "@fullcalendar/interaction": "^6.1.17",
     "@fullcalendar/react": "^6.1.17",
     "@fullcalendar/timegrid": "^6.1.17",
-<<<<<<< HEAD
-    "@mui/material": "^5.15.15",
-=======
     "@mui/icons-material": "^5.17.1",
     "@mui/material": "^5.17.1",
->>>>>>> 833ee7ba27e00f02fabcc89c34dc5ea1a6f3211d
     "@mui/x-data-grid": "^8.1.0",
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
