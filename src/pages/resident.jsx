@@ -89,7 +89,8 @@ export default function Res() {
       toast.warn("Please insert all fields accurately.");
       return;
     }
-
+    //calendar update
+   
     const reportData = {
       facility: selectedFacility,
       issue: description,
@@ -139,7 +140,32 @@ export default function Res() {
       )
       .join("");
   }, []);
-  
+  const [approvedEvents, setApprovedEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchApprovedBookings = async () => {
+      try {
+        const res = await fetch("https://strivesports2-eeb2gxguhnfwcte6.southafricanorth-01.azurewebsites.net/bookings/approved");
+        const bookings = await res.json();
+
+        const formattedEvents = bookings.map(booking => ({
+          title: `${booking.sport} (${booking.time})`,
+          start: booking.date, // Ensure this is in 'YYYY-MM-DD'
+          allDay: false,
+          backgroundColor: '#2b18bd',
+          borderColor: '#2b18bd',
+        }));
+
+        setApprovedEvents(formattedEvents);
+      } catch (error) {
+        console.error("Failed to fetch approved bookings:", error);
+      }
+    };
+
+    fetchApprovedBookings();
+  }, []);
+
+
   return (
     <>
       <SignedIn>
@@ -377,6 +403,7 @@ export default function Res() {
               <FullCalendar
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
+                events={approvedEvents}
               />
             </Box>
 
