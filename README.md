@@ -54,7 +54,9 @@ Ensure you have the following installed:
   - npm i react-toastify
   - These are for the dashboard things to install(npm install @mui/material@^5.17.1 @emotion/react @emotion/styled @mui/icons-material@^5.11.0 @mui/x-data-grid react-router-dom@6 react-pro-sidebar formik yup
 )
-  - 
+  - for react icons (npm install react-icons react-router-dom@6)
+  - npm install recharts
+
 ## Server
 
 ### Server Prerequisites
