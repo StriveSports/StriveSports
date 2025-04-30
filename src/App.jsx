@@ -10,10 +10,10 @@ import Onboard from "./pages/onboard3";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import BlockedUser from "./adminResources/BlockedUser";
 
-function App(){
- 
 
+function App(){
 return(
+  
   <header>
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -29,7 +29,7 @@ return(
         <AfterSignInRedirect />
       </SignedIn>
     </header>
-
+  
 );    
 
 }

@@ -139,7 +139,7 @@ export default function Res() {
       )
       .join("");
   }, []);
-
+  
   return (
     <>
       <SignedIn>
@@ -212,8 +212,16 @@ export default function Res() {
               sx={{ 
                 display: 'flex', 
                 justifyContent: 'flex-start',
-                textAlign:'left' }}>
-                <Box className="Sports">
+                textAlign:'left',
+                alignItems: 'flex-start',}}>
+                <Box className="Sports"
+                sx={{ 
+                  flex: { md: '0 0 auto' },
+                  minWidth: { md: '300px' }, 
+                  flexShrink: 0,
+                  
+                }} >
+                
                   {["Tennis", "Swimming", "Basketball", "Netball", "Soccer", "Hockey", "Track", "Rugby"].map((sport) => (
                    <Typography
                    key={sport}
@@ -221,10 +229,9 @@ export default function Res() {
                    sx={{ 
                     fontFamily: 'Helvetica Neue, Arial, sans-serif', 
                     cursor: "pointer" ,
-                    fontSize: { xs: '3rem', sm: '4rem', md: '5rem' },
+                    fontSize: { xs: '1.5rem', sm: '1.8rem', md: 'clamp(2.0rem, 3vw, 2.2rem)', lg: '3rem' },
                     textAlign: 'left',
                     transition: 'color 0.3s ease',
-                    padding: '0.5rem',
                     '&:hover': {
                       color: '#000',
                     },}}
@@ -368,8 +375,8 @@ export default function Res() {
             fontSize: { xs: '5rem', sm: '6rem', md: '8rem' }}}>Calendar.</Typography>
               </section>
               <FullCalendar
-                plugins={[dayGridPlugin]} // Register the dayGrid plugin
-                initialView="dayGridMonth" // Default view
+                plugins={[dayGridPlugin]}
+                initialView="dayGridMonth"
               />
             </Box>
 
@@ -450,4 +457,4 @@ export default function Res() {
     </>
     
   );
-}
+  }

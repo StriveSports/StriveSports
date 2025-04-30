@@ -55,7 +55,6 @@ app.get('/bookings', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch bookings" });
     }
 });
-
 //for testing server.
 app.get('/', (req, res) => {
     res.send('Server is running!');
