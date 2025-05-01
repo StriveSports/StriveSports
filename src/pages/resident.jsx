@@ -110,8 +110,6 @@ export default function Res() {
 
       if (response.ok) {
 
-        alert("Reporting successful!");
-
         toast.success("Reporting successful!");
         setSelectedFacility('');
         setDescription('');

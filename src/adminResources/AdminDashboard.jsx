@@ -5,7 +5,7 @@ import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 import updateStatus from './updateStatus.jsx';
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography,Button,TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
@@ -15,11 +15,15 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import { formatDate } from '@fullcalendar/core/index.js';
+import getemails from './getemails.jsx';
+
+import { useUser} from '@clerk/clerk-react';  //will help me get those emails
+
 
 export default function AdminDashboard() {
 
     //Loading the bookings
-    
+     const { user } = useUser(); //what will help me get those emails 
     let bookings;
     
     getBookings().then((data) => {
@@ -148,6 +152,49 @@ export default function AdminDashboard() {
         }
     }
 
+    //this is for the resend implementation
+    const[subject, setSubject] = useState('');
+    const[message, setMessage] = useState('');
+    const[emailStatus, setEmailStatus] = useState('');
+
+    const handleSendEmail = async (e) => {
+        e.preventDefault();
+        
+        getemails().then(async (data)=>{
+            
+            console.log(data.emails);
+            try {//fix the url using the env variable
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/emails`, { //
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      "subject":subject,
+                      "message":message,
+                      "emails":data.emails
+                  }),
+                });
+            
+                const result = await response.json();
+                alert(subject);
+                alert(message);
+      
+                
+                if (response.ok) {
+                  setEmailStatus('Emails sent successfully!');
+                } else {
+                  setEmailStatus(`Failed: ${result.error}`);
+                }
+              } catch (error) {
+                console.error('Error sending emails:', error);
+                setEmailStatus('Email sending failed due to server error.'+ error);
+              }
+            
+        });
+    }
+
+        
 
     return(
         <main className='adminDashBoardBody'>
@@ -257,6 +304,71 @@ export default function AdminDashboard() {
                     ]} // alternatively, use a more local state
                 ></FullCalendar>
             </Box>
+        </section>
+
+
+        <section className='email-section'>
+        <Box sx={{ margin: '50px', padding: '70px', backgroundColor: '#f4f6f8', borderRadius: '15px' }}>
+                        <Typography variant="h6" sx={{ marginBottom: '20px', fontWeight: 'bold' }}>
+                            Communication Center
+                        </Typography>
+                        <form onSubmit={handleSendEmail}>
+                            <input
+                            type="text"
+                            placeholder="Subject"
+                            value={subject}
+                            onChange={(e) => setSubject(e.target.value)}
+                            style={{
+                                width: '100%',
+                                marginBottom: '20px',
+                                padding: '12px',
+                                borderRadius: '5px',
+                                border: '1px solid #ccc',
+                                backgroundColor: '#fff',
+                                fontSize: '16px',
+                                color: '#000',         
+                                caretColor: '#000',
+                            }}
+                            required
+                            />
+                            <textarea
+                            placeholder="Message"
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            style={{
+                                width: '100%',
+                                height: '120px',
+                                marginBottom: '20px',
+                                padding: '12px',
+                                borderRadius: '5px',
+                                border: '1px solid #ccc',
+                                backgroundColor: '#fff',
+                                fontSize: '16px',
+                                color: '#000',         
+                                caretColor: '#000',
+                            }}
+                            required
+                            ></textarea>
+                            <button
+                            type="submit"
+                            style={{
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                borderRadius: '5px',
+                                border: 'none',
+                                backgroundColor: '#1976d2',
+                                color: '#fff',
+                                cursor: 'pointer',
+                            }}
+                            >
+                            Send Emails
+                            </button>
+                        </form>
+                        {emailStatus && (
+                            <Typography sx={{ marginTop: '20px' }}>{emailStatus}</Typography>
+                        )}
+                    </Box>          
+
         </section>
         </main>
     )
