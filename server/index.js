@@ -201,51 +201,36 @@ app.delete('/reports/:id', async (req, res) => {
     }
 });
 
-{/* Implementing the email functionality
+{/* Implementing the events functionality
   URL for  http:localhost:3000/emails */}
+app.post('eventsAdmin',async (req,res)=>{
+    const {event,date,time_from,time_to,event_description} = req.body;
+    try {
+        const newEvent = new EventModel({
+            event,
+            date,
+            time_from,
+            time_to,
+            event_description
+        });
+        await newEvent.save();
+        res.status(201).json({message:"Event successful"})
+    } catch (error) {
+        console.error("Error saving event",error);
+        res.status(500).json({error: "Failed to save event"})
+    }
+});
 
-  
-      
-// server/index.js
-// app.post('/emails', async (req, res) => {
-//     const { subject, message,emails } = req.body;
-   
-//     try {
-  
-//       if (emails.length === 0) {
-//         return res.status(404).json({ error: 'No user emails found' });
-//       }
-  
-//       const htmlContent = `
-//         <!DOCTYPE html>
-//         <html>
-//         <body>
-//           <h2>StriveSports Community</h2>
-//           <p>${message}</p>
-//           <p>Thank you,<br>StriveSports Team</p>
-//         </body>
-//         </html>
-//       `;
-      
-//       for (const email of emails) {
-//         await resend.batch.send({
-//           from: 'StriveSports <strivesports8@gmail.com>',
-//           to: email,
-//           subject,
-//           html: htmlContent,
-//         });
-//       }
-      
-  
-//       res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
-//     } catch (error) {
-//       console.error('Email sending failed:', error);
-//       res.status(500).json({
-//         error: 'Email sending failed',
-//         details: error.response?.data || error.message || 'Unknown error',
-//       });
-//     }
-//   });
+{/* Retrieve the events*/}
+app.get('/events', async (req, res) => {
+    try {
+        const events = await EventModel.find();
+        res.json(events);
+    } catch (err) {
+        console.error('Failed to fetch events',err);
+        res.status(500).json({ error: "Failed to fetch events" });
+    }
+});
   
 
 app.post('/emails', async (req, res) => {
