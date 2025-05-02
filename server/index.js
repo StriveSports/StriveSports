@@ -6,6 +6,17 @@ const cors = require('cors')
 require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
+const {Resend} = require('resend');
+const axios = require('axios'); // Required for Clerk API calls
+const nodemailer = require('nodemailer'); //for nodemailer
+const { clerkClient } = require('@clerk/clerk-sdk-node');  // correct import
+
+const {Clerk} = require('@clerk/clerk-sdk-node');
+const clerk = new Clerk({
+  apiKey: process.env.CLERK_SECRET_KEY,
+});
+
+//const {clerk } = clerk({apikey:process.env.CLERK_SECRET_KEY}); // use this to get emails
 
 const app = express()
 //app.use(cors())
@@ -13,6 +24,11 @@ app.use(express.json())
 app.use(cors());
 
 const ATLAS_URL=process.env.ATLAS_URL;
+const VITE_CLERK_PUBLISHABLE_KEY=process.env.VITE_CLERK_PUBLISHABLE_KEY;
+const resend =new Resend(process.env.RESEND_API_KEY);
+const CLERK_SECRET_KEY=process.env.CLERK_SECRET_KEY;
+
+//node mailer transporter
 
 
 mongoose.connect(ATLAS_URL,{
@@ -184,6 +200,134 @@ app.delete('/reports/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to delete report' });
     }
 });
+
+{/* Implementing the email functionality
+  URL for  http:localhost:3000/emails */}
+
+  
+      
+// server/index.js
+// app.post('/emails', async (req, res) => {
+//     const { subject, message,emails } = req.body;
+   
+//     try {
+  
+//       if (emails.length === 0) {
+//         return res.status(404).json({ error: 'No user emails found' });
+//       }
+  
+//       const htmlContent = `
+//         <!DOCTYPE html>
+//         <html>
+//         <body>
+//           <h2>StriveSports Community</h2>
+//           <p>${message}</p>
+//           <p>Thank you,<br>StriveSports Team</p>
+//         </body>
+//         </html>
+//       `;
+      
+//       for (const email of emails) {
+//         await resend.batch.send({
+//           from: 'StriveSports <strivesports8@gmail.com>',
+//           to: email,
+//           subject,
+//           html: htmlContent,
+//         });
+//       }
+      
+  
+//       res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
+//     } catch (error) {
+//       console.error('Email sending failed:', error);
+//       res.status(500).json({
+//         error: 'Email sending failed',
+//         details: error.response?.data || error.message || 'Unknown error',
+//       });
+//     }
+//   });
+  
+
+app.post('/emails', async (req, res) => {
+    const { subject, message, emails } = req.body;
+  
+    if (!emails || emails.length === 0) {
+      return res.status(400).json({ error: 'No user emails provided' });
+    }
+  
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <body>
+        <h2>StriveSports Community</h2>
+        <p>${message}</p>
+        <p>Thank you,<br>StriveSports Team</p>
+      </body>
+      </html>
+    `;
+  
+    try {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
+        });
+    
+        for (const email of emails) {
+          await transporter.sendMail({
+            from: `"StriveSports Team" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject,
+            html: htmlContent,
+          });
+        }
+  
+      //await resend.batch.send(messages);  // Correct batch call
+  
+      res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      res.status(500).json({
+        error: 'Email sending failed',
+        details: error.response?.data || error.message || 'Unknown error',
+      });
+    }
+  });
+  
+
+
+  app.get('/useremails', async (req, res) => {
+    try {
+      // Fetch all users (you can paginate if you have many)
+      const users = await clerkClient.users.getUserList({ limit: 10 });
+      
+      // Map to just email strings
+      const emails = users
+        .flatMap(u => u.emailAddresses)
+        .map(e => e.emailAddress);
+  
+      res.json({ emails });
+    } catch (err) {
+      console.error('Clerk fetch failed', err);
+      res.status(500).json({ error: 'Failed to fetch Clerk users' });
+    }
+  });
+
+  //for getting users
+  app.get('/users', async(req, res) => {
+
+    try{
+        const response = await clerk.users.getUserList();
+
+        res.status(200).send(response);
+    }
+    catch (error) {
+        res.status(500).send({ errorMessage: error.message });
+    }
+})
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,() =>{
