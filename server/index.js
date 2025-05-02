@@ -8,7 +8,7 @@ const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
 const {Resend} = require('resend');
 const axios = require('axios'); // Required for Clerk API calls
-
+const nodemailer = require('nodemailer'); //for nodemailer
 const { clerkClient } = require('@clerk/clerk-sdk-node');  // correct import
 
 const {Clerk} = require('@clerk/clerk-sdk-node');
@@ -27,6 +27,9 @@ const ATLAS_URL=process.env.ATLAS_URL;
 const VITE_CLERK_PUBLISHABLE_KEY=process.env.VITE_CLERK_PUBLISHABLE_KEY;
 const resend =new Resend(process.env.RESEND_API_KEY);
 const CLERK_SECRET_KEY=process.env.CLERK_SECRET_KEY;
+
+//node mailer transporter
+
 
 mongoose.connect(ATLAS_URL,{
     useNewUrlParser: true,
@@ -204,35 +207,84 @@ app.delete('/reports/:id', async (req, res) => {
   
       
 // server/index.js
-app.post('/emails', async (req, res) => {
-    const { subject, message,emails } = req.body;
+// app.post('/emails', async (req, res) => {
+//     const { subject, message,emails } = req.body;
    
+//     try {
+  
+//       if (emails.length === 0) {
+//         return res.status(404).json({ error: 'No user emails found' });
+//       }
+  
+//       const htmlContent = `
+//         <!DOCTYPE html>
+//         <html>
+//         <body>
+//           <h2>StriveSports Community</h2>
+//           <p>${message}</p>
+//           <p>Thank you,<br>StriveSports Team</p>
+//         </body>
+//         </html>
+//       `;
+      
+//       for (const email of emails) {
+//         await resend.batch.send({
+//           from: 'StriveSports <strivesports8@gmail.com>',
+//           to: email,
+//           subject,
+//           html: htmlContent,
+//         });
+//       }
+      
+  
+//       res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
+//     } catch (error) {
+//       console.error('Email sending failed:', error);
+//       res.status(500).json({
+//         error: 'Email sending failed',
+//         details: error.response?.data || error.message || 'Unknown error',
+//       });
+//     }
+//   });
+  
+
+app.post('/emails', async (req, res) => {
+    const { subject, message, emails } = req.body;
+  
+    if (!emails || emails.length === 0) {
+      return res.status(400).json({ error: 'No user emails provided' });
+    }
+  
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <body>
+        <h2>StriveSports Community</h2>
+        <p>${message}</p>
+        <p>Thank you,<br>StriveSports Team</p>
+      </body>
+      </html>
+    `;
+  
     try {
-  
-      if (emails.length === 0) {
-        return res.status(404).json({ error: 'No user emails found' });
-      }
-  
-      const htmlContent = `
-        <!DOCTYPE html>
-        <html>
-        <body>
-          <h2>StriveSports Community</h2>
-          <p>${message}</p>
-          <p>Thank you,<br>StriveSports Team</p>
-        </body>
-        </html>
-      `;
-      
-      for (const email of emails) {
-        await resend.emails.send({
-          from: 'StriveSports <strivesports8@gmail.com>',
-          to: email,
-          subject,
-          html: htmlContent,
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+          },
         });
-      }
-      
+    
+        for (const email of emails) {
+          await transporter.sendMail({
+            from: `"StriveSports Team" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject,
+            html: htmlContent,
+          });
+        }
+  
+      //await resend.batch.send(messages);  // Correct batch call
   
       res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
     } catch (error) {
@@ -243,7 +295,6 @@ app.post('/emails', async (req, res) => {
       });
     }
   });
-  
   
 
 
