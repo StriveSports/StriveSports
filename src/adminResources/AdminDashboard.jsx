@@ -9,6 +9,7 @@ import { Box, List, ListItem, ListItemText, Typography,Button,TextField } from '
 import { DataGrid } from '@mui/x-data-grid';
 import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
+import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -177,18 +178,19 @@ export default function AdminDashboard() {
                 });
             
                 const result = await response.json();
-                alert(subject);
-                alert(message);
-      
                 
                 if (response.ok) {
                   setEmailStatus('Emails sent successfully!');
+                  toast.success('Emails sent successfully!');
                 } else {
                   setEmailStatus(`Failed: ${result.error}`);
+                  toast.error('Email failed to send.');
                 }
               } catch (error) {
                 console.error('Error sending emails:', error);
                 setEmailStatus('Email sending failed due to server error.'+ error);
+                toast.error('Email failed to send due to server error.');
+
               }
             
         });
@@ -370,6 +372,10 @@ export default function AdminDashboard() {
                     </Box>          
 
         </section>
+        
         </main>
+
+        
     )
+    
 }
