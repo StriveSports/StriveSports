@@ -16,6 +16,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import { formatDate } from '@fullcalendar/core/index.js';
+import { useUser } from '@clerk/clerk-react';
 
 import TimePicker from 'react-time-picker'
 
@@ -149,6 +150,19 @@ export default function AdminDashboard() {
                 eventDetails: eventText || 'No details'
             });
             handleEventCancel();
+            //send the event to the server
+            fetch(`${import.meta.env.VITE_API_URL}/events`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "title": eventName,
+                    "start": `${date.startStr}T${timePick}`,
+                    "end": `${date.startStr}T${timeEnd}`,
+                    "eventDetails": eventText || 'No details'
+                }),
+            });
         }
         else {
             alert('Atleast the event name and time should be provided');
