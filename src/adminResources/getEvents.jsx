@@ -1,4 +1,4 @@
-export default function getEvents() {
+export default async function getEvents() {
     fetch(`${import.meta.env.VITE_API_URL}/events`,{
         method: 'GET',
         headers: {
@@ -6,6 +6,7 @@ export default function getEvents() {
         }
     }).then((response) => {
         if (response.ok) {
+            alert('Events fetched successfully');
             return response.json();
         } else {
             throw new Error('Network response was not ok');

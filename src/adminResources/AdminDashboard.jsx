@@ -10,6 +10,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
 import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
+import getEvents from './getEvents.jsx';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -25,6 +26,8 @@ export default function AdminDashboard() {
 
     //Loading the bookings
      const { user } = useUser(); //what will help me get those emails 
+
+     //the bookings variable is used to store the bookings data
     let bookings;
     
     getBookings().then((data) => {
@@ -102,6 +105,12 @@ export default function AdminDashboard() {
             button.style.right = '65vw';
         }
     }
+
+    //Load Eventsdd
+    getEvents().then((data) => {
+        console.log(data);
+    });
+
 
     //creating the user table 
     const [rows, setRows] = useState([]);

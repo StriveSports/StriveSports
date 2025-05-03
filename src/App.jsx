@@ -9,6 +9,7 @@ import Res from "./pages/resident"
 import Onboard from "./pages/onboard3";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import BlockedUser from "./adminResources/BlockedUser";
+import FacilityStaff from "./pages/facilityStaff";
 
 
 function App(){
@@ -22,6 +23,7 @@ return(
         <Route path='/pages/resident' element={<Res/>}/> 
         <Route path="/adminResources/BlockedUser" element={<BlockedUser/>}/>
         <Route path="/pages/onboard3" element={<Onboard />} />
+        <Route path="/pages/facilityStaff" element={<FacilityStaff />} />
       </Routes>
       <SignedOut>
       </SignedOut>

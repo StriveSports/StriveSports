@@ -190,7 +190,7 @@ app.delete('/reports/:id', async (req, res) => {
 
 {/* Implementing the events functionality
   URL for  http:localhost:3000/emails */}
-app.post('eventsAdmin',async (req,res)=>{
+app.post('/eventsAdmin',async (req,res)=>{
     const {event,date,time_from,time_to,event_description} = req.body;
     try {
         const newEvent = new EventModel({
