@@ -6,6 +6,7 @@ const cors = require('cors')
 require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
+const EventModel = require('./models/events')
 const {Resend} = require('resend');
 const axios = require('axios'); // Required for Clerk API calls
 const nodemailer = require('nodemailer'); //for nodemailer
@@ -190,7 +191,7 @@ app.delete('/reports/:id', async (req, res) => {
 
 {/* Implementing the events functionality
   URL for  http:localhost:3000/emails */}
-app.post('/eventsAdmin',async (req,res)=>{
+app.post('/events',async (req,res)=>{
     const {event,date,time_from,time_to,event_description} = req.body;
     try {
         const newEvent = new EventModel({
