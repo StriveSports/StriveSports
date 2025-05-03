@@ -5,26 +5,29 @@ import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 import updateStatus from './updateStatus.jsx';
-import { Box, List, ListItem, ListItemText, Typography,Button,TextField } from '@mui/material';
+import { alertTitleClasses, Box, List, ListItem, ListItemText, Typography,Button,TextField } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
 import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
+import getEvents from './getEvents.jsx';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import { formatDate } from '@fullcalendar/core/index.js';
-import getemails from './getemails.jsx';
+import { useUser } from '@clerk/clerk-react';
 
-import { useUser} from '@clerk/clerk-react';  //will help me get those emails
+import TimePicker from 'react-time-picker'
 
-
+let globalVar;
 export default function AdminDashboard() {
 
     //Loading the bookings
      const { user } = useUser(); //what will help me get those emails 
+
+     //the bookings variable is used to store the bookings data
     let bookings;
     
     getBookings().then((data) => {
@@ -81,6 +84,11 @@ export default function AdminDashboard() {
         }
         
     })
+    //Document menu cancelation
+    
+    document.addEventListener('click', () => {
+        handleEventCancel();
+    })
 
 
     //Loading the bookings
@@ -97,6 +105,12 @@ export default function AdminDashboard() {
             button.style.right = '65vw';
         }
     }
+
+    //Load Eventsdd
+    getEvents().then((data) => {
+        console.log(data);
+    });
+
 
     //creating the user table 
     const [rows, setRows] = useState([]);
@@ -123,28 +137,62 @@ export default function AdminDashboard() {
     }
 
     //Calender
-
-    const Calender = () => {
-
-    }
     const [currentEvent, setCurrentEvent] = useState([]);
 
-    const handleDateClick = (date) => {
-        const title = prompt('Please enter a new title for your event');
+    const handleEventAdd = () => {
+        const eventDetails = document.getElementById('eventDetails');
+        const eventName = document.getElementById('eventName').value;
+        const timePick = document.getElementById('timePick').value;
+        const eventText = document.getElementById('eventText').value;
+        const timeEnd = document.getElementById('timeEnd').value;
+        const date = globalVar;
 
         const calendarApi = date.view.calendar;
         calendarApi.unselect(); // clear date selection
-        if (title) {
+
+        if (eventName && timePick && timeEnd){
+            eventDetails.style.zIndex = -1;
             calendarApi.addEvent({
-                title,
-                start: date.startStr,
-                end: date.endStr,
-                allDay: date.allDay,
+                title: eventName,
+                start: `${date.startStr}T${timePick}`, 
+                end: `${date.startStr}T${timeEnd}`, 
+                eventDetails: eventText || 'No details'
+            });
+            handleEventCancel();
+            //send the event to the server
+            fetch(`${import.meta.env.VITE_API_URL}/events`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "title": eventName,
+                    "start": `${date.startStr}T${timePick}`,
+                    "end": `${date.startStr}T${timeEnd}`,
+                    "eventDetails": eventText || 'No details'
+                }),
             });
         }
-        else{
-            alert('Please enter a title for the event');
+        else {
+            alert('Atleast the event name and time should be provided');
         }
+
+    }
+    const handleEventCancel = () => {
+        const eventDetails = document.getElementById('eventDetails');
+        eventDetails.style.display = 'none';
+        const eventName = document.getElementById('eventName').value = '';
+        const timePick = document.getElementById('timePick').value = '';
+        const timeEnd = document.getElementById('timeEnd').value = '';
+        const eventText = document.getElementById('eventText').value = '';
+
+    }
+
+    const handleDateClick = (date) => {
+        const eventDetails = document.getElementById('eventDetails');
+        eventDetails.style.display = 'block';
+        globalVar = date;
+        localStorage.setItem('eventDate', date);
     }
 
     const handleEventClick = (clickInfo) => {
@@ -199,7 +247,7 @@ export default function AdminDashboard() {
         
 
     return(
-        <main className='adminDashBoardBody'>
+        <main className='adminDashBoardBody' >
         <h1 className='adminDashboard'>Admin Dashboard</h1>
         
         <section className='configMenu' id='configMenu'>
@@ -260,7 +308,7 @@ export default function AdminDashboard() {
                         {currentEvent.map((event) => (
                             <ListItem
                             key = {event.id}
-                            sx = {{ backgroundColor: event.color, padding: 2, margin: 1, borderRadius: 2 }}
+                            sx = {{ backgroundColor: 'aqua', padding: 2, margin: 1, borderRadius: 2 }}
 
                             >
 
@@ -268,12 +316,19 @@ export default function AdminDashboard() {
                             primary={event.title}
                             secondary={
                                 <Typography>
-                                    {formatDate(event.start, {
-                                        year: 'numeric',
-                                        month: 'long',
-                                        day: 'numeric',
-                                    })}
+                                  {formatDate(event.start, {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric',
+                                  })}
+                                  {" | "}
+                                  {formatDate(event.start, { 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                  })} - {formatDate(event.end, 
+                                  { hour: '2-digit', minute: '2-digit' })}
                                 </Typography>
+
                             }
                         ></ListItemText>
                         </ListItem>
@@ -301,11 +356,11 @@ export default function AdminDashboard() {
                     eventClick={handleEventClick}
                     eventsSet={(events) => setCurrentEvent(events)}
                     initialEvents={[
-                        { id: '1', title: 'All-day event', date: '2025-04-30' },
-                        { id: '2', title: 'Timed event', date: '2025-05-02' },
+                        { id: '1', title: 'Meeting', start: '2025-05-02T09:00:00', end: '2025-05-02T10:00:00' },
                     ]} // alternatively, use a more local state
                 ></FullCalendar>
             </Box>
+            
         </section>
 
 
@@ -373,6 +428,21 @@ export default function AdminDashboard() {
 
         </section>
         
+        <Box className='eventDetails' id='eventDetails'>
+                <h3>Date: </h3>
+                <h3>Event name:</h3>
+                <input title='hello' type="text" className='input' id='eventName'/>
+                <h3>Event Time start:</h3>
+                <input aria-label="Time" type="time" className='input' id='timePick'/>
+                <h3>Event Time end:</h3>
+                <input aria-label="Time" type="time" className='input' id='timeEnd'/>
+                <h3>Event Details:</h3>
+                <textarea name="eventDetails" className='input' id="eventText"></textarea>
+                <Box className='eventDetailsButton'>
+                <button className='done' onClick={()=>handleEventAdd()}>Add Event</button>
+                <button className='done' onClick={()=>handleEventCancel()}>Cancel</button>
+                </Box>
+        </Box>
         </main>
 
         

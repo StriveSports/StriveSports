@@ -27,14 +27,14 @@ export default function AfterSignInRedirect() {
             else if(user.publicMetadata.role == 'removed'){
                 navigate('/adminResources/BlockedUser');
             }
-            else if(user.publicMetadata.role == 'none' || !role){
+            else if(user.publicMetadata.role == 'none'){
                 if (window.location.pathname !== '/pages/WelcomeScreen') {
                 navigate('/pages/WelcomeScreen');
                 }
             }
-            else if(user.publicMetadata.role == 'Facility staff' || !role){
-                if (window.location.pathname !== '/pages/WelcomeScreen') {
-                navigate('/pages/WelcomeScreen');
+            else if(user.publicMetadata.role == 'Facility staff'){
+                if (window.location.pathname !== '/pages/facilityStaff') {
+                navigate('/pages/facilityStaff');
                 }
             }
         }

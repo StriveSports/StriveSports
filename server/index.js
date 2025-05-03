@@ -57,20 +57,7 @@ app.post('/bookings',async (req,res)=>{
         res.status(500).json({error: "Failed to save booking"})
     }
 }); 
-//approved bookings fetch
-app.get('/bookings/approved', async (req, res) => {
-    try {
-        const approvedBookings = await UserModel.find(
-            { status: "approved" },
-            { sport: 1, date: 1, time: 1, _id: 0 } // Only include these fields
-        );
-        
-        res.json(approvedBookings);
-    } catch (err) {
-        console.error('Failed to fetch approved bookings', err);
-        res.status(500).json({ error: "Failed to fetch calendar events" });
-    }
-});
+
 // allowing the admin to retrieve the bookings.
 //URL to get bookings http://localhost:3000/bookings admin run get method
 app.get('/bookings', async (req, res) => {
@@ -203,7 +190,7 @@ app.delete('/reports/:id', async (req, res) => {
 
 {/* Implementing the events functionality
   URL for  http:localhost:3000/emails */}
-app.post('eventsAdmin',async (req,res)=>{
+app.post('/eventsAdmin',async (req,res)=>{
     const {event,date,time_from,time_to,event_description} = req.body;
     try {
         const newEvent = new EventModel({

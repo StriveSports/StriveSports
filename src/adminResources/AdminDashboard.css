@@ -43,6 +43,7 @@ body {
   margin: 5px 0;
   padding: 8px 12px;
   background-color: #f8f9fa;
+  color:black;
   border: 1px solid #007bff;
   border-radius: 8px;
   cursor: pointer;
@@ -163,6 +164,55 @@ li {
   overflow-y: auto;
 }
 
+.eventDetails {
+  background-color:lightgray;
+  padding: 20px;
+  border-radius: 10px;
+  width: 15vw;
+  min-height: 50vh;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  display:none;
+  z-index: 2;
+  position: fixed;
+}
+
+h3 {
+  margin: 10px 0 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#eventDetails {
+  height: 80px;
+  resize: vertical;
+}
+.eventDetailsButton{
+  display: flex;
+  justify-content:space-around
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
 /* Smaller screens */
 @media (max-width: 768px) {
   .calenderAndBookings {
@@ -177,3 +227,4 @@ li {
     width: 60vw;
   }
 }
+
