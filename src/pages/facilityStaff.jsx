@@ -3,28 +3,33 @@ import { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, Typography, List, ListItem, ListItemText } from '@mui/material';
 import removeConfigMenu from '../adminResources/removeConfigMenu';
-import getUsers from '../adminResources/getUsers';
 import { UserButton } from '@clerk/clerk-react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { formatDate } from '@fullcalendar/core';
+import { useRef } from 'react';
+import getEvents from '../adminResources/getEvents';
+import getReports from '../adminResources/getReports';
+import updateStatus from '../adminResources/updateStatus';
+import updateReportStatus from '../adminResources/updateReportStatus';
 
-
+let globalVar;
 export default function FacilityStaff() {
 
-    //creating the user table 
+    //creating the report table 
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        getUsers().then((data) => {
+        getReports().then((data) => {
             const processedRows = data.map(element => ({
-                id: element.id,
-                name: element.firstName,
-                lastName: element.lastName,
-                email: element.emailAddresses[0].emailAddress,
-                role: element.publicMetadata.role || "none",
+                id: element._id,
+                facility: element.facility,
+                issue: element.issue,
+                residentInfo: element.residentInfo,
+                status: element.status,
+                __v: element.__v,
             }));
 
             setRows(processedRows); //Updates state, triggering re-render
@@ -33,11 +38,13 @@ export default function FacilityStaff() {
 
     //Role update functionality
     const roleChange = (row) => {
-        localStorage.setItem('userId', row.id);
         const configMenu = document.getElementById('configMenu');
         configMenu.style.left = '40%';
+        globalVar = row.id;
     }
 
+    //calendar functionality
+    const calendarRef = useRef(null);
     //Calender on click event
     const [currentEvent, setCurrentEvent] = useState([]);
 
@@ -45,6 +52,26 @@ export default function FacilityStaff() {
         if (window.confirm(`event details...`)) {
         }
     }
+
+    //updating events on the calendar  { id: '1', title: 'Meeting', start: '2025-05-02T09:00:00', end: '2025-05-02T10:00:00' }
+    useEffect(() => {
+        if (calendarRef.current) {
+            const calendarApi = calendarRef.current.getApi();
+            
+            getEvents().then((data) => {
+                data.forEach((element) => {
+                    calendarApi.addEvent({
+                        id: element.id,
+                        title: element.event,
+                        start: `${element.date}T${element.time_from}`,
+                        end: `${element.date}T${element.time_to}`,
+                        description: element.event_description,
+                    });
+                });
+            });
+        }
+    }, [calendarRef]); // Add `calendarRef` as a dependency
+
 
     //Menu update functionality
 
@@ -54,10 +81,10 @@ export default function FacilityStaff() {
         <h1 className='adminDashboard'>Facility Staff</h1>
         
         <section className='configMenu' id='configMenu'>
-            <button onClick={()=>updateRole('Facility staff')} className='updateRole'>Not started</button>
-            <button onClick={()=>updateRole('resident')} className='updateRole'>In Progress</button>
-            <button onClick={()=>updateRole('admin')} className='updateRole'>Done</button>
-            <button onClick={()=>updateRole('none')} className='updateRole'>Can not be fixed</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Not started')}} className='updateRole'>Not started</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'In Progress')}} className='updateRole'>In Progress</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Fixed')}} className='updateRole'>Fixed</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Cannot be fixed')}} className='updateRole'>Cannot be fixed</button>
             <button onClick={removeConfigMenu} className='updateRole'>Cancel</button>
         </section>
 
@@ -72,10 +99,10 @@ export default function FacilityStaff() {
             <DataGrid
                 rows={rows}
                 columns={[
-                    { field: 'name', headerName: 'Name', flex: 1 },
-                    { field: 'lastName', headerName: 'Last Name', flex: 1 },
-                    { field: 'email', headerName: 'Email', flex: 2 },
-                    { field: 'role', headerName: 'Role', flex: 1,
+                    { field: 'facility', headerName: 'facility', flex: 1 },
+                    { field: 'issue', headerName: 'issue', flex: 4 },
+                    { field: 'residentInfo', headerName: 'residentInfo', flex: 1 },
+                    { field: 'status', headerName: 'status', flex: 1,
 
                         renderCell: (params) => (
                             <button onClick={() => roleChange(params.row)}>
@@ -137,6 +164,7 @@ export default function FacilityStaff() {
 
             <Box className='calenderBox'>
                 <FullCalendar
+                    ref={calendarRef}
                     height='75vh'
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     headerToolbar={{
@@ -151,9 +179,6 @@ export default function FacilityStaff() {
                     dayMaxEvents={true}
                     eventClick={handleEventClick}
                     eventsSet={(events) => setCurrentEvent(events)}
-                    initialEvents={[
-                        { id: '1', title: 'Meeting', start: '2025-05-02T09:00:00', end: '2025-05-02T10:00:00' },
-                    ]} // alternatively, use a more local state
                 ></FullCalendar>
             </Box>
             
