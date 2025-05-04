@@ -39,7 +39,6 @@ export default function AdminDashboard() {
         let menu = document.getElementById('bookings');
         menu.innerHTML = '';
         for (let booking of data) {
-            console.log(booking);
             if ( booking.status === 'rejected') {
                 deleteBooking(booking._id);
             }
@@ -158,15 +157,15 @@ export default function AdminDashboard() {
             const calendarApi = calendarRef.current.getApi();
             
             getEvents().then((data) => {
-                data.forEach((element) => {
+                for (let element of data){
                     calendarApi.addEvent({
-                        id: element.id,
+                        id: element._id,
                         title: element.event,
                         start: `${element.date}T${element.time_from}`,
                         end: `${element.date}T${element.time_to}`,
                         description: element.event_description,
                     });
-                });
+                }
             });
         }
     }, [calendarRef]);
@@ -194,13 +193,13 @@ export default function AdminDashboard() {
             });
             handleEventCancel();
             //send the event to the server
-            fetch(`${import.meta.env.VITE_API_URL}/eventsAdmin`, {
+            fetch(`${import.meta.env.VITE_API_URL}/events`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "title": eventName,
+                    "event": eventName,
                     "date": date.startStr,
                     "time_from": timePick,
                     "time_to": timeEnd,
