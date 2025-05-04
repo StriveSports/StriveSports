@@ -200,7 +200,16 @@ export default function AdminDashboard() {
             clickInfo.event.remove();
         }
     }
-
+    const getemails = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/useremails`);
+            const data = await response.json();
+            return data; // Assuming the response contains an object with "emails" array
+        } catch (error) {
+            console.error("Error fetching emails:", error);
+            throw new Error("Failed to fetch emails");
+        }
+    };
     //this is for the resend implementation
     const[subject, setSubject] = useState('');
     const[message, setMessage] = useState('');
@@ -209,41 +218,48 @@ export default function AdminDashboard() {
     const handleSendEmail = async (e) => {
         e.preventDefault();
         
-        getemails().then(async (data)=>{
-            
-            console.log(data.emails);
-            try {//fix the url using the env variable
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/emails`, { //
-                  method: 'POST',
-                  headers: {
+        try {
+            // Fetch the emails
+            const data = await getemails();
+            console.log('Fetched emails:', data.emails);
+    
+            // Check if emails are present
+            if (!data.emails || data.emails.length === 0) {
+                setEmailStatus('No emails found.');
+                toast.error('No emails found.');
+                return;
+            }
+    
+            // Sending the emails
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/emails`, {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                      "subject":subject,
-                      "message":message,
-                      "emails":data.emails
-                  }),
-                });
-            
-                const result = await response.json();
-                
-                if (response.ok) {
-                  setEmailStatus('Emails sent successfully!');
-                  toast.success('Emails sent successfully!');
-                } else {
-                  setEmailStatus(`Failed: ${result.error}`);
-                  toast.error('Email failed to send.');
-                }
-              } catch (error) {
-                console.error('Error sending emails:', error);
-                setEmailStatus('Email sending failed due to server error.'+ error);
-                toast.error('Email failed to send due to server error.');
-
-              }
-            
-        });
-    }
-
+                },
+                body: JSON.stringify({
+                    subject: subject,
+                    message: message,
+                    emails: data.emails,
+                }),
+            });
+    
+            const result = await response.json();
+            console.log('Response from server:', result);
+    
+            if (response.ok) {
+                setEmailStatus('Emails sent successfully!');
+                toast.success('Emails sent successfully!');
+            } else {
+                setEmailStatus(`Failed: ${result.error || 'Unknown error'}`);
+                toast.error(`Email failed to send. ${result.error || 'Unknown error'}`);
+            }
+    
+        } catch (error) {
+            console.error('Error sending emails:', error);
+            setEmailStatus(`Email sending failed due to server error. ${error.message}`);
+            toast.error(`Email failed to send due to server error: ${error.message}`);
+        }
+    };
         
 
     return(

@@ -59,6 +59,9 @@
     justify-content: center;
     z-index: 999;
   }
+  .popup * {
+    color: #ffffff; 
+  }
   
   .popup {
     background: #2b18bd;

@@ -163,7 +163,8 @@ export default function Res() {
     fetchApprovedBookings();
   }, []);
 
-
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
   return (
     <>
       <SignedIn>
@@ -336,28 +337,47 @@ export default function Res() {
                         };
 
                         try {
-                          const response = await fetch(
-                            `${import.meta.env.VITE_API_URL}/bookings`,	
+                          // Step 1: Check if the time slot is available
+                          const checkResponse = await fetch(
+                            `${import.meta.env.VITE_API_URL}/check-booking`,
                             {
                               method: "POST",
-                              headers: {
-                                "Content-Type": "application/json"
-                              },
+                              headers: { "Content-Type": "application/json" },
                               body: JSON.stringify(bookingData),
                             }
                           );
-
+                    
+                          // If the time slot is taken, show an error and stop further processing
+                          if (checkResponse.status === 409) {
+                            const checkResult = await checkResponse.json();
+                            toast.error(checkResult.message || "Time slot already booked.");
+                            return;
+                          }
+                    
+                          // Step 2: If the slot is available, proceed to book it
+                          const response = await fetch(
+                            `${import.meta.env.VITE_API_URL}/bookings`,
+                            {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify(bookingData),
+                            }
+                          );
+                    
                           const result = await response.json();
+                    
+                          // Handle booking success or failure
                           if (response.ok) {
                             toast.success("Booking successful!");
                           } else {
-                            toast.error("Booking failed: " + result.message);
+                            toast.error("Booking failed: " + (result.message || result.error));
                           }
                         } catch (err) {
                           console.error(err);
                           toast.error("Server error while booking.");
                         }
-
+                    
+                        // Reset date and time after booking attempt
                         setSelectedDate(null);
                         setSelectedTime("");
                       }}
@@ -402,7 +422,40 @@ export default function Res() {
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
                 events={approvedEvents}
+                eventClick={(info) => {
+                  info.jsEvent.preventDefault();  // Prevent the default action (e.g., navigating to the event URL)
+                  
+                  // Extract sport and time from the event title
+                  const titleParts = info.event.title.split(' (');
+                  const sport = titleParts[0];
+                  const time = titleParts[1].replace(')', '');  // Remove the closing parenthesis
+                  
+                  // Set the selected event and open the modal
+                  setSelectedEvent({
+                    sport,
+                    date: info.event.startStr,  // Start date of the event
+                    time
+                  });
+                  setIsEventModalOpen(true);
+                }}
               />
+              {isEventModalOpen && selectedEvent && (
+  <section className="popup-overlay" onClick={() => setIsEventModalOpen(false)}>
+    <section className="popup" onClick={(e) => e.stopPropagation()}>
+      <h2>Event Details</h2>
+      <p><strong>Sport:</strong> {selectedEvent.sport}</p>
+      <p><strong>Date:</strong> {new Date(selectedEvent.date).toDateString()}</p>
+      <p><strong>Time:</strong> {selectedEvent.time}</p>
+      <button 
+        className="book-button" 
+        onClick={() => setIsEventModalOpen(false)}
+        style={{ marginTop: '1rem' }}
+      >
+        Close
+      </button>
+    </section>
+  </section>
+)}
             </Box>
 
             <Box className="reports">
