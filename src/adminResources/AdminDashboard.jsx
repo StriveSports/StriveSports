@@ -118,7 +118,7 @@ export default function AdminDashboard() {
         }
         else{
             bookingMenu.style.left = 0;
-            button.style.right = '65vw';
+            
         }
     }
 
