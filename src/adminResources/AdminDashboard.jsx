@@ -11,6 +11,7 @@ import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
 import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
 import getEvents from './getEvents.jsx';
+import deleteBooking from './deleteBooking.jsx';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -21,6 +22,7 @@ import { useUser } from '@clerk/clerk-react';
 import { useRef } from 'react';
 import getReports from './getReports.jsx';
 import TimePicker from 'react-time-picker'
+
 
 let globalVar;
 export default function AdminDashboard() {
@@ -35,7 +37,13 @@ export default function AdminDashboard() {
         //DOM Manipulation
 
         let menu = document.getElementById('bookings');
+        menu.innerHTML = '';
         for (let booking of data) {
+            console.log(booking);
+            if ( booking.status === 'rejected') {
+                deleteBooking(booking._id);
+            }
+
             const bookingRow = document.createElement('ul');
 
             
@@ -76,6 +84,19 @@ export default function AdminDashboard() {
                     alert('Unexpected status');
                 }
             })
+
+            //color update
+        {
+            if (status.innerText === 'approved') {
+                status.innerText = 'approved';
+                status.style.backgroundColor = 'lime';
+
+            } else if (status.innerText === 'pending') {
+
+                status.innerText = 'pending';
+                status.style.backgroundColor = 'aquamarine';
+            }
+        }
 
             bookingRow.appendChild(sport);
             bookingRow.appendChild(time);
