@@ -15,5 +15,6 @@ const bookingSchema = new mongoose.Schema({
 }); //added ;
 
 
+
 const UserModel = mongoose.model("Sports",bookingSchema);
 module.exports = UserModel;

@@ -1,7 +1,7 @@
-//reports.js under the modules folder
+//events.js under the modules folder
 const mongoose = require('mongoose');
 
-const eventsSchema = new mongoose.Schema({
+const TempeventsSchema = new mongoose.Schema({ //changin the name of the schema to events
     event:String,
     date:String,
     time_from:String,
@@ -11,5 +11,6 @@ const eventsSchema = new mongoose.Schema({
 }); 
 
 
-const EventModel = mongoose.model("events",eventsSchema);
-module.exports = EventModel;
+const TempEventModel = mongoose.model("Events",TempeventsSchema);
+module.exports = TempEventModel;
+

@@ -6,15 +6,16 @@ const cors = require('cors')
 require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
+const TempEventModel = require('./models/events')
 const {Resend} = require('resend');
 const axios = require('axios'); // Required for Clerk API calls
 const nodemailer = require('nodemailer'); //for nodemailer
 const { clerkClient } = require('@clerk/clerk-sdk-node');  // correct import
 
-const {Clerk} = require('@clerk/clerk-sdk-node');
-const clerk = new Clerk({
-  apiKey: process.env.CLERK_SECRET_KEY,
-});
+const {createClerkClient} = require('@clerk/clerk-sdk-node');
+const clerk = createClerkClient({
+    secretKey: process.env.CLERK_SECRET_KEY,
+  });
 
 //const {clerk } = clerk({apikey:process.env.CLERK_SECRET_KEY}); // use this to get emails
 
@@ -38,6 +39,25 @@ mongoose.connect(ATLAS_URL,{
 })
 .then(()=>console.log("Mongodb connected"))
 .catch((err)=> console.error("Mongodb connection error",err));
+
+//check is booking slot is available
+app.post('/check-booking', async (req, res) => {
+    const { sport, date, time } = req.body;
+    try {
+        // Check if the booking already exists
+        const exists = await UserModel.findOne({ sport, date, time });
+        if (exists) {
+          return res.status(409).json({ message: 'Time slot already booked' });
+        }
+    
+        // If not, return a success message
+        res.status(200).json({ message: 'Time slot available' });
+      } catch (error) {
+        console.error("Error checking booking:", error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    
+  });
 
 // allows the resident to make a booking.
 // URL to make posts https://localhost:3000/bookings  
@@ -74,7 +94,20 @@ app.get('/', (req, res) => {
     res.send('Server is running!');
   });
   
-
+//approved bookings fetch
+app.get('/bookings/approved', async (req, res) => {
+    try {
+        const approvedBookings = await UserModel.find(
+            { status: "approved" },
+            { sport: 1, date: 1, time: 1, _id: 0 } // Only include these fields
+        )
+        
+        res.json(approvedBookings);
+    } catch (err) {
+        console.error('Failed to fetch approved bookings', err);
+        res.status(500).json({ error: "Failed to fetch calendar events" });
+    }
+});
 //update the booking status (approved or reject)
 //URL for approve or reject http:localhost:3000/bookings/:id 
 app.post('/bookings/:id', async (req, res) => {
@@ -190,10 +223,11 @@ app.delete('/reports/:id', async (req, res) => {
 
 {/* Implementing the events functionality
   URL for  http:localhost:3000/emails */}
-app.post('/eventsAdmin',async (req,res)=>{
+app.post('/events',async (req,res)=>{
     const {event,date,time_from,time_to,event_description} = req.body;
+    console.log("POST /events called with:", req.body); // Add this line
     try {
-        const newEvent = new EventModel({
+        const newEvent = new TempEventModel({
             event,
             date,
             time_from,
@@ -211,7 +245,7 @@ app.post('/eventsAdmin',async (req,res)=>{
 {/* Retrieve the events*/}
 app.get('/events', async (req, res) => {
     try {
-        const events = await EventModel.find();
+        const events = await TempEventModel.find();
         res.json(events);
     } catch (err) {
         console.error('Failed to fetch events',err);
@@ -258,7 +292,8 @@ app.post('/emails', async (req, res) => {
   
       //await resend.batch.send(messages);  // Correct batch call
   
-      res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
+      res.status(200).json({ message: `Emails sent to ${emails.length} users.`,
+        emails: emails  });
     } catch (error) {
       console.error('Email sending failed:', error);
       res.status(500).json({
@@ -273,17 +308,27 @@ app.post('/emails', async (req, res) => {
   app.get('/useremails', async (req, res) => {
     try {
       // Fetch all users (you can paginate if you have many)
-      const users = await clerkClient.users.getUserList({ limit: 10 });
-      
-      // Map to just email strings
-      const emails = users
-        .flatMap(u => u.emailAddresses)
-        .map(e => e.emailAddress);
-  
-      res.json({ emails });
-    } catch (err) {
-      console.error('Clerk fetch failed', err);
-      res.status(500).json({ error: 'Failed to fetch Clerk users' });
+      const result = await clerk.users.getUserList({ limit: 10 });
+
+    console.log('Full Clerk user result:', result);
+
+    const users = Array.isArray(result.data) ? result.data : result;
+    
+    // Check the structure of each user
+    users.forEach((user, i) => {
+      console.log(`User ${i + 1}:`, user);
+    });
+
+    const emails = users.flatMap(u =>
+      Array.isArray(u.emailAddresses)
+        ? u.emailAddresses.map(e => e.emailAddress)
+        : []
+    );
+
+    res.json({ emails });
+  } catch (err) {
+    console.error('Clerk fetch failed:', err);
+    res.status(500).json({ error: 'Failed to fetch Clerk users', details: err.message });
     }
   });
 
@@ -291,9 +336,9 @@ app.post('/emails', async (req, res) => {
   app.get('/users', async(req, res) => {
 
     try{
-        const response = await clerk.users.getUserList();
+        const users= await clerk.users.getUserList();
 
-        res.status(200).send(response);
+        res.status(200).send(users);
     }
     catch (error) {
         res.status(500).send({ errorMessage: error.message });
