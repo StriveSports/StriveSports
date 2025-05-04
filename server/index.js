@@ -6,6 +6,7 @@ const cors = require('cors')
 require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
+const EventModel = require('./models/events')
 const {Resend} = require('resend');
 const axios = require('axios'); // Required for Clerk API calls
 const nodemailer = require('nodemailer'); //for nodemailer
@@ -57,20 +58,7 @@ app.post('/bookings',async (req,res)=>{
         res.status(500).json({error: "Failed to save booking"})
     }
 }); 
-//approved bookings fetch
-app.get('/bookings/approved', async (req, res) => {
-    try {
-        const approvedBookings = await UserModel.find(
-            { status: "approved" },
-            { sport: 1, date: 1, time: 1, _id: 0 } // Only include these fields
-        );
-        
-        res.json(approvedBookings);
-    } catch (err) {
-        console.error('Failed to fetch approved bookings', err);
-        res.status(500).json({ error: "Failed to fetch calendar events" });
-    }
-});
+
 // allowing the admin to retrieve the bookings.
 //URL to get bookings http://localhost:3000/bookings admin run get method
 app.get('/bookings', async (req, res) => {
@@ -201,51 +189,36 @@ app.delete('/reports/:id', async (req, res) => {
     }
 });
 
-{/* Implementing the email functionality
+{/* Implementing the events functionality
   URL for  http:localhost:3000/emails */}
+app.post('/events',async (req,res)=>{
+    const {event,date,time_from,time_to,event_description} = req.body;
+    try {
+        const newEvent = new EventModel({
+            event,
+            date,
+            time_from,
+            time_to,
+            event_description
+        });
+        await newEvent.save();
+        res.status(201).json({message:"Event successful"})
+    } catch (error) {
+        console.error("Error saving event",error);
+        res.status(500).json({error: "Failed to save event"})
+    }
+});
 
-  
-      
-// server/index.js
-// app.post('/emails', async (req, res) => {
-//     const { subject, message,emails } = req.body;
-   
-//     try {
-  
-//       if (emails.length === 0) {
-//         return res.status(404).json({ error: 'No user emails found' });
-//       }
-  
-//       const htmlContent = `
-//         <!DOCTYPE html>
-//         <html>
-//         <body>
-//           <h2>StriveSports Community</h2>
-//           <p>${message}</p>
-//           <p>Thank you,<br>StriveSports Team</p>
-//         </body>
-//         </html>
-//       `;
-      
-//       for (const email of emails) {
-//         await resend.batch.send({
-//           from: 'StriveSports <strivesports8@gmail.com>',
-//           to: email,
-//           subject,
-//           html: htmlContent,
-//         });
-//       }
-      
-  
-//       res.status(200).json({ message: `Emails sent to ${emails.length} users.` });
-//     } catch (error) {
-//       console.error('Email sending failed:', error);
-//       res.status(500).json({
-//         error: 'Email sending failed',
-//         details: error.response?.data || error.message || 'Unknown error',
-//       });
-//     }
-//   });
+{/* Retrieve the events*/}
+app.get('/events', async (req, res) => {
+    try {
+        const events = await EventModel.find();
+        res.json(events);
+    } catch (err) {
+        console.error('Failed to fetch events',err);
+        res.status(500).json({ error: "Failed to fetch events" });
+    }
+});
   
 
 app.post('/emails', async (req, res) => {
