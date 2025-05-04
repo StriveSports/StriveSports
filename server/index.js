@@ -6,7 +6,7 @@ const cors = require('cors')
 require('dotenv').config({path:'.env'});
 const UserModel = require('./models/sportsbooking')
 const ReportModel = require('./models/reports')
-const EventModel = require('./models/events')
+const TempEventModel = require('./models/events')
 const {Resend} = require('resend');
 const axios = require('axios'); // Required for Clerk API calls
 const nodemailer = require('nodemailer'); //for nodemailer
@@ -225,8 +225,9 @@ app.delete('/reports/:id', async (req, res) => {
   URL for  http:localhost:3000/emails */}
 app.post('/events',async (req,res)=>{
     const {event,date,time_from,time_to,event_description} = req.body;
+    console.log("POST /events called with:", req.body); // Add this line
     try {
-        const newEvent = new EventModel({
+        const newEvent = new TempEventModel({
             event,
             date,
             time_from,
@@ -244,7 +245,7 @@ app.post('/events',async (req,res)=>{
 {/* Retrieve the events*/}
 app.get('/events', async (req, res) => {
     try {
-        const events = await EventModel.find();
+        const events = await TempEventModel.find();
         res.json(events);
     } catch (err) {
         console.error('Failed to fetch events',err);
