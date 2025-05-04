@@ -19,9 +19,10 @@ body {
 }
 
 .adminDashboard {
-  font-size: 3rem;
-  color: #007bff; /* bootstrap blue */
+  font-size: 4rem;
+  color: #2b18bd; /* bootstrap blue */
   margin-top: 2vh;
+  font-family: Helvetica, sans-serif,Arial;
 }
 
 .configMenu {
@@ -32,7 +33,7 @@ body {
   left: -100%;
   z-index: 10;
   background-color: white;
-  border: 2px solid #007bff;
+  border: 2px solid #2b18bd;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
@@ -44,14 +45,14 @@ body {
   padding: 8px 12px;
   background-color: #f8f9fa;
   color:black;
-  border: 1px solid #007bff;
+  border: 1px solid #2b18bd;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .configMenu button:hover {
-  background-color: #007bff;
+  background-color: #2b18bd;
   color: white;
 }
 
@@ -82,7 +83,7 @@ li {
   top: 0;
   height: 100vh;
   width: 25vw;
-  background-color: #007bff;
+  background-color: #2b18bd;
   color: white;
   overflow-y: auto;
   transition: left 0.3s ease;
@@ -96,7 +97,7 @@ li {
   right: 2vw;
   height: 5vh;
   padding: 0 1rem;
-  background-color: #007bff;
+  background-color: #2b18bd;
   color: white;
   border: none;
   border-radius: 20px;
@@ -107,7 +108,7 @@ li {
 }
 
 .bookingsMenuButt:hover {
-  background-color: #00c2cb;
+  background-color: #4936d8;
   transform: scale(1.05);
 }
 
@@ -129,14 +130,14 @@ li {
 
 .bookingStatus {
   width: 40%;
-  background-color: aquamarine;
+  background-color: #2b8aff;
   padding: 0.5rem;
   border-radius: 8px;
   text-align: center;
 }
 
 .bookingStatus:hover {
-  background-color: #74f9ff;
+  background-color: #4936d8;
 }
 
 .calenderAndBookings {

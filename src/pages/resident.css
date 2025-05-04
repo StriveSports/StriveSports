@@ -75,7 +75,16 @@
     height: relative;
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   }
-  
+  .react-datepicker,
+.react-datepicker__month,
+.react-datepicker__day,
+.react-datepicker__day-name,
+.react-datepicker__navigation-icon::before {
+  color: #2b18bd;
+}
+.react-datepicker__header .react-datepicker__current-month {
+  color: #2b18bd;
+}
   .popup h2 {
     color:#fff;
     font-size: 4vh;
