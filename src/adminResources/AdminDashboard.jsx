@@ -11,6 +11,7 @@ import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
 import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
 import getEvents from './getEvents.jsx';
+import deleteBooking from './deleteBooking.jsx';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -18,8 +19,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClick
 import { formatDate } from '@fullcalendar/core/index.js';
 import { useUser } from '@clerk/clerk-react';
-
+import { useRef } from 'react';
+import getReports from './getReports.jsx';
 import TimePicker from 'react-time-picker'
+
 
 let globalVar;
 export default function AdminDashboard() {
@@ -34,7 +37,12 @@ export default function AdminDashboard() {
         //DOM Manipulation
 
         let menu = document.getElementById('bookings');
+        menu.innerHTML = '';
         for (let booking of data) {
+            if ( booking.status === 'rejected') {
+                deleteBooking(booking._id);
+            }
+
             const bookingRow = document.createElement('ul');
 
             
@@ -76,6 +84,19 @@ export default function AdminDashboard() {
                 }
             })
 
+            //color update
+        {
+            if (status.innerText === 'approved') {
+                status.innerText = 'approved';
+                status.style.backgroundColor = 'lime';
+
+            } else if (status.innerText === 'pending') {
+
+                status.innerText = 'pending';
+                status.style.backgroundColor = 'aquamarine';
+            }
+        }
+
             bookingRow.appendChild(sport);
             bookingRow.appendChild(time);
             bookingRow.appendChild(date);
@@ -83,11 +104,6 @@ export default function AdminDashboard() {
             menu.appendChild(bookingRow);
         }
         
-    })
-    //Document menu cancelation
-    
-    document.addEventListener('click', () => {
-        handleEventCancel();
     })
 
 
@@ -97,7 +113,7 @@ export default function AdminDashboard() {
         const bookingMenu = document.getElementById('bookings');
         const button = document.querySelector('.bookingsMenuButt');
         if (bookingMenu.style.left === '0px'){
-            bookingMenu.style.left = '-25vw';
+            bookingMenu.style.left = '-125vw';
             button.style.right = '1%';
         }
         else{
@@ -105,11 +121,6 @@ export default function AdminDashboard() {
             button.style.right = '65vw';
         }
     }
-
-    //Load Eventsdd
-    getEvents().then((data) => {
-        console.log(data);
-    });
 
 
     //creating the user table 
@@ -137,7 +148,29 @@ export default function AdminDashboard() {
     }
 
     //Calender
+    const calendarRef = useRef(null);
     const [currentEvent, setCurrentEvent] = useState([]);
+
+    //Load Events to calendar
+    useEffect(() => {
+        if (calendarRef.current) {
+            const calendarApi = calendarRef.current.getApi();
+            
+            getEvents().then((data) => {
+                for (let element of data){
+                    calendarApi.addEvent({
+                        id: element._id,
+                        title: element.event,
+                        start: `${element.date}T${element.time_from}`,
+                        end: `${element.date}T${element.time_to}`,
+                        description: element.event_description,
+                    });
+                }
+            });
+        }
+    }, [calendarRef]);
+
+    //handle event add and cancel
 
     const handleEventAdd = () => {
         const eventDetails = document.getElementById('eventDetails');
@@ -166,10 +199,11 @@ export default function AdminDashboard() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    "title": eventName,
-                    "start": `${date.startStr}T${timePick}`,
-                    "end": `${date.startStr}T${timeEnd}`,
-                    "eventDetails": eventText || 'No details'
+                    "event": eventName,
+                    "date": date.startStr,
+                    "time_from": timePick,
+                    "time_to": timeEnd,
+                    "event_description": eventText || 'No details'
                 }),
             });
         }
@@ -178,6 +212,8 @@ export default function AdminDashboard() {
         }
 
     }
+
+    //event cancelation
     const handleEventCancel = () => {
         const eventDetails = document.getElementById('eventDetails');
         eventDetails.style.display = 'none';
@@ -188,6 +224,7 @@ export default function AdminDashboard() {
 
     }
 
+    //date click functionality
     const handleDateClick = (date) => {
         const eventDetails = document.getElementById('eventDetails');
         eventDetails.style.display = 'block';
@@ -195,6 +232,7 @@ export default function AdminDashboard() {
         localStorage.setItem('eventDate', date);
     }
 
+    //event click functionality
     const handleEventClick = (clickInfo) => {
         if (window.confirm(`Are you sure you want to delete this event?`)) {
             clickInfo.event.remove();
@@ -235,31 +273,47 @@ export default function AdminDashboard() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    subject: subject,
-                    message: message,
-                    emails: data.emails,
-                }),
-            });
-    
-            const result = await response.json();
-            console.log('Response from server:', result);
-    
-            if (response.ok) {
-                setEmailStatus('Emails sent successfully!');
-                toast.success('Emails sent successfully!');
-            } else {
-                setEmailStatus(`Failed: ${result.error || 'Unknown error'}`);
-                toast.error(`Email failed to send. ${result.error || 'Unknown error'}`);
-            }
-    
-        } catch (error) {
-            console.error('Error sending emails:', error);
-            setEmailStatus(`Email sending failed due to server error. ${error.message}`);
-            toast.error(`Email failed to send due to server error: ${error.message}`);
-        }
-    };
+                  },
+                  body: JSON.stringify({
+                      "subject":subject,
+                      "message":message,
+                      "emails":data.emails
+                  }),
+                });
+            
+                const result = await response.json();
+                
+                if (response.ok) {
+                  setEmailStatus('Emails sent successfully!');
+                  toast.success('Emails sent successfully!');
+                } else {
+                  setEmailStatus(`Failed: ${result.error}`);
+                  toast.error('Email failed to send.');
+                }
+              } catch (error) {
+                console.error('Error sending emails:', error);
+                setEmailStatus('Email sending failed due to server error.'+ error);
+                toast.error('Email failed to send due to server error.');
+              }
+    }
+    //creating the report table 
+    const [rows2, setRows2] = useState([]);
+
+    useEffect(() => {
+        getReports().then((data) => {
+            const processedRows = data.map(element => ({
+                id: element._id,
+                facility: element.facility,
+                issue: element.issue,
+                residentInfo: element.residentInfo,
+                status: element.status,
+                __v: element.__v,
+            }));
+
+            setRows2(processedRows); //Updates state, triggering re-render
+        });
+    }, []);
+
         
 
     return(
@@ -356,6 +410,7 @@ export default function AdminDashboard() {
 
             <Box className='calenderBox'>
                 <FullCalendar
+                    ref={calendarRef}
                     height='75vh'
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     headerToolbar={{
@@ -371,15 +426,34 @@ export default function AdminDashboard() {
                     select={handleDateClick}
                     eventClick={handleEventClick}
                     eventsSet={(events) => setCurrentEvent(events)}
-                    initialEvents={[
-                        { id: '1', title: 'Meeting', start: '2025-05-02T09:00:00', end: '2025-05-02T10:00:00' },
-                    ]} // alternatively, use a more local state
                 ></FullCalendar>
             </Box>
             
         </section>
 
 
+        <section className='issuesAndEmails'>
+        <section className='usersTable'>
+                <Box>
+                    <DataGrid
+                        rows={rows2}
+                        columns={[
+                            { field: 'facility', headerName: 'facility', flex: 1 },
+                            { field: 'issue', headerName: 'issue', flex: 4 },
+                            { field: 'residentInfo', headerName: 'residentInfo', flex: 1 },
+                            { field: 'status', headerName: 'status', flex: 1,},
+                        ]}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        sx={{
+                            "& .MuiDataGrid-root": { fontFamily: "Arial, sans-serif" },
+                            "& .MuiDataGrid-cell": { fontSize:"large" },
+                        }}
+                    
+                        
+                    />
+                </Box>
+        </section>
         <section className='email-section'>
         <Box sx={{ margin: '50px', padding: '70px', backgroundColor: '#f4f6f8', borderRadius: '15px' }}>
                         <Typography variant="h6" sx={{ marginBottom: '20px', fontWeight: 'bold' }}>
@@ -442,6 +516,7 @@ export default function AdminDashboard() {
                         )}
                     </Box>          
 
+        </section>
         </section>
         
         <Box className='eventDetails' id='eventDetails'>

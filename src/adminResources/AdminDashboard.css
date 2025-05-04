@@ -24,6 +24,12 @@ body {
   margin-top: 2vh;
 }
 
+.issuesAndEmails{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .configMenu {
   display: flex;
   flex-direction: column;
@@ -78,7 +84,7 @@ li {
 
 .bookings {
   position: fixed;
-  left: -25vw;
+  left: -125vw;
   top: 0;
   height: 100vh;
   width: 25vw;
