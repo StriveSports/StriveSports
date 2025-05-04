@@ -81,10 +81,9 @@ export default function FacilityStaff() {
         <h1 className='adminDashboard'>Facility Staff</h1>
         
         <section className='configMenu' id='configMenu'>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Not started')}} className='updateRole'>Not started</button>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'In Progress')}} className='updateRole'>In Progress</button>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Fixed')}} className='updateRole'>Fixed</button>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Cannot be fixed')}} className='updateRole'>Cannot be fixed</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Pending')}} className='updateRole'>Pending</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'In progress')}} className='updateRole'>In progress</button>
+            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Done')}} className='updateRole'>Done</button>
             <button onClick={removeConfigMenu} className='updateRole'>Cancel</button>
         </section>
 
@@ -101,7 +100,6 @@ export default function FacilityStaff() {
                 columns={[
                     { field: 'facility', headerName: 'facility', flex: 1 },
                     { field: 'issue', headerName: 'issue', flex: 4 },
-                    { field: 'residentInfo', headerName: 'residentInfo', flex: 1 },
                     { field: 'status', headerName: 'status', flex: 1,
 
                         renderCell: (params) => (

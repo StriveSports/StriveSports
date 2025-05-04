@@ -85,11 +85,6 @@ export default function AdminDashboard() {
         }
         
     })
-    //Document menu cancelation
-    
-    document.addEventListener('click', () => {
-        handleEventCancel();
-    })
 
 
     //Loading the bookings
@@ -98,7 +93,7 @@ export default function AdminDashboard() {
         const bookingMenu = document.getElementById('bookings');
         const button = document.querySelector('.bookingsMenuButt');
         if (bookingMenu.style.left === '0px'){
-            bookingMenu.style.left = '-25vw';
+            bookingMenu.style.left = '-125vw';
             button.style.right = '1%';
         }
         else{
@@ -178,16 +173,17 @@ export default function AdminDashboard() {
             });
             handleEventCancel();
             //send the event to the server
-            fetch(`${import.meta.env.VITE_API_URL}/events`, {
+            fetch(`${import.meta.env.VITE_API_URL}/eventsAdmin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     "title": eventName,
-                    "start": `${date.startStr}T${timePick}`,
-                    "end": `${date.startStr}T${timeEnd}`,
-                    "eventDetails": eventText || 'No details'
+                    "date": date.startStr,
+                    "time_from": timePick,
+                    "time_to": timeEnd,
+                    "event_description": eventText || 'No details'
                 }),
             });
         }

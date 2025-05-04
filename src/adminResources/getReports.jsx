@@ -1,22 +1,14 @@
 async function getReports() {
-    return [
-        {
-            _id :"680e0389d4393c20d0759edb",
-            facility : "Tennis Court",
-            issue : "The painting is worn out ,cannot see tennis court lines",
-            residentInfo : "user_2vhwdF2ZVe728W6D0F7gKZsCUC6",
-            status : "Pending",
-            __v : "0"
-        },
-        {
-            _id :"680e038945456345d0759edb",
-            facility : "Tennis Court",
-            issue : "just fix the damn thing",
-            residentInfo : "user_2vhwdF2ZVe728W6D0F7gKZsCUC6",
-            status : "Pending",
-            __v : "0"
+    
+    const response =await fetch(`${import.meta.env.VITE_API_URL}/reports`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
         }
-    ]
+    })
+    const reports = await response.json();
+    return reports;
+
 }
 
 export default getReports;
