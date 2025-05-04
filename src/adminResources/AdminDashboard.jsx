@@ -93,7 +93,7 @@ export default function AdminDashboard() {
             } else if (status.innerText === 'pending') {
 
                 status.innerText = 'pending';
-                status.style.backgroundColor = 'aquamarine';
+                status.style.backgroundColor = 'aquamarine' ;
             }
         }
 
