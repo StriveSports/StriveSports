@@ -35,7 +35,7 @@ export default function AdminDashboard() {
     
     getBookings().then((data) => {
         //DOM Manipulation
-
+        console.log(data);
         let menu = document.getElementById('bookings');
         menu.innerHTML = '';
         for (let booking of data) {
