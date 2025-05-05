@@ -69,7 +69,7 @@ body {
 }
 
 .usersTable {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   background-color: white;
   border-radius: 12px;
@@ -166,14 +166,14 @@ li {
   flex: 1;
   background-color: white;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1%;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 }
 
 .eventDetails {
   background-color:lightgray;
-  padding: 20px;
+  padding: 1%;
   border-radius: 10px;
   width: 15vw;
   min-height: 50vh;
@@ -191,7 +191,7 @@ h3 {
 
 .input {
   width: 100%;
-  padding: 8px;
+  padding: 5%;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -199,18 +199,25 @@ h3 {
 }
 
 #eventDetails {
-  height: 80px;
+  height: 20%;
   resize: vertical;
 }
 .eventDetailsButton{
   display: flex;
-  justify-content:space-around
+  justify-content:space-around;
+}
+.done{
+  width: 100%;
+  padding: 5%;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 button {
   background-color: #007bff;
   color: white;
-  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -223,15 +230,8 @@ button:hover {
 /* Smaller screens */
 @media (max-width: 768px) {
   .calenderAndBookings {
-    flex-direction: column;
+    flex-direction: row;
   }
 
-  .bookingsBox, .calenderBox {
-    width: 100%;
-  }
-
-  .bookings {
-    width: 60vw;
-  }
 }
 
