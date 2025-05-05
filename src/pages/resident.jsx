@@ -139,28 +139,49 @@ export default function Res() {
       .join("");
   }, []);
   const [approvedEvents, setApprovedEvents] = useState([]);
-
   useEffect(() => {
-    const fetchApprovedBookings = async () => {
+    const fetchCalendarData = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/bookings/approved`);
-        const bookings = await res.json();
-
-        const formattedEvents = bookings.map(booking => ({
+        const [bookingsRes, eventsRes] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_URL}/bookings/approved`),
+          fetch(`${import.meta.env.VITE_API_URL}/events`)
+        ]);
+  
+        const bookings = await bookingsRes.json();
+        const events = await eventsRes.json();
+  
+        // Format bookings
+        const formattedBookings = bookings.map(booking => ({
           title: `${booking.sport} (${booking.time})`,
-          start: booking.date, // Ensure this is in 'YYYY-MM-DD'
+          start: booking.date, // Format: YYYY-MM-DD
           allDay: false,
           backgroundColor: '#2b18bd',
           borderColor: '#2b18bd',
         }));
-
-        setApprovedEvents(formattedEvents);
+  
+        // Format events
+        const formattedEvents = events.map(event => ({
+          title: `${event.event} (${event.time_from} - ${event.time_to})`,
+          start: `${event.date}T${event.time_from}`,
+          end: `${event.date}T${event.time_to}`,
+          allDay: false,
+          backgroundColor: '#bd1896',
+          borderColor: '#bd1896',
+          extendedProps: {
+            description: event.event_description
+          }
+        }));
+  
+        // Merge both
+        const allCalendarEvents = [...formattedBookings, ...formattedEvents];
+        setApprovedEvents(allCalendarEvents);
+  
       } catch (error) {
-        console.error("Failed to fetch approved bookings:", error);
+        console.error("Failed to fetch calendar data:", error);
       }
     };
-
-    fetchApprovedBookings();
+  
+    fetchCalendarData();
   }, []);
 
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -422,6 +443,7 @@ export default function Res() {
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
                 events={approvedEvents}
+                displayEventTime={false}
                 eventClick={(info) => {
                   info.jsEvent.preventDefault();  // Prevent the default action (e.g., navigating to the event URL)
                   
