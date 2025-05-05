@@ -15,7 +15,7 @@ const { clerkClient } = require('@clerk/clerk-sdk-node');  // correct import
 const {createClerkClient} = require('@clerk/clerk-sdk-node');
 const clerk = createClerkClient({
     secretKey: process.env.CLERK_SECRET_KEY,
-  });
+});
 
 //const {clerk } = clerk({apikey:process.env.CLERK_SECRET_KEY}); // use this to get emails
 

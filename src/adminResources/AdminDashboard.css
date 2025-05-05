@@ -158,7 +158,7 @@ body {
   flex: 1;
   background-color: white;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1%;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 }
@@ -188,7 +188,7 @@ body {
 /* === Input Styles === */
 .input {
   width: 100%;
-  padding: 8px;
+  padding: 5%;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -196,7 +196,7 @@ body {
 }
 
 #eventDetails {
-  height: 80px;
+  height: 20%;
   resize: vertical;
 }
 
@@ -211,7 +211,6 @@ h3 {
 button {
   background-color: #007bff;
   color: white;
-  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

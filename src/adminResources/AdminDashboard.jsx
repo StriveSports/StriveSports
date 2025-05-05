@@ -339,7 +339,7 @@ export default function AdminDashboard() {
         <section id='bookings' className='bookings'></section>
 
         <section className='usersTable'>
-        <Box>
+        <Box sx={{ width: "100%" }}>
             <DataGrid
                 rows={rows}
                 columns={[
@@ -361,6 +361,7 @@ export default function AdminDashboard() {
                 sx={{
                     "& .MuiDataGrid-root": { fontFamily: "Arial, sans-serif" },
                     "& .MuiDataGrid-cell": { fontSize:"large" },
+                    "& .MuiDataGrid-width": { width: "100%" },
                 }}
             
                 
@@ -440,7 +441,6 @@ export default function AdminDashboard() {
                         columns={[
                             { field: 'facility', headerName: 'facility', flex: 1 },
                             { field: 'issue', headerName: 'issue', flex: 4 },
-                            { field: 'residentInfo', headerName: 'residentInfo', flex: 1 },
                             { field: 'status', headerName: 'status', flex: 1,},
                         ]}
                         pageSize={5}
