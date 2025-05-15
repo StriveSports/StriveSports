@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
 import getEvents from './getEvents.jsx';
 import deleteBooking from './deleteBooking.jsx';
+import DashboardSwitcher from './DashboardSwitcher.jsx'; //importing the dashboard switcher.
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -35,7 +36,7 @@ export default function AdminDashboard() {
     
     getBookings().then((data) => {
         //DOM Manipulation
-
+        console.log(data);
         let menu = document.getElementById('bookings');
         menu.innerHTML = '';
         for (let booking of data) {
@@ -319,6 +320,9 @@ export default function AdminDashboard() {
     return(
         <main className='adminDashBoardBody' >
         <h1 className='adminDashboard'>Admin Dashboard</h1>
+
+        {/* Place DashboardSwitcher here */}
+        <DashboardSwitcher />
         
         <section className='configMenu' id='configMenu'>
             <button onClick={()=>updateRole('Facility staff')} className='updateRole'>Facility staff</button>
@@ -535,6 +539,8 @@ export default function AdminDashboard() {
                 </Box>
         </Box>
         </main>
+
+        
 
         
     )
