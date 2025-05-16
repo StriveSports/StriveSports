@@ -72,6 +72,23 @@ export default function FacilityStaff() {
         }
     }, [calendarRef]); // Add `calendarRef` as a dependency
 
+    let statusN
+    const ReportStatus = (status) => {//text menu
+        
+        statusN = status;   
+        const messageBox = document.querySelector('.messageDetails');
+        messageBox.style.display = 'block';
+    }
+    const continue1 = () => {
+        const messageBox = document.querySelector('.messageDetails');
+        const input = document.querySelector('#eventText');
+        const message = input.value;
+        input.value = '';
+
+        updateReportStatus(globalVar, statusN, message);
+        messageBox.style.display = 'none';
+    }
+
 
     //Menu update functionality
 
@@ -81,9 +98,9 @@ export default function FacilityStaff() {
         <h1 className='adminDashboard'>Facility Staff</h1>
         
         <section className='configMenu' id='configMenu'>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Pending')}} className='updateRole'>Pending</button>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'In progress')}} className='updateRole'>In progress</button>
-            <button onClick={()=>{removeConfigMenu();updateReportStatus(globalVar,'Done')}} className='updateRole'>Done</button>
+            <button onClick={()=>{removeConfigMenu();ReportStatus('Pending')}} className='updateRole'>Pending</button>
+            <button onClick={()=>{removeConfigMenu();ReportStatus('In progress')}} className='updateRole'>In progress</button>
+            <button onClick={()=>{removeConfigMenu();ReportStatus('Done')}} className='updateRole'>Done</button>
             <button onClick={removeConfigMenu} className='updateRole'>Cancel</button>
         </section>
 
@@ -178,6 +195,15 @@ export default function FacilityStaff() {
                     eventClick={handleEventClick}
                     eventsSet={(events) => setCurrentEvent(events)}
                 ></FullCalendar>
+            </Box>
+
+            <Box className='messageDetails'>
+                            <h3>Feedback bar</h3>
+                            <textarea name="eventDetails" className='input' id="eventText"></textarea>
+                            <Box className='eventDetailsButton'>
+                            <button className='done' onClick={()=>continue1()}>send</button>
+                            <button className='done' onClick={()=>continue1()}>skip</button>
+                            </Box>
             </Box>
             
         </section>
