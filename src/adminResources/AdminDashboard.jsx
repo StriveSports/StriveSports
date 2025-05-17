@@ -1,15 +1,14 @@
-import loadUsers from './loadUsers.jsx';
 import updateRole from './updateRole.jsx';
 import removeConfigMenu from './removeConfigMenu.jsx';
 import './AdminDashboard.css';
 import { UserButton } from '@clerk/clerk-react';
 import getBookings from './getBookings.jsx';
 import updateStatus from './updateStatus.jsx';
-import { alertTitleClasses, Box, List, ListItem, ListItemText, Typography,Button,TextField } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import getUsers from './getUsers.jsx';
 import { useState, useEffect } from "react";
-import { ToastContainer, toast,Bounce } from 'react-toastify'; //toastify.
+import { toast} from 'react-toastify'; //toastify.
 import getEvents from './getEvents.jsx';
 import deleteBooking from './deleteBooking.jsx';
 import DashboardSwitcher from './DashboardSwitcher.jsx'; //importing the dashboard switcher.
@@ -22,8 +21,6 @@ import { formatDate } from '@fullcalendar/core/index.js';
 import { useUser } from '@clerk/clerk-react';
 import { useRef } from 'react';
 import getReports from './getReports.jsx';
-import TimePicker from 'react-time-picker';
-import React from 'react';
 
 
 let globalVar;
@@ -37,7 +34,6 @@ export default function AdminDashboard() {
     
     getBookings().then((data) => {
         //DOM Manipulation
-        console.log(data);
         let menu = document.getElementById('bookings');
         menu.innerHTML = '';
         for (let booking of data) {
@@ -245,10 +241,6 @@ export default function AdminDashboard() {
             if (selected<current){
                 alert('You cannot select a date before tomorrow');
                 return;
-                if (i==2 && selected==current){
-                    alert('You cannot select a date before tomorrow');
-                    return;
-                }
             }
             if (i==2 && selected==current){
                     alert('You cannot select a date before tomorrow');
