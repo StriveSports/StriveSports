@@ -22,7 +22,8 @@ import { formatDate } from '@fullcalendar/core/index.js';
 import { useUser } from '@clerk/clerk-react';
 import { useRef } from 'react';
 import getReports from './getReports.jsx';
-import TimePicker from 'react-time-picker'
+import TimePicker from 'react-time-picker';
+import React from 'react';
 
 
 let globalVar;
@@ -227,6 +228,35 @@ export default function AdminDashboard() {
 
     //date click functionality
     const handleDateClick = (date) => {
+        const today = new Date();
+        const formattedDate = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+
+        const dateSelected = date.startStr.split('-');
+        const todayDate = formattedDate.split('-');
+
+        let selected;
+        let current;
+
+        for (let i=0; i<3; i++){
+            
+            selected = parseInt(dateSelected[i]);
+            current = parseInt(todayDate[i]);
+
+            if (selected<current){
+                alert('You cannot select a date before tomorrow');
+                return;
+                if (i==2 && selected==current){
+                    alert('You cannot select a date before tomorrow');
+                    return;
+                }
+            }
+            if (i==2 && selected==current){
+                    alert('You cannot select a date before tomorrow');
+                    return;
+            }
+        }
+        
+
         const eventDetails = document.getElementById('eventDetails');
         eventDetails.style.display = 'block';
         globalVar = date;
