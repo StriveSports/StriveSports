@@ -17,6 +17,8 @@ const fs = require('fs');
 const path = require('path');
 const {jsPDF} = require('jspdf');
 require('jspdf-autotable'); //for table formatting.
+const { Parser } = require('json2csv');  //for csv generation.
+
 
 
 
@@ -156,7 +158,7 @@ app.delete('/bookings/:id', async (req, res) => {
 app.post('/reports',async (req,res)=>{
 
     try {
-        const {facility,issue,residentInfo} = req.body;
+        const {facility,issue,residentInfo,message} = req.body;
         {/*// Get the start and end of today
         const startOfToday = new Date();
         startOfToday.setHours(0, 0, 0, 0);
@@ -176,7 +178,8 @@ app.post('/reports',async (req,res)=>{
         const newReport = new ReportModel({
             facility,
             issue,
-            residentInfo
+            residentInfo,
+            message   //added this for the column and facility implementation.
         });
         await newReport.save();
         res.status(201).json({message:"Report successful"})
@@ -466,20 +469,37 @@ app.get('/download-dashboard/:type', async (req, res) => {
 });
 
 //csv file downloading and formating api
-app.get('/download-csv/:type', (req, res) => {
+app.get('/api/download-csv/:type', async (req, res) => {
   const { type } = req.params;
 
-  const filePaths = {
-    maintenance: path.join(__dirname, 'data', 'maintenance.csv'),
-    booking: path.join(__dirname, 'data', 'booking.csv')
-  };
+  let data;
+  let fields;
 
-  const filePath = filePaths[type];
-  if (!filePath || !fs.existsSync(filePath)) {
-    return res.status(404).send('CSV file not found for this dashboard');
+  try {
+    if (type === 'maintenance') {
+      data = await ReportModel.find().lean();
+      fields = ['facility', 'issue', 'residentInfo', 'message', 'status'];
+    } else if (type === 'booking') {
+      data = await UserModel.find().lean();
+      fields = ['sport', 'date', 'time', 'residentInfo', 'status'];
+    } else {
+      return res.status(400).send('Invalid dashboard type');
+    }
+
+    if (!data || data.length === 0) {
+      return res.status(404).send('No data found to export');
+    }
+
+    const json2csvParser = new Parser({ fields });
+    const csv = json2csvParser.parse(data);
+
+    res.header('Content-Type', 'text/csv');
+    res.attachment(`${type}_dashboard_data.csv`);
+    return res.send(csv);
+  } catch (error) {
+    console.error('CSV generation error:', error);
+    res.status(500).send('Failed to generate CSV');
   }
-
-  res.download(filePath, `${type}_dashboard_data.csv`);
 });
 
 

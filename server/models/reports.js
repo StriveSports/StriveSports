@@ -5,6 +5,7 @@ const reportingSchema = new mongoose.Schema({
     facility:String,
     issue:String,
     residentInfo:String, //for the resident information.
+    message:String , // for adding messages as a facility staff
 
     status: {
         type: String,
