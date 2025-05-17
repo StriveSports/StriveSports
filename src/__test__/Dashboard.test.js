@@ -47,6 +47,7 @@ describe('DashboardSwitcher', () => {
   test('download PDF triggers fetch with correct url and initiates download', async () => {
     const mockBlob = new Blob(['PDF content'], { type: 'application/pdf' });
     fetch.mockResolvedValueOnce({
+        
       blob: () => Promise.resolve(mockBlob),
     });
 
